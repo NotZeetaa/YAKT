@@ -122,17 +122,11 @@ REPLACE="
 # Set what you want to display when installing your module
 
 print_modname() {
-  ui_print "*******************************"
-  ui_print "     Enable Battery_Saver Mode Module v1.1 "
-  ui_print ".    Thx to lybdroid for his module template      "
-  ui_print "*******************************"
+  ui_print "*************************************"
+  ui_print " Zeetaa Tweaks Module Rebase V1. "
+  ui_print " Thx to lybdroid for his module template.      "
+  ui_print "*************************************"
   sleep 2.5
-  ui_print "      Changelog v1.1:      "
-  ui_print "- Disables UFSTW (UFS Turbo Write , reduces "
-  ui_print "Battery usage) "
-  ui_print "- Disabled All Cpu Boost Stuff (Reduces alot of "
-  ui_print "battery usage)"
-  sleep 2.0
 }
 
 # Copy/extract your module files into $MODPATH in on_install.
