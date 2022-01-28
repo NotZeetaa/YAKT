@@ -53,11 +53,11 @@ else
 fi
 
 # Less Ram Usage
-# The stat_interval one, reduces jitter (Credits to kdrag0n)
+# The stat_interval one, reduces jitter (Credits to tytydraco)
 echo "$(date "+%H:%M:%S") * Applying Ram Tweaks" >> $LOG/log.txt
 sleep 0.5
 echo "50" > /proc/sys/vm/vfs_cache_pressure
-echo "20" > /proc/sys/vm/stat_interval
+echo "10" > /proc/sys/vm/stat_interval
 echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG/log.txt
 echo " " >> $LOG/log.txt
 
