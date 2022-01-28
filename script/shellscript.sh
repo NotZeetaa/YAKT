@@ -74,4 +74,8 @@ chmod 444 /proc/sys/net/ipv4/tcp_timestamps
 # By kdrg0n
 echo "1" > /proc/sys/net/ipv4/tcp_ecn
 
+# Always allow sched boosting on top-app tasks
+# Credits to tytydraco
+echo "0" > /proc/sys/kernel/sched_min_task_util_for_colocation
+
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
