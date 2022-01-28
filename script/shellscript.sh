@@ -64,9 +64,14 @@ echo " " >> $LOG/log.txt
 # Set 5 to perf_cpu_time_max_percent
 echo "5" > /proc/sys/kernel/perf_cpu_time_max_percent
 
+# ipv4 tweaks
 # Reduce Net Ipv4 Performance Spikes
 # By @Panchajanya1999
 echo "0" > /proc/sys/net/ipv4/tcp_timestamps
 chmod 444 /proc/sys/net/ipv4/tcp_timestamps
+
+# Enable ECN negotiation by default
+# By kdrg0n
+echo "1" > /proc/sys/net/ipv4/tcp_ecn
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
