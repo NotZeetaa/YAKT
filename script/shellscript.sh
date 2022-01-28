@@ -64,4 +64,9 @@ echo " " >> $LOG/log.txt
 # Set 5 to perf_cpu_time_max_percent
 echo "5" > /proc/sys/kernel/perf_cpu_time_max_percent
 
+# Reduce Net Ipv4 Performance Spikes
+# By @Panchajanya1999
+echo "0" > /proc/sys/net/ipv4/tcp_timestamps
+chmod 444 /proc/sys/net/ipv4/tcp_timestamps
+
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
