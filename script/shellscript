@@ -1,14 +1,3 @@
 #!/bin/sh
 
 sleep 20
-
-echo "Y" > /sys/module/battery_saver/parameters/enabled
-
-echo "0" > /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
-
-echo "0" > /sys/devices/system/cpu/cpu_boost/input_boost_ms
-echo "0" > /sys/devices/system/cpu/cpu_boost/powerkey_input_boost_ms
-echo "0" > /sys/devices/system/cpu/cpu_boost/sched_boost_on_powerkey_input
-echo "N" > /sys/module/cpu_input_boost/parameters/dynamic_sched_boost
-echo "0" > /sys/module/cpu_input_boost/parameters/wake_boost_duration
-echo "0" > /sys/module/cpu_input_boost/parameters/dynamic_stune_boost
