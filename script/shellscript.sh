@@ -7,8 +7,14 @@ sleep 20
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
 LOG=/data/ZTS
-# Check if folder exist else create new one
-[ ! -d $LOG ] && mkdir -p $LOG
+# Check if folder exist
+# If not then remove and create a new one
+if [ -d $LOG ]; then
+  rm -rf /data/ZTS
+  mkdir -p $LOG
+else
+  mkdir -p $LOG
+fi
 echo "# ZeetaaTweaks V0.1" > $LOG/log.txt
 echo "# Build Date: 28/01/2022" >> $LOG/log.txt
 echo "# By @NotZeetaa (Github)" >> $LOG/log.txt
