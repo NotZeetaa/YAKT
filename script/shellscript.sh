@@ -1,5 +1,5 @@
 #!/bin/sh
-# ZeetaaTweaks V0.1
+# ZeetaaTweaks V0.2
 # By @NotZeetaa (Github)
 
 sleep 20
