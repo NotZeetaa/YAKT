@@ -1,11 +1,15 @@
 #!/bin/sh
+# ZeetaaTweaks V0.1
+# By @NotZeetaa (Github)
 
 sleep 20
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
 LOG=/sdcard/
-
+echo "# ZeetaaTweaks V0.1" > $LOG/log.txt
+echo "# Build Date: 28/01/2022" >> $LOG/log.txt
+echo "# By @NotZeetaa (Github)" >> $LOG/log.txt
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
@@ -24,7 +28,7 @@ if [ -d $KP ]; then
   echo "Your Kernel Supports Kprofiles" > $LOG/log.txt
   echo "2" > $KP/parameters/mode
 else
-  echo "Your Kernel doesn't support Kprofiles" > $LOG/log.txt
+  echo "⚠️ Your Kernel doesn't support Kprofiles" >> $LOG/log.txt
   echo "Not a big trouble, its normal" >> $LOG/log.txt
 fi
 
