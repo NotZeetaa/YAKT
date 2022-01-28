@@ -11,4 +11,4 @@ MODDIR=${0%/*}
 # Copyright (C) 2019 Geofferey @ XDA
 # License: GPL V3+
 
-nohup sh $MODDIR/script/shellscript > /dev/null &
+nohup sh $MODDIR/script/shellscript.sh > /dev/null &
