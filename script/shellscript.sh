@@ -38,3 +38,6 @@ fi
 # The stat_interval one, reduces jitter (Credits to kdrag0n)
 echo "50" > /proc/sys/vm/vfs_cache_pressure
 echo "20" > /proc/sys/vm/stat_interval
+
+# Set 5 to perf_cpu_time_max_percent
+echo "5" > /proc/sys/kernel/perf_cpu_time_max_percent
