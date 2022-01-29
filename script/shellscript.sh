@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/system/bin/sh
 # ZeetaaTweaks V0.2
 # By @NotZeetaa (Github)
 
