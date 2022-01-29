@@ -43,7 +43,7 @@ echo " " >> $LOG/log.txt
   
 # Tweak aims to have less Latency
 # Credits to SpiderMoon
-echo "1000000" > /proc/sys/kernel/sched_migration_cost_ns
+# echo "1000000" > /proc/sys/kernel/sched_migration_cost_ns
 
 # Kprofiles Tweak
 # Credits to cyberknight
