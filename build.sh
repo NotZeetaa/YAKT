@@ -1,15 +1,15 @@
-#!/bin/sh
-
-rm -rf *.zip
-
-token=5073803429:AAFx8cf00fzcwtGrcDI-HfOcHviIZhNr30s
-chat_id=-1001234010295
-
-
-zip -r9 Zeetaa-Tweaks-Rebase-BETA.zip *
-
-ZIP=Zeetaa-Tweaks-Rebase-BETA.zip
-
-curl -F document=@$ZIP "https://api.telegram.org/bot$token/sendDocument" \
-     -F chat_id="$chat_id" \
+#!/usr/bin/env bash
+MODULE=Zeetaa-Tweaks-Rebase
+VERSION=BETA
+TOKEN=5073803429:AAFx8cf00fzcwtGrcDI-HfOcHviIZhNr30s
+CHATID=-1001234010295
+function post_file() {
+curl -F document=@$1 "https://api.telegram.org/bot${TOKEN}/sendDocument" \
+     -F chat_id="${CHATID}"  \
+     -F "disable_web_page_preview=true" \
+     -F "parse_mode=html" \
      -F caption="Changelog: Gei"
+}
+rm -rf Zeetaa-Tweaks-Rebase-*
+zip -r9 "${MODULE}-${VERSION}.zip" . -x *build* -x *.bak* -x *.git*
+post_file "${MODULE}-${VERSION}.zip"
