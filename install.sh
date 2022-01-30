@@ -123,7 +123,7 @@ REPLACE="
 
 print_modname() {
   ui_print "*************************************"
-  ui_print " Zeetaa Tweaks Module Rebase V1. "
+  ui_print " Zeetaa Tweaks Module Rebase V1.1. "
   ui_print " Thx to lybdroid for his module template.      "
   ui_print "*************************************"
   sleep 2.5
