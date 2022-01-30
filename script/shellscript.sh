@@ -2,12 +2,12 @@
 # ZeetaaTweaks V0.2
 # By @NotZeetaa (Github)
 
-sleep 20
+sleep 120
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
 LOG=/data/ZTS
-TP=/dev/stune/top-app/schedtune.boost
+TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
 
@@ -71,15 +71,6 @@ echo "5" > /proc/sys/kernel/perf_cpu_time_max_percent
 echo "$(date "+%H:%M:%S") * Checking which scheduler has ur kernel" >> $LOG/log.txt
 sleep 0.5
 if [ -d $TP ]; then
-  echo "$(date "+%H:%M:%S") * You have normal cgroup scheduler" >> $LOG/log.txt
-  echo "$(date "+%H:%M:%S") * Applying tweaks for it" >> $LOG/log.txt
-  sleep 0.3
-  echo "1" > $DV/top-app/schedtune.boost
-  echo "1" > $DV/foreground/schedtune.boost
-  echo "0" > $DV/background/schedtune.boost
-  echo "$(date "+%H:%M:%S") * Done" >> $LOG/log.txt
-  echo " " >> $LOG/log.txt
-else
   # Uclamp Tweaks
   # All credits to @darkhz
   echo "$(date "+%H:%M:%S") * You have uclamp scheduler" >> $LOG/log.txt
@@ -103,6 +94,15 @@ else
   echo "0" > $CP/system-background/uclamp.min
   echo "0" > $CP/system-background/uclamp.boosted
   echo "0" > $CP/system-background/uclamp.latency_sensitive
+  echo "$(date "+%H:%M:%S") * Done" >> $LOG/log.txt
+  echo " " >> $LOG/log.txt
+else
+  echo "$(date "+%H:%M:%S") * You have normal cgroup scheduler" >> $LOG/log.txt
+  echo "$(date "+%H:%M:%S") * Applying tweaks for it" >> $LOG/log.txt
+  sleep 0.3
+  echo "1" > $DV/top-app/schedtune.boost
+  echo "1" > $DV/foreground/schedtune.boost
+  echo "0" > $DV/background/schedtune.boost
   echo "$(date "+%H:%M:%S") * Done" >> $LOG/log.txt
   echo " " >> $LOG/log.txt
 fi
