@@ -1,3 +1,7 @@
 - Reduce TCP performance spikes
 - Introduce Cgroup Boost
 - Enable ECN negotiation by default
+- update-binary: Set minimum magisk to 20.4
+- service: update ( move service.sh to modpath and delete common folder )
+- tweak: update ( rename shellscript.sh to zeetaatweaks.sh and apply tweaks forcefully )
+- module: miscellaneous changes
