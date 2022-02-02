@@ -127,4 +127,16 @@ echo 1 > /proc/sys/net/ipv4/tcp_ecn
 # Credits to tytydraco
 echo 0 > /proc/sys/kernel/sched_min_task_util_for_colocation
 
+# Enable Watermark Boost by default
+echo "$(date "+%H:%M:%S") * Checking if your kernel have watermark boost [BETA]" >> $LOG/log.txt
+if [ -d /proc/sys/kernel/watermark_boost_factor ]; then
+  echo "$(date "+%H:%M:%S") * Your kernel has Watermak boost support, Enabling it... [BETA]" >> $LOG/log.txt
+  echo "1500" > /proc/sys/kernel/watermark_boost_factor
+sleep 0.5
+  echo "$(date "+%H:%M:%S") * Done [BETA]" >> $LOG/log.txt
+else
+  echo "$(date "+%H:%M:%S") * Your Kernel doesn't support watermark boost, skipping [BETA]" >> $LOG/log.txt
+fi
+echo " " >> $LOG/log.txt
+
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
