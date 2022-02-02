@@ -1,7 +1,4 @@
-- Reduce TCP performance spikes
-- Introduce Cgroup Boost
-- Enable ECN negotiation by default
-- update-binary: Set minimum magisk to 20.4
-- service: update ( move service.sh to modpath and delete common folder )
-- tweak: update ( rename shellscript.sh to zeetaatweaks.sh and apply tweaks forcefully )
-- module: miscellaneous changes
+- Enables Watermark Boost By default (Beta)
+- Set perf_cpu_time_max_percent to 0
+- Added Sched_nr_migrate tweak (Beta)
+- Fix Cgroup Boost not working in uclamp (Switching the if statement)
