@@ -42,8 +42,12 @@ fi
 echo " " >> $LOG/log.txt
   
 # Tweak aims to have less Latency
-# Credits to SpiderMoon
-# echo "1000000" > /proc/sys/kernel/sched_migration_cost_ns
+# Credits to SpiderMoon and Rhoan
+echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG/log.txt
+echo "128" > /proc/sys/kernel/sched_nr_migrate
+sleep 0.5
+echo "$(date "+%H:%M:%S") * Done [BETA]"
+echo " " >> $LOG/log.txt
 
 # Kprofiles Tweak
 # Credits to cyberknight
