@@ -74,7 +74,7 @@ echo 5 > /proc/sys/kernel/perf_cpu_time_max_percent
 # Cgroup Boost
 echo "$(date "+%H:%M:%S") * Checking which scheduler has ur kernel" >> $LOG/log.txt
 sleep 0.5
-if [ -d $TP ]; then
+if [ -e $TP ]; then
   # Uclamp Tweaks
   # All credits to @darkhz
   echo "$(date "+%H:%M:%S") * You have uclamp scheduler" >> $LOG/log.txt
@@ -129,7 +129,7 @@ echo 0 > /proc/sys/kernel/sched_min_task_util_for_colocation
 
 # Enable Watermark Boost by default
 echo "$(date "+%H:%M:%S") * Checking if your kernel have watermark boost [BETA]" >> $LOG/log.txt
-if [ -d /proc/sys/vm/watermark_boost_factor ]; then
+if [ -e /proc/sys/vm/watermark_boost_factor ]; then
   echo "$(date "+%H:%M:%S") * Your kernel has Watermak boost support, Enabling it... [BETA]" >> $LOG/log.txt
   echo 1500 > /proc/sys/vm/watermark_boost_factor
 sleep 0.5
