@@ -46,7 +46,7 @@ echo " " >> $LOG/log.txt
 echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG/log.txt
 echo 128 > /proc/sys/kernel/sched_nr_migrate
 sleep 0.5
-echo "$(date "+%H:%M:%S") * Done [BETA]"
+echo "$(date "+%H:%M:%S") * Done [BETA]" >> $LOG/log.txt
 echo " " >> $LOG/log.txt
 
 # Kprofiles Tweak
