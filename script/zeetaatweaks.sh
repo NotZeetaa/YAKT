@@ -68,8 +68,8 @@ echo 10 > /proc/sys/vm/stat_interval
 echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG/log.txt
 echo " " >> $LOG/log.txt
 
-# Set 5 to perf_cpu_time_max_percent
-echo 5 > /proc/sys/kernel/perf_cpu_time_max_percent
+# Set 0 to perf_cpu_time_max_percent
+echo 0 > /proc/sys/kernel/perf_cpu_time_max_percent
 
 # Cgroup Boost
 echo "$(date "+%H:%M:%S") * Checking which scheduler has ur kernel" >> $LOG/log.txt
