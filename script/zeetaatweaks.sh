@@ -44,7 +44,7 @@ echo " " >> $LOG/log.txt
 # Tweak aims to have less Latency
 # Credits to SpiderMoon and Rhoan
 echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG/log.txt
-echo "128" > /proc/sys/kernel/sched_nr_migrate
+echo 128 > /proc/sys/kernel/sched_nr_migrate
 sleep 0.5
 echo "$(date "+%H:%M:%S") * Done [BETA]"
 echo " " >> $LOG/log.txt
@@ -131,7 +131,7 @@ echo 0 > /proc/sys/kernel/sched_min_task_util_for_colocation
 echo "$(date "+%H:%M:%S") * Checking if your kernel have watermark boost [BETA]" >> $LOG/log.txt
 if [ -d /proc/sys/kernel/watermark_boost_factor ]; then
   echo "$(date "+%H:%M:%S") * Your kernel has Watermak boost support, Enabling it... [BETA]" >> $LOG/log.txt
-  echo "1500" > /proc/sys/kernel/watermark_boost_factor
+  echo 1500 > /proc/sys/kernel/watermark_boost_factor
 sleep 0.5
   echo "$(date "+%H:%M:%S") * Done [BETA]" >> $LOG/log.txt
 else
