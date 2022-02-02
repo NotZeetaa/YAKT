@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# ZeetaaTweaks V0.2
+# ZeetaaTweaks V0.3
 # By @NotZeetaa (Github)
 
 sleep 120
@@ -19,7 +19,7 @@ if [ -d $LOG ]; then
 else
   mkdir -p $LOG
 fi
-echo "# ZeetaaTweaks V0.1" > $LOG/log.txt
+echo "# ZeetaaTweaks V0.3" > $LOG/log.txt
 echo "# Build Date: 28/01/2022" >> $LOG/log.txt
 echo "# By @NotZeetaa (Github)" >> $LOG/log.txt
 echo " " >> $LOG/log.txt
