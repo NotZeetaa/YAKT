@@ -1,4 +1,5 @@
-- Enables Watermark Boost By default (Beta)
-- Set perf_cpu_time_max_percent to 0
-- Added Sched_nr_migrate tweak (Beta)
-- Fix Cgroup Boost not working in uclamp (Switching the if statement)
+- Changes to Watermark boost
+- Added more vm tweaks
+- Set dirty ratio to 10(Better Performance)
+- Tweak dirty_background_ratio
+- Disable Timer Migration
