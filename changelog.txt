@@ -1,5 +1,6 @@
-- Changes to Watermark boost
+- Changes to Watermark boost(To be worked)
 - Added more vm tweaks
 - Set dirty ratio to 10(Better Performance)
 - Tweak dirty_background_ratio
 - Disable Timer Migration
+- Sleep 60s instead of 120s(120s its too much)
