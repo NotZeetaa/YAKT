@@ -72,10 +72,11 @@ echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG/log.txt
 echo " " >> $LOG/log.txt
 
 # Clean Up Ram
-echo "$(date "+%H:%M:%S") * Cleaning Up Ram"
+echo "$(date "+%H:%M:%S") * Cleaning Up Ram" >> $LOG/log.txt
 echo 3 > /proc/sys/vm/drop_caches
-echo "$(date "+%H:%M:%S") * Done"
+echo "$(date "+%H:%M:%S") * Done" >> $LOG/log.txt
 echo 0 > /proc/sys/vm/drop_caches
+echo " " >> $LOG/log.txt
 
 # Set 0 to perf_cpu_time_max_percent
 echo 0 > /proc/sys/kernel/perf_cpu_time_max_percent
