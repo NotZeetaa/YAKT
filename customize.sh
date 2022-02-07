@@ -19,7 +19,7 @@ unzip -o "$ZIPFILE" module.prop -d $MODPATH >&2
 MOD_PRINT() {
 ui_print ""
 ui_print "*************************************"
-ui_print " Zeetaa Tweaks Module Rebase V1.1. "
+ui_print " Zeetaa Tweaks Module Rebase V1.3. "
 ui_print " Thx to lybdroid for his module template.      "
 ui_print "*************************************"
 ui_print ""
