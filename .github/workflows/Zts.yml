@@ -1,0 +1,21 @@
+name: ZeetaaTweaks
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: z4nyx/docker:latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Zts ToolChain Compile
+        run: bash build.sh
+        env:
+           token: ${{ secrets.TOKEN }}
+           chat_id: ${{ secrets.CHAT_ID }}

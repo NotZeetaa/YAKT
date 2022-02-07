@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
-token=5073803429:AAFx8cf00fzcwtGrcDI-HfOcHviIZhNr30s
-chatid=-1001234010295
 clog=`cat changelog.txt`
-function post_file() {
+function push() {
 curl -F document=@$1 "https://api.telegram.org/bot${token}/sendDocument" \
-     -F chat_id="${chatid}"  \
+     -F chat_id="${chat_id}"  \
      -F "disable_web_page_preview=true" \
      -F "parse_mode=html" \
      -F caption="${clog}"
 }
 echo ""
-echo -n "Give me version name : "
-read -r Version
-rm -rf Zeetaa-Tweaks-Rebase-*
-zip -r9 "Zeetaa-Tweaks-Rebase-${version}.zip" . -x *build* -x *changelog* -x *.bak* -x *.git*
-post_file "Zeetaa-Tweaks-Rebase-${version}.zip"
+rm -rf *.zip
+zip -r9 "Zeetaa-Tweaks-Rebase-BETA.zip" . -x *build* -x *changelog* -x *.bak* -x *.git*
+push "Zeetaa-Tweaks-Rebase-BETA.zip"
