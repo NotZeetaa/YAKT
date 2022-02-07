@@ -67,6 +67,7 @@ sleep 0.5
 echo 50 > /proc/sys/vm/vfs_cache_pressure
 echo 10 > /proc/sys/vm/stat_interval
 echo 10 > /proc/sys/vm/dirty_ratio
+echo 3 > /proc/sys/vm/dirty_background_ratio
 echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG/log.txt
 echo " " >> $LOG/log.txt
 
