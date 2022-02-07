@@ -71,6 +71,12 @@ echo 3 > /proc/sys/vm/dirty_background_ratio
 echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG/log.txt
 echo " " >> $LOG/log.txt
 
+# Clean Up Ram
+echo "$(date "+%H:%M:%S") * Cleaning Up Ram"
+echo 3 > /proc/sys/vm/drop_caches
+echo "$(date "+%H:%M:%S") * Done"
+echo 0 > /proc/sys/vm/drop_caches
+
 # Set 0 to perf_cpu_time_max_percent
 echo 0 > /proc/sys/kernel/perf_cpu_time_max_percent
 
