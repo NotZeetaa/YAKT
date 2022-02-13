@@ -78,8 +78,8 @@ echo "$(date "+%H:%M:%S") * Done" >> $LOG/log.txt
 echo 0 > /proc/sys/vm/drop_caches
 echo " " >> $LOG/log.txt
 
-# Set 0 to perf_cpu_time_max_percent
-echo 0 > /proc/sys/kernel/perf_cpu_time_max_percent
+# Set 15 to perf_cpu_time_max_percent
+echo 15 > /proc/sys/kernel/perf_cpu_time_max_percent
 
 # Disable Timer migration
 echo "$(date "+%H:%M:%S") * Disabling Timer Migration" >> $LOG/log.txt
