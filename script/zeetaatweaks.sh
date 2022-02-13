@@ -159,4 +159,11 @@ else
 fi
 echo " " >> $LOG/log.txt
 
+echo "$(date "+%H:%M:%S") * Tweaking read_ahead overall" >> $LOG/log.txt
+for queue in /sys/block/*/queue
+do
+echo 128 > "${queue}"/read_ahead_kb
+done
+echo " " >> $LOG/log.txt
+
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
