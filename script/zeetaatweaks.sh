@@ -141,10 +141,10 @@ echo 1 > /proc/sys/net/ipv4/tcp_ecn
 
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
-echo "$(date "+%H:%M:%S") * Always allow sched boosting on top-app tasks" >> $LOG/log.txt
-echo 0 > /proc/sys/kernel/sched_min_task_util_for_colocation
-echo "$(date "+%H:%M:%S") * Done" >> $LOG/log.txt
-echo " " >> $LOG/log.txt
+# echo "$(date "+%H:%M:%S") * Always allow sched boosting on top-app tasks" >> $LOG/log.txt
+# echo 0 > /proc/sys/kernel/sched_min_task_util_for_colocation
+# echo "$(date "+%H:%M:%S") * Done" >> $LOG/log.txt
+# echo " " >> $LOG/log.txt
 
 # Watermark Boost
 echo "$(date "+%H:%M:%S") * Checking if its a 5.4 kernel to apply watermark boost" >> $LOG/log.txt
