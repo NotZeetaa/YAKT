@@ -166,4 +166,7 @@ echo 128 > "${queue}"/read_ahead_kb
 done
 echo " " >> $LOG/log.txt
 
+# Tune lease-break-time
+echo 5 > /proc/sys/fs/lease-break-time
+
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
