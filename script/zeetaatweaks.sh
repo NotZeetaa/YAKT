@@ -170,3 +170,5 @@ echo " " >> $LOG/log.txt
 echo 5 > /proc/sys/fs/lease-break-time
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
+
+su -lp 2000 -c "cmd notification post -S bigtext -t Zeetaa-Tweaks Activated"
