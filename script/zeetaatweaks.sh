@@ -148,13 +148,13 @@ echo "$(date "+%H:%M:%S") * Tweaked read_ahead" >> $LOG
 echo " " >> $LOG
 
 # [BETA] UTW (UFS Turbo Write Tweak)
-echo "$(date "+%H:%M:%S") * [BETA] Checking if have UFS Turbo Write Support" >> $LOG
+echo "$(date "+%H:%M:%S") * [BETA] Checking if ur kernel has UFS Turbo Write Support" >> $LOG
 if [ -e /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable ]; then
-  echo "$(date "+%H:%M:%S") * [BETA] U have UFS Turbo Write Support. Tweaking it..." >> $LOG
-  echo 1 >/sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
+  echo "$(date "+%H:%M:%S") * [BETA] Ur kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
+  echo 1 > /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
   echo "$(date "+%H:%M:%S") * [BETA] Done!" >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * [BETA] U don't have UFS Turbo Write Support. Tweaking it..." >> $LOG
+  echo "$(date "+%H:%M:%S") * [BETA] Ur kernel doesn't have UFS Turbo Write Support." >> $LOG
 fi
 echo " " >> $LOG
 
