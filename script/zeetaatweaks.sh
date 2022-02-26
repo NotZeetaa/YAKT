@@ -158,7 +158,4 @@ else
 fi
 echo " " >> $LOG
 
-# Tune lease-break-time
-echo 15 > /proc/sys/fs/lease-break-time
-
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG
