@@ -198,5 +198,6 @@ echo "N" > /sys/module/printk/parameters/time
 echo "0 0 0 0" > /proc/sys/kernel/printk
 echo "off" > /proc/sys/kernel/printk_devkmsg
 echo "$(date "+%H:%M:%S") * Done" >> $LOG
+echo " " >> $LOG
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
