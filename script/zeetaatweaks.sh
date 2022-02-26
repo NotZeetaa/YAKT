@@ -58,16 +58,7 @@ echo "$(date "+%H:%M:%S") * Applying Ram Tweaks" >> $LOG
 sleep 0.5
 echo 50 > /proc/sys/vm/vfs_cache_pressure
 echo 10 > /proc/sys/vm/stat_interval
-echo 10 > /proc/sys/vm/dirty_ratio
-echo 3 > /proc/sys/vm/dirty_background_ratio
 echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG
-echo " " >> $LOG
-
-# Clean Up Ram
-echo "$(date "+%H:%M:%S") * Cleaning Up Ram" >> $LOG
-echo 3 > /proc/sys/vm/drop_caches
-echo "$(date "+%H:%M:%S") * Done" >> $LOG
-echo 0 > /proc/sys/vm/drop_caches
 echo " " >> $LOG
 
 # Set 15 to perf_cpu_time_max_percent
