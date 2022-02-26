@@ -106,7 +106,7 @@ else
   echo "$(date "+%H:%M:%S") * Applying tweaks for it" >> $LOG
   sleep 0.3
   chmod 644 $DV/top-app/schedtune.boost
-  echo 5 > $DV/top-app/schedtune.boost
+  echo 1 > $DV/top-app/schedtune.boost
   chmod 664 $DV/top-app/schedtune.boost
   echo 1 > $DV/foreground/schedtune.boost
   echo 0 > $DV/background/schedtune.boost
