@@ -1,6 +1,6 @@
-- Changes to Watermark boost(To be worked)
-- Added more vm tweaks
-- Set dirty ratio to 10(Better Performance)
-- Tweak dirty_background_ratio
-- Disable Timer Migration
-- Sleep 60s instead of 120s(120s its too much)
+- Clean up some vm tweaks(Fix agressive ram problems)
+- Added UTW (UFS Turbo Write Tweak)
+- Reduced lease-break-time
+- Enable autogrouping (Group tasks for less stutter but less throughput Thx to tytydraco)
+- Introduced Disabling Debug tweak (Reduces overhead)
+- Reduce top-app schedtune boost (To reduce overhead)
