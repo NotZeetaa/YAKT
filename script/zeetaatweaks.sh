@@ -161,11 +161,41 @@ if [ -e /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable ]; then
 else
   echo "[BETA] U don't have UFS Turbo Write Support. Tweaking it..." >> $LOG
 fi
+echo " " >> $LOG
 
 # Tune lease-break-time
 echo 15 > /proc/sys/fs/lease-break-time
 
 # Group tasks for less stutter but less throughput
 echo 1 > /proc/sys/kernel/sched_autogroup_enabled
+
+# Disabling Debug ( Reduces the overhead Usage )
+# All Credits to @Bug_Founder_S10_S8 ( Nuked Dev )
+echo "$(date "+%H:%M:%S") * Disable Debugging tweak" >> $LOG
+for debug in /sys/kernel/debug/tracing/events/*/enable
+do
+    echo 0 > "$debug"
+done
+for tracing in /sys/kernel/tracing/events/*/enable
+do
+    echo 0 > "$tracing"
+done
+echo "0" > /sys/wifi/logtrace
+echo "0" > /sys/wifi/control_logtrace
+echo "0" > /sys/wifi/logdump_ecntr_enable
+echo "0" > /sys/power/pm_debug_messages
+echo "N" > /sys/kernel/debug/debug_enabled
+echo "N" > /sys/kernel/debug/seclog/seclog_debug
+echo "0" > /sys/kernel/debug/tracing/tracing_on
+echo "0" > /proc/sys/debug/exception-trace
+echo "0" > /d/tracing/tracing_on
+echo "N" > /sys/kernel/debug/sched_debug
+echo "0" > /proc/sys/dev/scsi/logging_level
+echo "0" > /sys/kernel/tracing/options/trace_printk
+echo "Y" > /sys/module/printk/parameters/ignore_loglevel
+echo "N" > /sys/module/printk/parameters/time
+echo "0 0 0 0" > /proc/sys/kernel/printk
+echo "off" > /proc/sys/kernel/printk_devkmsg
+echo "$(date "+%H:%M:%S") * Done" >> $LOG
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
