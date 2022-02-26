@@ -11,8 +11,8 @@ TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
 
-echo "# ZeetaaTweaks V0.4" > $LOG
-echo "# Build Date: 28/01/2022" >> $LOG
+echo "# ZeetaaTweaks V0.5" > $LOG
+echo "# Build Date: 26/02/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
@@ -68,7 +68,7 @@ echo "$(date "+%H:%M:%S") * Done" >> $LOG
 
 # Disable Timer migration
 echo "$(date "+%H:%M:%S") * Disabling Timer Migration" >> $LOG
-echo "0" > /proc/sys/kernel/timer_migration
+echo 0 > /proc/sys/kernel/timer_migration
 echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
@@ -164,5 +164,8 @@ fi
 
 # Tune lease-break-time
 echo 15 > /proc/sys/fs/lease-break-time
+
+# Group tasks for less stutter but less throughput
+echo 1 > /proc/sys/kernel/sched_autogroup_enabled
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG/log.txt
