@@ -152,6 +152,16 @@ done
 echo "$(date "+%H:%M:%S") * Tweaked read_ahead" >> $LOG
 echo " " >> $LOG
 
+# [BETA] UTW (UFS Turbo Write Tweak)
+echo "[BETA] Checking if have UFS Turbo Write Support" >> $LOG
+if [ -e /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable ]; then
+  echo "[BETA] U have UFS Turbo Write Support. Tweaking it..." >> $LOG
+  echo 1 >/sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
+  echo "[BETA] Done!" >> $LOG
+else
+  echo "[BETA] U don't have UFS Turbo Write Support. Tweaking it..." >> $LOG
+fi
+
 # Tune lease-break-time
 echo 5 > /proc/sys/fs/lease-break-time
 
