@@ -62,7 +62,9 @@ echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG
 echo " " >> $LOG
 
 # Set 15 to perf_cpu_time_max_percent
+echo "$(date "+%H:%M:%S") * Applying tweak for perf_cpu_time_max_percent" >> $LOG
 echo 15 > /proc/sys/kernel/perf_cpu_time_max_percent
+echo "$(date "+%H:%M:%S") * Done" >> $LOG
 
 # Disable Timer migration
 echo "$(date "+%H:%M:%S") * Disabling Timer Migration" >> $LOG
@@ -147,6 +149,7 @@ for queue in /sys/block/*/queue
 do
 echo 128 > "${queue}"/read_ahead_kb
 done
+echo "$(date "+%H:%M:%S") * Tweaked read_ahead" >> $LOG
 echo " " >> $LOG
 
 # Tune lease-break-time
