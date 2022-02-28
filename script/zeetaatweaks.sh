@@ -47,7 +47,7 @@ if [ -d $KP ]; then
   echo "$(date "+%H:%M:%S") * Your Kernel Supports Kprofiles" >> $LOG
   echo 2 > $KP/parameters/mode
 else
-  echo "$(date "+%H:%M:%S") * Your Kernel doesn't support Kprofiles, not a big trouble, its normal" >> $LOG
+  echo "$(date "+%H:%M:%S") * Your Kernel doesn't support Kprofiles, not a big trouble, it's normal" >> $LOG
   echo " " >> $LOG
 fi
 
@@ -68,7 +68,7 @@ echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
 # Cgroup Boost
-echo "$(date "+%H:%M:%S") * Checking which scheduler has ur kernel" >> $LOG
+echo "$(date "+%H:%M:%S") * Checking which scheduler your kernel has" >> $LOG
 sleep 0.5
 if [ -e $TP ]; then
   # Uclamp Tweaks
@@ -103,6 +103,7 @@ else
   chmod 644 $DV/top-app/schedtune.boost
   echo 1 > $DV/top-app/schedtune.boost
   chmod 664 $DV/top-app/schedtune.boost
+  echo 1 > $DV/top-app/schedtune.prefer_idle
   echo 1 > $DV/foreground/schedtune.boost
   echo 0 > $DV/background/schedtune.boost
   echo "$(date "+%H:%M:%S") * Done" >> $LOG
@@ -134,27 +135,27 @@ then
   echo 1500 > /proc/sys/vm/watermark_boost_factor
   echo "$(date "+%H:%M:%S") * Done" >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * Didn't found watermark boost or its a 4.19 kernel which doesn't work" >> $LOG
+  echo "$(date "+%H:%M:%S") * Couldn't found watermark boost or it's a 4.19 kernel which doesn't work" >> $LOG
   echo 0 > /proc/sys/vm/watermark_boost_factor
 fi
 echo " " >> $LOG
 
 echo "$(date "+%H:%M:%S") * Tweaking read_ahead overall" >> $LOG
-for queue in /sys/block/*/queue
+for queue in /sys/block/*/queue/read_ahead_kb
 do
-echo 128 > "${queue}"/read_ahead_kb
+echo 128 > $queue
 done
 echo "$(date "+%H:%M:%S") * Tweaked read_ahead" >> $LOG
 echo " " >> $LOG
 
 # [BETA] UTW (UFS Turbo Write Tweak)
-echo "$(date "+%H:%M:%S") * [BETA] Checking if ur kernel has UFS Turbo Write Support" >> $LOG
+echo "$(date "+%H:%M:%S") * [BETA] Checking if your kernel has UFS Turbo Write Support" >> $LOG
 if [ -e /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable ]; then
-  echo "$(date "+%H:%M:%S") * [BETA] Ur kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
+  echo "$(date "+%H:%M:%S") * [BETA] Your kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
   echo 1 > /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
   echo "$(date "+%H:%M:%S") * [BETA] Done!" >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * [BETA] Ur kernel doesn't have UFS Turbo Write Support." >> $LOG
+  echo "$(date "+%H:%M:%S") * [BETA] Your kernel doesn't have UFS Turbo Write Support." >> $LOG
 fi
 echo " " >> $LOG
 
