@@ -1,6 +1,6 @@
 set -x
 SKIPUNZIP=1
-MODLOG=/data/ZTS
+MODLOG=/sdcard/ZeetaaTweaks.log
 RM_RF() {
 rm -rf $MODLOG 2>/dev/null
 rm -rf $MODPATH/LICENSE 2>/dev/null
@@ -19,7 +19,7 @@ unzip -o "$ZIPFILE" module.prop -d $MODPATH >&2
 MOD_PRINT() {
 ui_print ""
 ui_print "*************************************"
-ui_print " Zeetaa Tweaks Module Rebase V1.4. "
+ui_print " Zeetaa Tweaks Module Rebase V1.5. "
 ui_print " Thx to lybdroid for his module template.      "
 ui_print "*************************************"
 ui_print ""

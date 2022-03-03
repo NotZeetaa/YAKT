@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# ZeetaaTweaks V0.4
+# ZeetaaTweaks V0.6
 # By @NotZeetaa (Github)
 
 sleep 60
@@ -11,8 +11,8 @@ TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
 
-echo "# ZeetaaTweaks V0.5" > $LOG
-echo "# Build Date: 26/02/2022" >> $LOG
+echo "# ZeetaaTweaks V0.6" > $LOG
+echo "# Build Date: 03/03/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG

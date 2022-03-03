@@ -1,6 +1,7 @@
-- Clean up some vm tweaks(Fix agressive ram problems)
-- Added UTW (UFS Turbo Write Tweak)
-- Reduced lease-break-time
-- Enable autogrouping (Group tasks for less stutter but less throughput Thx to tytydraco)
-- Introduced Disabling Debug tweak (Reduces overhead)
-- Reduce top-app schedtune boost (To reduce overhead)
+- Enabled sched boosting on top-app tasks again
+- Optimized Watermark boost tweak
+- Removed Less latency tweak
+- Removed Debugging tweak
+- Removed Sched Autogroup tweak
+- Removed lease-break-time tweak
+- Fix some types of words (Thx to NitroVenom)
