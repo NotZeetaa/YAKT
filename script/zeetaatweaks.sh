@@ -127,16 +127,33 @@ echo 0 > /proc/sys/kernel/sched_min_task_util_for_colocation
 echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
-# Watermark Boost
-echo "$(date "+%H:%M:%S") * Checking if its a 5.4 kernel to apply watermark boost" >> $LOG
-if cat /proc/version | grep -w "5.4"
-then 
-  echo "$(date "+%H:%M:%S") * Found 5.4 Kernel applying watermark boost for it"
-  echo 1500 > /proc/sys/vm/watermark_boost_factor
-  echo "$(date "+%H:%M:%S") * Done" >> $LOG
-else
-  echo "$(date "+%H:%M:%S") * Couldn't found watermark boost or it's a 4.19 kernel which doesn't work" >> $LOG
+# Watermark Boost Tweak
+echo "$(date "+%H:%M:%S") * Checking your linux version to tweak watermark boost" >> $LOG
+if cat /proc/version | grep -w "4.19"
+then
+  echo "$(date "+%H:%M:%S") Found 4.19 kernel disabling it because doesn't work..." >> $LOG
   echo 0 > /proc/sys/vm/watermark_boost_factor
+  echo "$(date "+%H:%M:%S") Done!" >> $LOG
+elif cat /proc/version | grep -w "5.4"
+then
+  echo "$(date "+%H:%M:%S") Found 5.4 kernel tweaking it..." >> $LOG
+  echo 1500 > /proc/sys/vm/watermark_boost_factor
+elif cat /proc/version | grep -w "5.10"
+then
+  echo "$(date "+%H:%M:%S") Found 5.10 kernel tweaking it..." >> $LOG
+  echo 1500 > /proc/sys/vm/watermark_boost_factor
+elif cat /proc/version | grep -w "5.15"
+then
+  echo "$(date "+%H:%M:%S") Found 5.15 kernel tweaking it..." >> $LOG
+  echo 1500 > /proc/sys/vm/watermark_boost_factor
+elif cat /proc/version | grep -w "5.16"
+then
+  echo "$(date "+%H:%M:%S") Found 5.16 kernel tweaking it..." >> $LOG
+  echo 1500 > /proc/sys/vm/watermark_boost_factor
+elif cat /proc/version | grep -w "5.17"
+then
+  echo "$(date "+%H:%M:%S") Found 5.17 kernel tweaking it..." >> $LOG
+  echo 1500 > /proc/sys/vm/watermark_boost_factor
 fi
 echo " " >> $LOG
 
