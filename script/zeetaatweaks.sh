@@ -35,11 +35,11 @@ echo " " >> $LOG
   
 # Tweak aims to have less Latency
 # Credits to SpiderMoon and Rhoan
-echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG
-echo 128 > /proc/sys/kernel/sched_nr_migrate
-sleep 0.5
-echo "$(date "+%H:%M:%S") * Done [BETA]" >> $LOG
-echo " " >> $LOG
+# echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG
+# echo 128 > /proc/sys/kernel/sched_nr_migrate
+# sleep 0.5
+# echo "$(date "+%H:%M:%S") * Done [BETA]" >> $LOG
+# echo " " >> $LOG
 
 # Kprofiles Tweak
 # Credits to cyberknight
