@@ -67,6 +67,12 @@ echo 15 > /proc/sys/kernel/perf_cpu_time_max_percent
 echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
+# Disable Timer migration
+echo "$(date "+%H:%M:%S") * Disabling Timer Migration" >> $LOG
+echo 0 > /proc/sys/kernel/timer_migration
+echo "$(date "+%H:%M:%S") * Done" >> $LOG
+echo " " >> $LOG
+
 # Cgroup Boost
 echo "$(date "+%H:%M:%S") * Checking which scheduler your kernel has" >> $LOG
 sleep 0.5
