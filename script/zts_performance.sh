@@ -46,7 +46,7 @@ echo " " >> $LOG
 # Credits to cyberknight
 if [ -d $KP ]; then
   echo "$(date "+%H:%M:%S") * Your Kernel Supports Kprofiles" >> $LOG
-  echo 2 > $KP/parameters/mode
+  echo 3 > $KP/parameters/mode
 else
   echo "$(date "+%H:%M:%S") * Your Kernel doesn't support Kprofiles, not a big trouble, it's normal" >> $LOG
   echo " " >> $LOG
