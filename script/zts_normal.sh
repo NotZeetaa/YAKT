@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# ZeetaaTweaks V0.6
+# ZeetaaTweaks V1
 # By @NotZeetaa (Github)
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
@@ -9,8 +9,8 @@ TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
 
-echo "# ZeetaaTweaks V0.6" > $LOG
-echo "# Build Date: 03/03/2022" >> $LOG
+echo "# ZeetaaTweaks V1" > $LOG
+echo "# Build Date: 05/03/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
 echo "###############################" >> $LOG

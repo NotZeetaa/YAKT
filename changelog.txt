@@ -1,7 +1,6 @@
-- Enabled sched boosting on top-app tasks again
-- Optimized Watermark boost tweak
-- Removed Less latency tweak
-- Removed Debugging tweak
-- Removed Sched Autogroup tweak
-- Removed lease-break-time tweak
-- Fix some types of words (Thx to NitroVenom)
+- Introduced AI (Thx to @wHo_EM_i)
+- Introduced Verbose logging
+- Put else statement in watermark boost
+- Decrease perf_cpu_time_max_percent (Normal Profile)
+- Don't use schedtune boost (Normal Profile)
+- Use Performance for kprofiles (Performance Profile)

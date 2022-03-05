@@ -2,7 +2,7 @@ name: ZeetaaTweaks
 
 on:
   push:
-    branches: [ main ]
+    branches: [ AI ]
 
   workflow_dispatch:
 

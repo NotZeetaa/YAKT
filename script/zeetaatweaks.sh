@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# ZeetaaTweaks V0.4
+# ZeetaaTweaks V1
 # By @NotZeetaa (Github)
 
 sleep 60
@@ -8,8 +8,8 @@ P=/data/adb/modules/ZeetaaTweaks/script/zts_performance.sh
 N=/data/adb/modules/ZeetaaTweaks/script/zts_normal.sh
 LOG=/sdcard/ZeetaaTweaksMode.log
 
-echo "# ZeetaaTweaks V0.5" > $LOG
-echo "# Build Date: 26/02/2022" >> $LOG
+echo "# ZeetaaTweaks V1" > $LOG
+echo "# Build Date: 05/03/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
