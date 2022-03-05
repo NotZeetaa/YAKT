@@ -24,11 +24,12 @@ echo " " >> $LOG
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
-echo "$(date "+%H:%M:%S") * Applying Google's schedutil rate-limits from Pixel 3" >> $LOG
+# Modified by @NotZeetaa
+echo "$(date "+%H:%M:%S") * Applying Modified Google's schedutil rate-limits from Pixel 3" >> $LOG
 if [ -e $SC ]; then
   echo 100 > $SC/up_rate_limit_us
   echo 10000 > $SC/down_rate_limit_us
-  echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
+  echo "$(date "+%H:%M:%S") * Applied Modified Google's schedutil rate-limits from Pixel 3" >> $LOG
 else
   echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
 fi
