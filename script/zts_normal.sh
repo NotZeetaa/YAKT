@@ -108,7 +108,7 @@ else
   echo 1 > $DV/top-app/schedtune.boost
   chmod 664 $DV/top-app/schedtune.boost
   echo 1 > $DV/top-app/schedtune.prefer_idle
-  echo 1 > $DV/foreground/schedtune.boost
+  echo 0 > $DV/foreground/schedtune.boost
   echo 0 > $DV/background/schedtune.boost
   echo "$(date "+%H:%M:%S") * Done" >> $LOG
   echo " " >> $LOG
