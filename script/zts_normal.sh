@@ -162,6 +162,8 @@ then
   echo "$(date "+%H:%M:%S") Found 5.17 kernel tweaking it..." >> $LOG
   echo 1500 > /proc/sys/vm/watermark_boost_factor
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
+else
+  echo "$(date "+%H:%M:%S") * Your linux kernel version doesn't support watermark boost" >> $LOG
 fi
 echo " " >> $LOG
 
