@@ -64,7 +64,7 @@ echo " " >> $LOG
 
 # Set 15 to perf_cpu_time_max_percent
 echo "$(date "+%H:%M:%S") * Applying tweak for perf_cpu_time_max_percent" >> $LOG
-echo 15 > /proc/sys/kernel/perf_cpu_time_max_percent
+echo 5 > /proc/sys/kernel/perf_cpu_time_max_percent
 echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
