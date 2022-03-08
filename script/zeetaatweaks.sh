@@ -33,7 +33,7 @@ else
 fi
 echo " " >> $LOG
   
-# Tweak aims to have less Latency
+# Tweak aims to reduce Latency
 # Credits to SpiderMoon and Rhoan
 # echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG
 # echo 128 > /proc/sys/kernel/sched_nr_migrate
@@ -61,7 +61,7 @@ echo 10 > /proc/sys/vm/stat_interval
 echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG
 echo " " >> $LOG
 
-# Set 15 to perf_cpu_time_max_percent
+# Set kernel.perf_cpu_time_max_percent to 15
 echo "$(date "+%H:%M:%S") * Applying tweak for perf_cpu_time_max_percent" >> $LOG
 echo 15 > /proc/sys/kernel/perf_cpu_time_max_percent
 echo "$(date "+%H:%M:%S") * Done" >> $LOG
@@ -137,7 +137,7 @@ echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Checking your linux version to tweak watermark boost" >> $LOG
 if cat /proc/version | grep -w "4.19"
 then
-  echo "$(date "+%H:%M:%S") * Found 4.19 kernel disabling it because doesn't work..." >> $LOG
+  echo "$(date "+%H:%M:%S") * Found 4.19 kernel, disabling it because doesn't work..." >> $LOG
   echo 0 > /proc/sys/vm/watermark_boost_factor
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
 elif cat /proc/version | grep -w "5.4"
