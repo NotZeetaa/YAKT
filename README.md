@@ -5,7 +5,7 @@ A Magisk module to Tweak your Kernel parameters. This module applies at boot and
 ## Features:
 - Reduces Jitter and Latency
 - Optimizes Ram Management
-- Reduce TCP Performance spikes
+- Reduces TCP Performance spikes
 - Enable ECN negotiation by default
 - Allows sched boosting on top-app tasks (Thx to tytydraco)
 - Cgroup Boost (Credits to darkhz for uclamp tweak)
