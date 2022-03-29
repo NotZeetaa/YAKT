@@ -57,7 +57,7 @@ fi
 echo "$(date "+%H:%M:%S") * Applying Ram Tweaks" >> $LOG
 sleep 0.5
 echo 50 > /proc/sys/vm/vfs_cache_pressure
-echo 10 > /proc/sys/vm/stat_interval
+echo 20 > /proc/sys/vm/stat_interval
 echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG
 echo " " >> $LOG
 
