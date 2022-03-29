@@ -34,13 +34,14 @@ else
 fi
 echo " " >> $LOG
   
-# Tweak aims to have less Latency
-# Credits to SpiderMoon and Rhoan
-# echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG
-# echo 128 > /proc/sys/kernel/sched_nr_migrate
-# sleep 0.5
-# echo "$(date "+%H:%M:%S") * Done [BETA]" >> $LOG
-# echo " " >> $LOG
+# (Rewrited) Tweaks to have less Latency
+# Credits to RedHat
+echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG
+echo "15000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
+echo "10000000" > /proc/sys/kernel/sched_min_granularity_ns
+sleep 0.5
+echo "$(date "+%H:%M:%S") * Done [BETA]" >> $LOG
+echo " " >> $LOG
 
 # Kprofiles Tweak
 # Credits to cyberknight
