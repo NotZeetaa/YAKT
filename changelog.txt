@@ -1,6 +1,4 @@
-- Introduced AI (Thx to @wHo_EM_i)
-- Introduced Verbose logging
-- Put else statement in watermark boost
-- Decrease perf_cpu_time_max_percent (Normal Profile)
-- Don't use schedtune boost (Normal Profile)
-- Use Performance for kprofiles (Performance Profile)
+- AI: Added Apex Legends Support
+- tweak: Increase vmstat interval to 20 seconds
+- tweak: Increase fragmentation index
+- tweak: Rewrite Tweaks to have less Latency
