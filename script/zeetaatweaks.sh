@@ -26,7 +26,7 @@ while true; do
             then
             echo " "
             else
-            bash $P
+            sh $P
             echo "*" >> $LOG
             echo "* ZTS Performance Was Executed at $(date "+%H:%M:%S")" >> $LOG
             sleep 55
@@ -36,7 +36,7 @@ else
             then
             echo " "
             else
-            bash $N
+            sh $N
             echo "*" >> $LOG
             echo "* ZTS Normal Usage Was Executed at $(date "+%H:%M:%S")" >> $LOG
             fi
