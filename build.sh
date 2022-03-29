@@ -9,5 +9,5 @@ curl -F document=@$1 "https://api.telegram.org/bot${token}/sendDocument" \
 }
 echo ""
 rm -rf *.zip
-zip -r9 "Zeetaa-Tweaks-Rebase-V2.zip" . -x *build* -x *changelog* -x *.bak* -x *.git*
-push "Zeetaa-Tweaks-Rebase-V2.zip"
+zip -r9 "Zeetaa-Tweaks-Rebase-V2.1.zip" . -x *build* -x *changelog* -x *.bak* -x *.git*
+push "Zeetaa-Tweaks-Rebase-V2.1.zip"
