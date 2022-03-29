@@ -186,4 +186,11 @@ else
 fi
 echo " " >> $LOG
 
+# Extfrag
+# Credits to @tytydraco
+echo "$(date "+%H:%M:%S") Increasing fragmentation index" >> $LOG
+echo 750 > /proc/sys/vm/extfrag_threshold
+sleep 0.5
+echo "$(date "+%H:%M:%S") Done!" >> $LOG
+
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG
