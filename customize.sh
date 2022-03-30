@@ -6,6 +6,7 @@ rm -rf $MODLOG 2>/dev/null
 rm -rf $MODPATH/LICENSE 2>/dev/null
 rm -rf $MODPATH/README.md 2>/dev/null
 }
+
 SET_PERMISSION() {
 set_perm_recursive $MODPATH 0 0 0755 0644
 set_perm_recursive $MODPATH/script 0 0 0755 0700

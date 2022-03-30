@@ -19,6 +19,8 @@ echo "$(date "+%H:%M:%S") * Android Version: $(getprop ro.system.build.version.r
 # Begin of AI
 # Thx to @wHo_EM_i for his top script
 
+echo "$(getprop ro.system.build.version.sdk)"> /sdcard/temp.txt
+
 while true; do
     sleep 10
      if [ $(su -c top -n 1 -d 1 | head -n 34 | grep -o -e 'skynet' -e 'cputhrottlingtest' -e 'ea.gp' -e 'androbench2' -e 'com.andromeda.androbench2' -e 'andromeda' -e 'antutu' -e 'geekbench5' -e 'primatelabs' -e 'codm' -e 'legends' -e 'nexon' -e 'ea.game' -e 'konami' -e 'bandainamco' -e 'netmarble' -e 'edengames' -e 'tencent' -e 'moonton' -e 'gameloft' -e 'netease' -e 'garena' -e 'pubg' -e 'pubgmhd' -e 'pubgmobile' -e 'miHoYo' -e 'GoogleCamera' -e 'mojang' -e 'AntutuBenchmark' -e 'kinemasterfree' -e 'alightcreative' -e 'aethersx2' -e 'criticalops' -e 'supercell' -e 'warface' -e 'ppsspp' -e 'ubisoft' -e 'activision' -e 'com.vng.pubgmobile' -e 'pubg' -e 'com.pubg.krmobile' -e 'pubgmhd' -e 'com.tencent.tmgp.pubgmhd' -e 'GenshinImpact' -e 'com.miHoYo.GenshinImpact' -e 'rockstargames' -e 'Fortnite' -e 'FortniteMobile' -e 'com.epicgames.fortnite' -e 'epicgames' | head -n 1) ]; then
@@ -26,7 +28,18 @@ while true; do
             then
             echo " "
             else
-            sh $P
+              if cat /sdcard/temp.txt | grep -w "32"
+              then
+                sh $P
+              elif cat cat /sdcard/temp.txt | grep -w "33"
+              then
+                sh $P
+              elif cat cat /sdcard/temp.txt | grep -w "31"
+              then
+                sh $P
+              else
+                bash $P
+              fi
             echo "*" >> $LOG
             echo "* ZTS Performance Was Executed at $(date "+%H:%M:%S")" >> $LOG
             sleep 55
@@ -36,9 +49,23 @@ else
             then
             echo " "
             else
-            sh $N
+              if cat /sdcard/temp.txt | grep -w "32"
+              then
+                sh $N
+              elif cat cat /sdcard/temp.txt | grep -w "33"
+              then
+                sh $N
+              elif cat cat /sdcard/temp.txt | grep -w "31"
+              then
+                sh $N
+              else
+                bash $N
+              fi
             echo "*" >> $LOG
             echo "* ZTS Normal Usage Was Executed at $(date "+%H:%M:%S")" >> $LOG
             fi
 fi
 done
+
+# Clean Temp File
+# rm -rf /sdcard/temp.txt
