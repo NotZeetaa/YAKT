@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# ZeetaaTweaks V0.6
+# ZeetaaTweaks V1.6
 # By @NotZeetaa (Github)
 
 sleep 60
@@ -11,7 +11,7 @@ TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
 
-echo "# ZeetaaTweaks V0.6" > $LOG
+echo "# ZeetaaTweaks V1.6" > $LOG
 echo "# Build Date: 03/03/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
@@ -53,7 +53,7 @@ else
 fi
 
 # Less Ram Usage
-# The stat_interval one, reduces jitter (Credits to tytydraco)
+# The stat_interval one, reduces jitter (Credits to kdrag0n)
 # Credits to RedHat for dirty_ratio
 echo "$(date "+%H:%M:%S") * Applying Ram Tweaks" >> $LOG
 sleep 0.5
@@ -194,5 +194,6 @@ echo "$(date "+%H:%M:%S") Increasing fragmentation index" >> $LOG
 echo 750 > /proc/sys/vm/extfrag_threshold
 sleep 0.5
 echo "$(date "+%H:%M:%S") Done!" >> $LOG
+echo " " >> $LOG
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG
