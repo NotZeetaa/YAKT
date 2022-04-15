@@ -5,9 +5,11 @@
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
 LOG=/sdcard/ZeetaaTweaks.log
-TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
+
+TS=$(cat /proc/sys/net/ipv4/tcp_timestamps)
+EC=$(cat /proc/sys/net/ipv4/tcp_ecn)
 
 echo "# ZeetaaTweaks V1.6" > $LOG
 echo "# Build Date: 03/03/2022" >> $LOG
@@ -131,12 +133,22 @@ fi
 # ipv4 tweaks
 # Reduce Net Ipv4 Performance Spikes
 # By @Panchajanya1999
-echo 0 > /proc/sys/net/ipv4/tcp_timestamps
-chmod 444 /proc/sys/net/ipv4/tcp_timestamps
+if [[ "$TS" == *"0"* ]]
+then
+  :
+else
+  echo 0 > /proc/sys/net/ipv4/tcp_timestamps
+  chmod 444 /proc/sys/net/ipv4/tcp_timestamps
+fi
 
 # Enable ECN negotiation by default
 # By kdrg0n
-echo 1 > /proc/sys/net/ipv4/tcp_ecn
+if [[ "$EC" == *"1"* ]]
+then
+  :
+else
+  echo 1 > /proc/sys/net/ipv4/tcp_ecn
+fi
 
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
