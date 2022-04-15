@@ -1,7 +1,8 @@
-- Enabled sched boosting on top-app tasks again
-- Optimized Watermark boost tweak
-- Removed Less latency tweak
-- Removed Debugging tweak
-- Removed Sched Autogroup tweak
-- Removed lease-break-time tweak
-- Fix some types of words (Thx to NitroVenom)
+- tweak: Increase vmstat interval to 20 seconds
+- tweak: Increase fragmentation index
+- tweak: Rewrite Tweaks to have less Latency
+- service: Wait system to boot to apply the tweak
+- tweak: Disable some scheduler logs/stats
+- tweak: Optimize net tweak
+- tweak: Clean up
+- tweak: Disable schedtune prefer idle
