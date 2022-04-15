@@ -35,11 +35,11 @@ echo " " >> $LOG
   
 # (Rewrited) Tweaks to have less Latency
 # Credits to RedHat
-echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency [BETA]" >> $LOG
+echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency " >> $LOG
 echo "15000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
 echo "10000000" > /proc/sys/kernel/sched_min_granularity_ns
 sleep 0.5
-echo "$(date "+%H:%M:%S") * Done [BETA]" >> $LOG
+echo "$(date "+%H:%M:%S") * Done " >> $LOG
 echo " " >> $LOG
 
 # Kprofiles Tweak
@@ -201,13 +201,13 @@ echo "$(date "+%H:%M:%S") * Tweaked read_ahead" >> $LOG
 echo " " >> $LOG
 
 # [BETA] UTW (UFS Turbo Write Tweak)
-echo "$(date "+%H:%M:%S") * [BETA] Checking if your kernel has UFS Turbo Write Support" >> $LOG
+echo "$(date "+%H:%M:%S") * Checking if your kernel has UFS Turbo Write Support" >> $LOG
 if [ -e /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable ]; then
-  echo "$(date "+%H:%M:%S") * [BETA] Your kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
+  echo "$(date "+%H:%M:%S") * Your kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
   echo 1 > /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
-  echo "$(date "+%H:%M:%S") * [BETA] Done!" >> $LOG
+  echo "$(date "+%H:%M:%S") * Done!" >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * [BETA] Your kernel doesn't have UFS Turbo Write Support." >> $LOG
+  echo "$(date "+%H:%M:%S") * Your kernel doesn't have UFS Turbo Write Support." >> $LOG
 fi
 echo " " >> $LOG
 
