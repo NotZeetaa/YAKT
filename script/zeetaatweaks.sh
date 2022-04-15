@@ -66,6 +66,19 @@ echo 15 > /proc/sys/kernel/perf_cpu_time_max_percent
 echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
+# Disable some scheduler logs/stats
+# Also iostats
+# Credits to tytydraco
+echo "$(date "+%H:%M:%S") * Disabling some scheduler logs/stats" >> $LOG
+if [ -e /proc/sys/kernel/sched_schedstats ]; then
+  echo 0 > /proc/sys/kernel/sched_schedstats
+fi
+echo off > /proc/sys/kernel/printk_devkmsg
+for queue in /sys/block/*/queue
+do
+    echo 0 > "$queue/iostats"
+done
+
 # Disable Timer migration
 echo "$(date "+%H:%M:%S") * Disabling Timer Migration" >> $LOG
 echo 0 > /proc/sys/kernel/timer_migration
