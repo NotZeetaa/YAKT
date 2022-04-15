@@ -80,6 +80,8 @@ for queue in /sys/block/*/queue
 do
     echo 0 > "$queue/iostats"
 done
+echo "$(date "+%H:%M:%S") * Done" >> $LOG
+echo " " >> $LOG
 
 # Disable Timer migration
 echo "$(date "+%H:%M:%S") * Disabling Timer Migration" >> $LOG
