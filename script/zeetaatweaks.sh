@@ -2,6 +2,8 @@
 # ZeetaaTweaks V1.6
 # By @NotZeetaa (Github)
 
+sleep 60
+
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
 LOG=/sdcard/ZeetaaTweaks.log
