@@ -7,6 +7,7 @@ sleep 60
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
 LOG=/sdcard/ZeetaaTweaks.log
+TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
 
