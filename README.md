@@ -5,8 +5,12 @@ A Magisk module to Tweak your Kernel parameters. This module applies at boot and
 ## Features:
 - Reduces Jitter and Latency
 - Optimizes Ram Management
+- Uses Google's schedutil rate-limits from Pixel 3
+- Tweaks kprofiles to balanced mode
+- Disables scheduler logs/stats
 - Reduces TCP Performance spikes
 - Enable ECN negotiation by default
+- Disables SPI CRC
 - Allows sched boosting on top-app tasks (Thx to tytydraco)
 - Cgroup Boost (Credits to darkhz for uclamp tweak)
 
