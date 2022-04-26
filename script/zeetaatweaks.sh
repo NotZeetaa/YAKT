@@ -12,6 +12,7 @@ LOG=/sdcard/ZeetaaTweaks.log
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
+MC=/sys/module/mmc_core/parameters/use_spi_crc
 
 TS=$(cat /proc/sys/net/ipv4/tcp_timestamps)
 EC=$(cat /proc/sys/net/ipv4/tcp_ecn)
@@ -234,5 +235,15 @@ echo 750 > /proc/sys/vm/extfrag_threshold
 sleep 0.5
 echo "$(date "+%H:%M:%S") * Done!" >> $LOG
 echo " " >> $LOG
+
+# Disable Spi CRC
+if [ -e $MC ]; then
+  echo "$(date "+%H:%M:%S") * Disabling Spi CRC" >> $LOG
+  echo 0 > /sys/module/mmc_core/parameters/use_spi_crc
+  echo "$(date "+%H:%M:%S") * Done!" >> $LOG
+  echo " " >> $LOG
+else
+  :
+fi
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG
