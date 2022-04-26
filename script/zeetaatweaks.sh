@@ -5,6 +5,8 @@
 sleep 60
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
+SC2=/sys/devices/system/cpu/cpu4/cpufreq/schedutil
+SC3=/sys/devices/system/cpu/cpu7/cpufreq/schedutil
 KP=/sys/module/kprofiles
 LOG=/sdcard/ZeetaaTweaks.log
 TP=/dev/stune/top-app/uclamp.max
@@ -31,6 +33,10 @@ sleep 0.5
 if [ -e $SC ]; then
   echo 500 > $SC/up_rate_limit_us
   echo 20000 > $SC/down_rate_limit_us
+  echo 500 > $SC2/up_rate_limit_us
+  echo 20000 > $SC2/down_rate_limit_us
+  echo 500 > $SC3/up_rate_limit_us
+  echo 20000 > $SC3/down_rate_limit_us
   echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
 else
   echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
