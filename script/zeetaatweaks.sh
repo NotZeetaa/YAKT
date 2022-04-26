@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# ZeetaaTweaks V1.6
+# ZeetaaTweaks V1.7
 # By @NotZeetaa (Github)
 
 sleep 60
@@ -18,8 +18,8 @@ TS=$(cat /proc/sys/net/ipv4/tcp_timestamps)
 EC=$(cat /proc/sys/net/ipv4/tcp_ecn)
 PS=$(cat /proc/version)
 
-echo "# ZeetaaTweaks V1.6" > $LOG
-echo "# Build Date: 03/03/2022" >> $LOG
+echo "# ZeetaaTweaks V1.7" > $LOG
+echo "# Build Date: 26/04/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
