@@ -12,6 +12,7 @@ CP=/dev/cpuset
 
 TS=$(cat /proc/sys/net/ipv4/tcp_timestamps)
 EC=$(cat /proc/sys/net/ipv4/tcp_ecn)
+PS=$(cat /proc/version)
 
 echo "# ZeetaaTweaks V1.6" > $LOG
 echo "# Build Date: 03/03/2022" >> $LOG
@@ -163,35 +164,39 @@ echo " " >> $LOG
 
 # Watermark Boost Tweak
 echo "$(date "+%H:%M:%S") * Checking your linux version to tweak watermark boost" >> $LOG
-if cat /proc/version | grep -w "4.19"
+if [[ "$PS" == *"4.19"* ]]
 then
   echo "$(date "+%H:%M:%S") * Found 4.19 kernel, disabling it because doesn't work..." >> $LOG
   echo 0 > /proc/sys/vm/watermark_boost_factor
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif cat /proc/version | grep -w "5.4"
+elif [[ "$PS" == *"5.4"* ]]
 then
   echo "$(date "+%H:%M:%S") * Found 5.4 kernel tweaking it..." >> $LOG
   echo 1500 > /proc/sys/vm/watermark_boost_factor
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif cat /proc/version | grep -w "5.10"
+elif [[ "$PS" == *"5.10"* ]]
 then
   echo "$(date "+%H:%M:%S") * Found 5.10 kernel tweaking it..." >> $LOG
   echo 1500 > /proc/sys/vm/watermark_boost_factor
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif cat /proc/version | grep -w "5.15"
+elif [[ "$PS" == *"5.15"* ]]
 then
   echo "$(date "+%H:%M:%S") * Found 5.15 kernel tweaking it..." >> $LOG
   echo 1500 > /proc/sys/vm/watermark_boost_factor
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif cat /proc/version | grep -w "5.16"
+elif [[ "$PS" == *"5.16"* ]]
 then
   echo "$(date "+%H:%M:%S") * Found 5.16 kernel tweaking it..." >> $LOG
   echo 1500 > /proc/sys/vm/watermark_boost_factor
-  echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif cat /proc/version | grep -w "5.17"
+  echo "$(date "+%H:%M:%S") * Done!" >> $LOG 
+elif [[ "$PS" == *"5.17"* ]]
 then
-  echo "$(date "+%H:%M:%S") Found 5.17 kernel tweaking it..." >> $LOG
+  echo "$(date "+%H:%M:%S") * Found 5.17 kernel tweaking it..." >> $LOG
   echo 1500 > /proc/sys/vm/watermark_boost_factor
+  echo "$(date "+%H:%M:%S") * Done!" >> $LOG
+else
+  echo "$(date "+%H:%M:%S") * Your linux kernel version doesn't support watermark boost" >> $LOG
+  echo "$(date "+%H:%M:%S") * Aborting it..." >> $LOG
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
 fi
 echo " " >> $LOG
