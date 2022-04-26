@@ -1,8 +1,6 @@
-- tweak: Increase vmstat interval to 20 seconds
-- tweak: Increase fragmentation index
-- tweak: Rewrite Tweaks to have less Latency
-- service: Wait system to boot to apply the tweak
-- tweak: Disable some scheduler logs/stats
-- tweak: Optimize net tweak
-- tweak: Clean up
-- tweak: Disable schedtune prefer idle
+- tweak: Optimized Watermark boost tweak
+- tweak: Disable SPI CRC
+- tweak: Apply Google's schedutil rate-limits from Pixel 3 to all cpus
+- tweak: Fixed cgroup boost tweak
+- tweak: Misc Changes
+- Revert "service: Wait system to boot to apply the tweak" (Fixes script doesn't run for some users)
