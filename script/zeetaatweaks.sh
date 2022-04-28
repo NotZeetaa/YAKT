@@ -12,8 +12,6 @@ DV=/dev/stune
 CP=/dev/cpuset
 MC=/sys/module/mmc_core/parameters/use_spi_crc
 
-TS=$(cat /proc/sys/net/ipv4/tcp_timestamps)
-EC=$(cat /proc/sys/net/ipv4/tcp_ecn)
 PS=$(cat /proc/version)
 
 echo "# ZeetaaTweaks V1.7" > $LOG
@@ -143,22 +141,12 @@ fi
 # ipv4 tweaks
 # Reduce Net Ipv4 Performance Spikes
 # By @Panchajanya1999
-if [[ "$TS" == *"0"* ]]
-then
-  :
-else
-  echo 0 > /proc/sys/net/ipv4/tcp_timestamps
-  chmod 444 /proc/sys/net/ipv4/tcp_timestamps
-fi
+echo 0 > /proc/sys/net/ipv4/tcp_timestamps
+chmod 444 /proc/sys/net/ipv4/tcp_timestamps
 
 # Enable ECN negotiation by default
-# By kdrg0n
-if [[ "$EC" == *"1"* ]]
-then
-  :
-else
-  echo 1 > /proc/sys/net/ipv4/tcp_ecn
-fi
+# By kdrag0n
+echo 1 > /proc/sys/net/ipv4/tcp_ecn
 
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
