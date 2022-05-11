@@ -51,13 +51,17 @@ echo " " >> $LOG
 
 # Kprofiles Tweak
 # Credits to cyberknight
+echo "$(date "+%H:%M:%S") * Checking if your kernel has Kprofiles support..." >> $LOG
 if [ -d $KP ]; then
   echo "$(date "+%H:%M:%S") * Your Kernel Supports Kprofiles" >> $LOG
+  echo "$(date "+%H:%M:%S") * Tweaking it..." >> $LOG
+  sleep 0.5
+  echo "$(date "+%H:%M:%S") * Done" >> $LOG
   echo 2 > $KP/parameters/mode
 else
-  echo "$(date "+%H:%M:%S") * Your Kernel doesn't support Kprofiles, not a big trouble, it's normal" >> $LOG
-  echo " " >> $LOG
+  echo "$(date "+%H:%M:%S") * Your Kernel doesn't support Kprofiles" >> $LOG
 fi
+echo " " >> $LOG
 
 # Less Ram Usage
 # The stat_interval one, reduces jitter (Credits to kdrag0n)
