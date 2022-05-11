@@ -31,7 +31,7 @@ sleep 0.5
 if [ -e $SC ]; then
 for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
 do
-echo 500 > "${cpu}"/up_rate_limit_us
+echo 1000 > "${cpu}"/up_rate_limit_us
 echo 20000 > "${cpu}"/down_rate_limit_us
 done
   echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
