@@ -11,6 +11,7 @@ TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
 MC=/sys/module/mmc_core/parameters/use_spi_crc
+WT=/proc/sys/vm/watermark_boost_factor
 
 PS=$(cat /proc/version)
 
@@ -156,39 +157,18 @@ echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
 # Watermark Boost Tweak
-echo "$(date "+%H:%M:%S") * Checking your linux version to tweak watermark boost" >> $LOG
+echo "$(date "+%H:%M:%S") * Checking if you have watermark boost support" >> $LOG
 if [[ "$PS" == *"4.19"* ]]
 then
-  echo "$(date "+%H:%M:%S") * Found 4.19 kernel, disabling it because doesn't work..." >> $LOG
+  echo "$(date "+%H:%M:%S") * Found 4.19 kernel, disabling watermark boost because doesn't work..." >> $LOG
   echo 0 > /proc/sys/vm/watermark_boost_factor
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif [[ "$PS" == *"5.4"* ]]
-then
-  echo "$(date "+%H:%M:%S") * Found 5.4 kernel tweaking it..." >> $LOG
-  echo 1500 > /proc/sys/vm/watermark_boost_factor
-  echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif [[ "$PS" == *"5.10"* ]]
-then
-  echo "$(date "+%H:%M:%S") * Found 5.10 kernel tweaking it..." >> $LOG
-  echo 1500 > /proc/sys/vm/watermark_boost_factor
-  echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif [[ "$PS" == *"5.15"* ]]
-then
-  echo "$(date "+%H:%M:%S") * Found 5.15 kernel tweaking it..." >> $LOG
-  echo 1500 > /proc/sys/vm/watermark_boost_factor
-  echo "$(date "+%H:%M:%S") * Done!" >> $LOG
-elif [[ "$PS" == *"5.16"* ]]
-then
-  echo "$(date "+%H:%M:%S") * Found 5.16 kernel tweaking it..." >> $LOG
-  echo 1500 > /proc/sys/vm/watermark_boost_factor
-  echo "$(date "+%H:%M:%S") * Done!" >> $LOG 
-elif [[ "$PS" == *"5.17"* ]]
-then
-  echo "$(date "+%H:%M:%S") * Found 5.17 kernel tweaking it..." >> $LOG
-  echo 1500 > /proc/sys/vm/watermark_boost_factor
+elif [ -e $WT ]; then
+  echo "$(date "+%H:%M:%S") * Found Watermark Boost support, tweaking it" >> $LOG
+  echo 1500 > $WT
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * Your linux kernel version doesn't support watermark boost" >> $LOG
+  echo "$(date "+%H:%M:%S") * Your kernel doesn't support watermark boost" >> $LOG
   echo "$(date "+%H:%M:%S") * Aborting it..." >> $LOG
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
 fi
