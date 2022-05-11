@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# ZeetaaTweaks V1.7
+# ZeetaaTweaks V1.8
 # By @NotZeetaa (Github)
 
 sleep 60
@@ -15,8 +15,8 @@ WT=/proc/sys/vm/watermark_boost_factor
 
 PS=$(cat /proc/version)
 
-echo "# ZeetaaTweaks V1.7" > $LOG
-echo "# Build Date: 26/04/2022" >> $LOG
+echo "# ZeetaaTweaks V1.8" > $LOG
+echo "# Build Date: 11/05/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
