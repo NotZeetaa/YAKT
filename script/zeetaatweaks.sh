@@ -14,6 +14,7 @@ MC=/sys/module/mmc_core/parameters/use_spi_crc
 WT=/proc/sys/vm/watermark_boost_factor
 
 PS=$(cat /proc/version)
+BT=$(getprop ro.boot.bootdevice)
 
 echo "# ZeetaaTweaks V1.8" > $LOG
 echo "# Build Date: 11/05/2022" >> $LOG
@@ -188,9 +189,9 @@ echo " " >> $LOG
 
 # UFSTW (UFS Turbo Write Tweak)
 echo "$(date "+%H:%M:%S") * Checking if your kernel has UFS Turbo Write Support" >> $LOG
-if [ -e /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable ]; then
+if [ -e /sys/devices/platform/soc/$BT/ufstw_lu0/tw_enable ]; then
   echo "$(date "+%H:%M:%S") * Your kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
-  echo 1 > /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
+  echo 1 > /sys/devices/platform/soc/$BT/ufstw_lu0/tw_enable
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
 else
   echo "$(date "+%H:%M:%S") * Your kernel doesn't have UFS Turbo Write Support." >> $LOG
