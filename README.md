@@ -1,4 +1,4 @@
-![IMG_20220511_083031_169](https://user-images.githubusercontent.com/67799176/167793671-7c894362-3fe4-4c68-88c3-5d14f3973f15.jpg)
+![IMG_20210105_222157_267](https://user-images.githubusercontent.com/67799176/103706233-6f91f780-4fa4-11eb-877c-5d47a1c27cdb.jpg)
 # Zeetaa-Tweaks-Rebase
 A Magisk module to Tweak your Kernel parameters. This module applies at boot and it's not an AI module.
 
