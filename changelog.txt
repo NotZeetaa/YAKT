@@ -1,6 +1,6 @@
-- tweak: Optimized Watermark boost tweak
-- tweak: Disable SPI CRC
-- tweak: Apply Google's schedutil rate-limits from Pixel 3 to all cpus
-- tweak: Fixed cgroup boost tweak
-- tweak: Misc Changes
-- Revert "service: Wait system to boot to apply the tweak" (Fixes script doesn't run for some users)
+- tweak: Improved code for schedutil
+- tweak: Removed if statement and apply directly for net tweaks(avoid too much if statements)
+- tweak: Optimized watermark boost (alot less if statements)
+- tweak: Disabled top-app schedtune boost (just increases jitter and drain)
+- tweak: Increased schedutil up_rate_limit_us (To Avoid increasing high frequencys too much)
+- tweak: Optimized UFSTW (UFS Turbo Write, grep Grep the bootdevice instead for a specific bootdevice)
