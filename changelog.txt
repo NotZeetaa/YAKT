@@ -3,4 +3,4 @@
 - tweak: Optimized watermark boost (alot less if statements)
 - tweak: Disabled top-app schedtune boost (just increases jitter and drain)
 - tweak: Increased schedutil up_rate_limit_us (To Avoid increasing high frequencys too much)
-- tweak: Optimized UFSTW (UFS Turbo Write, grep Grep the bootdevice instead for a specific bootdevice)
+- tweak: Optimized UFSTW (UFS Turbo Write, grep the bootdevice instead for a specific bootdevice)
