@@ -2,11 +2,6 @@
 # ZeetaaTweaks V1.8
 # By @NotZeetaa (Github)
 
-while [ $(getprop sys.boot_completed) != 1 ] && [ ! -d /sdcard ]
-do
-sleep 1
-done
-
 sleep 60
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
