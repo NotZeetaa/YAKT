@@ -29,15 +29,36 @@ echo " " >> $LOG
 # Credits to Kdrag0n
 echo "$(date "+%H:%M:%S") * Applying Google's schedutil rate-limits from Pixel 3" >> $LOG
 sleep 0.5
+
+SchedutilCheck=$(grep schedutil /sys/devices/system/cpu/cpufreq/policy0/scaling_available_governors)
+
+# find if in kernel source is present schedutil
+if [ "$SchedutilCheck" ]; then
+  echo "$(date "+%H:%M:%S") * Schedutil governor is present in this kernel"
+  # check if is select by default (or set it)
+  if [ $(grep schedutil /sys/devices/system/cpu/cpufreq/policy0/scaling_governor) ]; then
+    echo "$(date "+%H:%M:%S") * Schedutil governor is already select"
+  else
+    for cluster in /sys/devices/system/cpu/cpufreq/*/
+    do
+      echo "schedutil" > "${cluster}"/scaling_governor
+    done
+    echo "$(date "+%H:%M:%S") * Schedutil governor selected"
+  fi
+fi
+
+# Now, if schedutil governor is set correctly and is the standard linux version, set the tweaks
+# But only if this gevernor version allow for change value
 if [ -e $SC ]; then
-for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
-do
-echo 1000 > "${cpu}"/up_rate_limit_us
-echo 20000 > "${cpu}"/down_rate_limit_us
-done
+  for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
+  do
+    echo 1000 > "${cpu}"/up_rate_limit_us
+    echo 20000 > "${cpu}"/down_rate_limit_us
+  done
   echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
-else
-  echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
+# it could also be a modified version that doesn't use sprintf() functions
+#else
+#  echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
 fi
 echo " " >> $LOG
   
