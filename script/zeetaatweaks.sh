@@ -2,6 +2,11 @@
 # ZeetaaTweaks V1.8
 # By @NotZeetaa (Github)
 
+while [ $(getprop sys.boot_completed) != 1 ] && [ ! -d /sdcard ]
+do
+sleep 1
+done
+
 sleep 60
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
@@ -47,7 +52,7 @@ echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency " >> $LOG
 echo 15000000 > /proc/sys/kernel/sched_wakeup_granularity_ns
 echo 10000000 > /proc/sys/kernel/sched_min_granularity_ns
 sleep 0.5
-echo "$(date "+%H:%M:%S") * Done " >> $LOG
+echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
 # Kprofiles Tweak
@@ -213,7 +218,6 @@ if [ -e $MC ]; then
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
   echo " " >> $LOG
 else
-  :
 fi
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG
