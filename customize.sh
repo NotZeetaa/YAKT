@@ -1,6 +1,6 @@
 set -x
 SKIPUNZIP=1
-MODLOG=/sdcard/ZeetaaTweaks.log
+MODLOG=/sdcard/YAKT.log
 RM_RF() {
 rm -rf $MODLOG 2>/dev/null
 rm -rf $MODPATH/LICENSE 2>/dev/null
@@ -19,7 +19,7 @@ unzip -o "$ZIPFILE" module.prop -d $MODPATH >&2
 MOD_PRINT() {
 ui_print ""
 ui_print "*************************************"
-ui_print " Zeetaa Tweaks Module Rebase V1.8. "
+ui_print " YAKT - Yet Another Kernel Tweaker. "
 ui_print " Thx to lybdroid for his module template.      "
 ui_print "*************************************"
 ui_print ""

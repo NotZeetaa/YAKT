@@ -1,3 +1,3 @@
 #!/system/bin/sh
 MODDIR=${0%/*}
-$MODDIR/script/zeetaatweaks.sh > /dev/null
+$MODDIR/script/yakt.sh > /dev/null

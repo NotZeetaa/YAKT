@@ -1,12 +1,12 @@
 #!/system/bin/sh
-# ZeetaaTweaks V1.8
+# Yakt V1
 # By @NotZeetaa (Github)
 
 sleep 60
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
-LOG=/sdcard/ZeetaaTweaks.log
+LOG=/sdcard/YAKT.log
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
@@ -16,7 +16,7 @@ WT=/proc/sys/vm/watermark_boost_factor
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
 
-echo "# ZeetaaTweaks V1.8" > $LOG
+echo "# YAKT V1" > $LOG
 echo "# Build Date: 11/05/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
