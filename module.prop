@@ -1,6 +1,6 @@
-id=ZeetaaTweaks
-name=ZeetaaTweaks
-version=v2.1
+id=YAKT
+name=Yet Another Kernel Tweaker
+version=v1
 versionCode=1
 author=NotZeetaa
-description=This modules tweaks your kernel parameters (AI Version)
+description=This modules tweaks your kernel parameters.

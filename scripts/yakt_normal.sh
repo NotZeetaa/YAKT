@@ -1,21 +1,21 @@
 #!/system/bin/sh
-# ZeetaaTweaks V1.1
+# YAKT v1.1
 # By @NotZeetaa (Github)
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
-LOG=/sdcard/ZeetaaTweaks.log
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
+LOG=/sdcard/yakt.log
 
-echo "# ZeetaaTweaks V1.1" > $LOG
+echo "# Yet Another Kernel Tweaker" > $LOG
 echo "# Build Date: 05/03/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
-echo "###################################" >> $LOG
-echo "#      Current ZTS mode: Performance    #" >> $LOG
-echo "###################################" >> $LOG
+echo "###############################" >> $LOG
+echo "#      Current YAKT mode: Normal    #" >> $LOG
+echo "###############################" >> $LOG
 echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
 echo "$(date "+%H:%M:%S") * Kernel: $(uname -r)" >> $LOG
@@ -24,11 +24,12 @@ echo " " >> $LOG
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
-echo "$(date "+%H:%M:%S") * Applying Google's schedutil rate-limits from Pixel 3" >> $LOG
+# Modified by @NotZeetaa
+echo "$(date "+%H:%M:%S") * Applying Modified Google's schedutil rate-limits from Pixel 3" >> $LOG
 if [ -e $SC ]; then
-  echo 500 > $SC/up_rate_limit_us
-  echo 20000 > $SC/down_rate_limit_us
-  echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
+  echo 100 > $SC/up_rate_limit_us
+  echo 10000 > $SC/down_rate_limit_us
+  echo "$(date "+%H:%M:%S") * Applied Modified Google's schedutil rate-limits from Pixel 3" >> $LOG
 else
   echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
 fi
@@ -47,7 +48,7 @@ echo " " >> $LOG
 # Credits to cyberknight
 if [ -d $KP ]; then
   echo "$(date "+%H:%M:%S") * Your Kernel Supports Kprofiles" >> $LOG
-  echo 3 > $KP/parameters/mode
+  echo 1 > $KP/parameters/mode
 else
   echo "$(date "+%H:%M:%S") * Your Kernel doesn't support Kprofiles, not a big trouble, it's normal" >> $LOG
   echo " " >> $LOG
@@ -64,7 +65,7 @@ echo " " >> $LOG
 
 # Set 15 to perf_cpu_time_max_percent
 echo "$(date "+%H:%M:%S") * Applying tweak for perf_cpu_time_max_percent" >> $LOG
-echo 15 > /proc/sys/kernel/perf_cpu_time_max_percent
+echo 5 > /proc/sys/kernel/perf_cpu_time_max_percent
 echo "$(date "+%H:%M:%S") * Done" >> $LOG
 echo " " >> $LOG
 
@@ -107,8 +108,8 @@ else
   chmod 644 $DV/top-app/schedtune.boost
   echo 1 > $DV/top-app/schedtune.boost
   chmod 664 $DV/top-app/schedtune.boost
-  echo 0 > $DV/top-app/schedtune.prefer_idle
-  echo 1 > $DV/foreground/schedtune.boost
+  echo 1 > $DV/top-app/schedtune.prefer_idle
+  echo 0 > $DV/foreground/schedtune.boost
   echo 0 > $DV/background/schedtune.boost
   echo "$(date "+%H:%M:%S") * Done" >> $LOG
   echo " " >> $LOG
@@ -180,7 +181,7 @@ echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * [BETA] Checking if your kernel has UFS Turbo Write Support" >> $LOG
 if [ -e /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable ]; then
   echo "$(date "+%H:%M:%S") * [BETA] Your kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
-  echo 1 > /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
+  echo 0 > /sys/devices/platform/soc/1d84000.ufshc/ufstw_lu0/tw_enable
   echo "$(date "+%H:%M:%S") * [BETA] Done!" >> $LOG
 else
   echo "$(date "+%H:%M:%S") * [BETA] Your kernel doesn't have UFS Turbo Write Support." >> $LOG
