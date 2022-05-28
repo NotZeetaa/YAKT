@@ -10,7 +10,7 @@ LOG=/sdcard/YAKT.log
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
-MC=/sys/module/mmc_core/parameters/use_spi_crc
+MC=/sys/module/mmc_core
 WT=/proc/sys/vm/watermark_boost_factor
 
 PS=$(cat /proc/version)
@@ -207,7 +207,7 @@ echo "$(date "+%H:%M:%S") * Done!" >> $LOG
 echo " " >> $LOG
 
 # Disable Spi CRC
-if [ -e $MC ]; then
+if [ -d $MC ]; then
   echo "$(date "+%H:%M:%S") * Disabling Spi CRC" >> $LOG
   echo 0 > /sys/module/mmc_core/parameters/use_spi_crc
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
