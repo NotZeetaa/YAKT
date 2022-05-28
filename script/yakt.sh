@@ -82,7 +82,7 @@ echo "$DT * Done" >> $LOG
 echo " " >> $LOG
 
 # Disable some scheduler logs/stats
-# Also iostats
+# Also iostats & reduce latency
 # Credits to tytydraco
 echo "$DT * Disabling some scheduler logs/stats" >> $LOG
 if [ -e /proc/sys/kernel/sched_schedstats ]; then
@@ -92,6 +92,7 @@ echo off > /proc/sys/kernel/printk_devkmsg
 for queue in /sys/block/*/queue
 do
     echo 0 > "$queue/iostats"
+    echo 64 > "$queue/nr_requests"
 done
 echo "$DT * Done" >> $LOG
 echo " " >> $LOG
