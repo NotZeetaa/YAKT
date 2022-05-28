@@ -43,10 +43,11 @@ fi
 echo " " >> $LOG
   
 # (Rewrited) Tweaks to have less Latency
-# Credits to RedHat
+# Credits to RedHat & tytydraco
 echo "$DT * Tweaking to Reduce Latency " >> $LOG
 echo 15000000 > /proc/sys/kernel/sched_wakeup_granularity_ns
 echo 10000000 > /proc/sys/kernel/sched_min_granularity_ns
+echo 5000000 > /proc/sys/kernel/sched_migration_cost_ns
 sleep 0.5
 echo "$DT * Done " >> $LOG
 echo " " >> $LOG
