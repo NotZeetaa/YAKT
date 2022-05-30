@@ -1,6 +1,7 @@
-- tweak: Improved code for schedutil
-- tweak: Removed if statement and apply directly for net tweaks(avoid too much if statements)
-- tweak: Optimized watermark boost (alot less if statements)
-- tweak: Disabled top-app schedtune boost (just increases jitter and drain)
-- tweak: Increased schedutil up_rate_limit_us (To Avoid increasing high frequencys too much)
-- tweak: Optimized UFSTW (UFS Turbo Write, grep the bootdevice instead for a specific bootdevice)
+- tree: YAKT initial build
+- tweak Optimized tweak overall
+- tweak: Reduced vmstat update interval (This deserves to be updated more often in case some processes use it.)
+- tweak: Don't check for CRC
+- tweak: Tweak nr_requests (in order to reduce latency)
+- tweak: Tweak sched_migration_cost_ns (in order to reduce latency)
+- tree: Clean up and update it
