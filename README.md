@@ -24,3 +24,10 @@ Yet Another Kernel Tweaker. A Magisk module to Tweak your Kernel parameters. Thi
 - It should be like this (Not exactly ofc):
 
 ![Screenshot_20220303-203231_MT_Manager](https://user-images.githubusercontent.com/67799176/156649692-527751b0-05cb-4914-894e-c1686d58028c.png)
+
+## How to Contribute:
+- Fork the Repo
+- Edit tweaks according to your info/docs
+- Commit with proper name and info/docs about what you did
+- Test the change you did and check if eveything it's fine
+- Then make a pull request
