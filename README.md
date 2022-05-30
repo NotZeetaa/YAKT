@@ -1,4 +1,4 @@
-![IMG_20210105_222157_267](https://user-images.githubusercontent.com/67799176/103706233-6f91f780-4fa4-11eb-877c-5d47a1c27cdb.jpg)
+![IMG_20220530_225120](https://user-images.githubusercontent.com/67799176/171062389-24c1c096-f991-449f-b962-45f145b95355.jpg)
 # YAKT
 Yet Another Kernel Tweaker. A Magisk module to Tweak your Kernel parameters. This module applies at boot and it's not an AI module.
 
