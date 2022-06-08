@@ -114,24 +114,36 @@ if [ -e $TP ]; then
   echo "$(date "+%H:%M:%S") * You have uclamp scheduler" >> $LOG
   echo "$(date "+%H:%M:%S") * Applying tweaks for it" >> $LOG
   sleep 0.3
+  for ta in $CP/*/top-app
+  do
+      echo max > "$ta/uclamp.max"
+      echo 10 > "$ta/uclamp.min"
+      echo 1 > "$ta/uclamp.boosted"
+      echo 1 > "$ta/uclamp.latency_sensitive"
+  done
+  for fd in $CP/*/foreground
+  do
+      echo 50 > "$fd/uclamp.max"
+      echo 0 > "$fd/uclamp.min"
+      echo 0 > "$fd/uclamp.boosted"
+      echo 0 > "$fd/uclamp.latency_sensitive"
+  done
+  for bd in $CP/*/background
+  do
+      echo max > "$bd/uclamp.max"
+      echo 20 > "$bd/uclamp.min"
+      echo 0 > "$bd/uclamp.boosted"
+      echo 0 > "$bd/uclamp.latency_sensitive"
+  done
+  for sb in $CP/*/system-background
+  do
+      echo 40 > "$sb/uclamp.max"
+      echo 0 > "$sb/uclamp.min"
+      echo 0 > "$sb/uclamp.boosted"
+      echo 0 > "$sb/uclamp.latency_sensitive"
+  done
   sysctl -w kernel.sched_util_clamp_min_rt_default=96
   sysctl -w kernel.sched_util_clamp_min=128
-  echo max > $CP/top-app/uclamp.max
-  echo 10 > $CP/top-app/uclamp.min
-  echo 1 > $CP/top-app/uclamp.boosted
-  echo 1 > $CP/top-app/uclamp.latency_sensitive
-  echo 50 > $CP/foreground/uclamp.max
-  echo 0 > $CP/foreground/uclamp.min
-  echo 0 > $CP/foreground/uclamp.boosted
-  echo 0 > $CP/foreground/uclamp.latency_sensitive
-  echo max > $CP/background/uclamp.max
-  echo 20 > $CP/background/uclamp.min
-  echo 0 > $CP/background/uclamp.boosted
-  echo 0 > $CP/background/uclamp.latency_sensitive
-  echo 40 > $CP/system-background/uclamp.max
-  echo 0 > $CP/system-background/uclamp.min
-  echo 0 > $CP/system-background/uclamp.boosted
-  echo 0 > $CP/system-background/uclamp.latency_sensitive
   echo "$(date "+%H:%M:%S") * Done" >> $LOG
   echo " " >> $LOG
 else
