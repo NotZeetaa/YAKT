@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v1
+# Yakt v2
 # By @NotZeetaa (Github)
 
 sleep 60
@@ -19,8 +19,8 @@ S2=/sys/devices/system/cpu/cpufreq/schedutil
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
 
-echo "# YAKT V1" > $LOG
-echo "# Build Date: 11/05/2022" >> $LOG
+echo "# YAKT v2" > $LOG
+echo "# Build Date: 08/06/2022" >> $LOG
 echo "# By @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
