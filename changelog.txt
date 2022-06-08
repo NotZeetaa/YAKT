@@ -1,7 +1,6 @@
-- tree: YAKT initial build
-- tweak Optimized tweak overall
-- tweak: Reduced vmstat update interval (This deserves to be updated more often in case some processes use it.)
-- tweak: Don't check for CRC
-- tweak: Tweak nr_requests (in order to reduce latency)
-- tweak: Tweak sched_migration_cost_ns (in order to reduce latency)
-- tree: Clean up and update it
+- Revert "tweak: Optimize tweak overall" (Doesn't work so well)
+- yakt: Clean Up & Optimize
+- yakt: Rewrite uclamp boost
+- yakt: Tweaked Spi CRC
+- yakt: yakt: Tweak Schetudil tweak (Older devices has only 1 processor so lets tweak for them)
+- yakt: Tweaked Latency tweaks (To have less latency)
