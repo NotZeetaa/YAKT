@@ -14,6 +14,7 @@ MC=/sys/module/mmc_core
 WT=/proc/sys/vm/watermark_boost_factor
 KL=/proc/sys/kernel
 VM=/proc/sys/vm
+S2=/sys/devices/system/cpu/cpufreq/schedutil
 
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
@@ -31,17 +32,24 @@ echo " " >> $LOG
 # Credits to Kdrag0n
 echo "$(date "+%H:%M:%S") * Applying Google's schedutil rate-limits from Pixel 3" >> $LOG
 sleep 0.5
-if [ -e $SC ]; then
-for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
-do
-echo 1000 > "${cpu}"/up_rate_limit_us
-echo 20000 > "${cpu}"/down_rate_limit_us
-done
+if [ -d $S2 ]; then
+  echo 1000 > $S2/up_rate_limit_us
+  echo 20000 > "${cpu}"/down_rate_limit_us
   echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
+  echo " " >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
+  if [ -e $SC ]; then
+  for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
+  do
+    echo 1000 > "${cpu}"/up_rate_limit_us
+    echo 20000 > "${cpu}"/down_rate_limit_us
+  done
+    echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
+  else
+    echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
+  fi
+  echo " " >> $LOG
 fi
-echo " " >> $LOG
   
 # (Rewrited) Tweaks to have less Latency
 # Credits to RedHat & tytydraco
