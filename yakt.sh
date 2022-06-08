@@ -225,7 +225,7 @@ echo " " >> $LOG
 # Disable Spi CRC
 if [ -d $MC ]; then
   echo "$(date "+%H:%M:%S") * Disabling Spi CRC" >> $LOG
-  echo 0 > /sys/module/mmc_core/parameters/use_spi_crc
+  echo 0 > $MC/parameters/use_spi_crc
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
   echo " " >> $LOG
 else
