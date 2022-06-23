@@ -166,12 +166,6 @@ else
   echo " " >> $LOG
 fi
 
-# ipv4 tweaks
-# Reduce Net Ipv4 Performance Spikes
-# By @Panchajanya1999
-echo 0 > /proc/sys/net/ipv4/tcp_timestamps
-chmod 444 /proc/sys/net/ipv4/tcp_timestamps
-
 # Enable ECN negotiation by default
 # By kdrag0n
 echo 1 > /proc/sys/net/ipv4/tcp_ecn
