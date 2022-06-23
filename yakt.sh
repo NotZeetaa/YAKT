@@ -34,7 +34,7 @@ echo "$(date "+%H:%M:%S") * Applying Google's schedutil rate-limits from Pixel 3
 sleep 0.5
 if [ -d $S2 ]; then
   echo 1000 > $S2/up_rate_limit_us
-  echo 20000 > "${cpu}"/down_rate_limit_us
+  echo 20000 > $S2/down_rate_limit_us
   echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
   echo " " >> $LOG
 else
