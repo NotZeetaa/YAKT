@@ -37,19 +37,17 @@ if [ -d $S2 ]; then
   echo 20000 > $S2/down_rate_limit_us
   echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
   echo " " >> $LOG
-else
-  if [ -e $SC ]; then
+elif [ -e $SC ]; then
   for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
   do
     echo 1000 > "${cpu}"/up_rate_limit_us
     echo 20000 > "${cpu}"/down_rate_limit_us
   done
-    echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
-  else
-    echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
-  fi
-  echo " " >> $LOG
+  echo "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3" >> $LOG
+else
+  echo "$(date "+%H:%M:%S") * Abort You are not using schedutil governor" >> $LOG
 fi
+  echo " " >> $LOG
   
 # (Rewrited) Tweaks to have less Latency
 # Credits to RedHat & tytydraco
