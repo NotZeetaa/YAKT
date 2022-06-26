@@ -15,6 +15,7 @@ WT=/proc/sys/vm/watermark_boost_factor
 KL=/proc/sys/kernel
 VM=/proc/sys/vm
 S2=/sys/devices/system/cpu/cpufreq/schedutil
+MG=/sys/kernel/mm/lru_gen
 
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
@@ -82,6 +83,22 @@ echo 50 > $VM/vfs_cache_pressure
 echo 10 > $VM/stat_interval
 echo "$(date "+%H:%M:%S") * Applied Ram Tweaks" >> $LOG
 echo " " >> $LOG
+
+# Mglru
+# Credits to Arter97
+echo "$(date "+%H:%M:%S") * Cheking if your kernel has mglru support..." >> $LOG
+if [ -d $MG ]; then
+  echo "$(date "+%H:%M:%S") * Found it." >> $LOG
+  echo "$(date "+%H:%M:%S") * Tweaking it..." >> $LOG
+  echo 5000 > $MG/min_ttl_ms
+  echo "$(date "+%H:%M:%S") * Done" >> $LOG
+else
+  echo "$(date "+%H:%M:%S") * Your kernel doesn't support mglru :(" >> $LOG
+  echo "$(date "+%H:%M:%S") * Aborting it..." >> $LOG
+  echo "$(date "+%H:%M:%S") * Done" >> $LOG
+fi
+echo " " >> $LOG
+  
 
 # Set kernel.perf_cpu_time_max_percent to 15
 echo "$(date "+%H:%M:%S") * Applying tweak for perf_cpu_time_max_percent" >> $LOG
