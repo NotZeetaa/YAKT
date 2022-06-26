@@ -245,8 +245,6 @@ if [ -d $MC ]; then
   echo 0 > $MC/parameters/use_spi_crc
   echo "$(date "+%H:%M:%S") * Done!" >> $LOG
   echo " " >> $LOG
-else
-  :
 fi
 
 echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG
