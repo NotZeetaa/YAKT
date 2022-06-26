@@ -53,9 +53,9 @@ fi
 # (Rewrited) Tweaks to have less Latency
 # Credits to RedHat & tytydraco
 echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency " >> $LOG
-echo 16000000 > $KL/sched_wakeup_granularity_ns
+echo 15000000 > $KL/sched_wakeup_granularity_ns
 echo 10000000 > $KL/sched_min_granularity_ns
-echo 4000000 > $KL/sched_migration_cost_ns
+echo 5000000 > $KL/sched_migration_cost_ns
 sleep 0.5
 echo "$(date "+%H:%M:%S") * Done " >> $LOG
 echo " " >> $LOG
