@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # Yakt v2
-# By @NotZeetaa (Github)
+# Author: @NotZeetaa (Github)
 
 sleep 60
 
@@ -22,7 +22,7 @@ BT=$(getprop ro.boot.bootdevice)
 
 echo "# YAKT v2" > $LOG
 echo "# Build Date: 08/06/2022" >> $LOG
-echo "# By @NotZeetaa (Github)" >> $LOG
+echo "# Author: @NotZeetaa (Github)" >> $LOG
 echo " " >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
 echo "$(date "+%H:%M:%S") * Kernel: $(uname -r)" >> $LOG
