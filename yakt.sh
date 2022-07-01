@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v2
+# Yakt v3
 # Author: @NotZeetaa (Github)
 
 sleep 60
@@ -20,8 +20,8 @@ MG=/sys/kernel/mm/lru_gen
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
 
-echo "# YAKT v2" > $LOG
-echo "# Build Date: 08/06/2022" >> $LOG
+echo "# YAKT v3" > $LOG
+echo "# Build Date: 01/07/2022" >> $LOG
 echo -e "# Author: @NotZeetaa (Github)\n" >> $LOG
 echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
 echo "$(date "+%H:%M:%S") * Kernel: $(uname -r)" >> $LOG
