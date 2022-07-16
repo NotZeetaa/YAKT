@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+TM=$(date +"%F-%S")
 clog=`cat changelog.txt`
 function push() {
 curl -F document=@$1 "https://api.telegram.org/bot${token}/sendDocument" \
@@ -9,5 +10,5 @@ curl -F document=@$1 "https://api.telegram.org/bot${token}/sendDocument" \
 }
 echo ""
 rm -rf *.zip
-zip -r9 "YAKT-v3.zip" . -x *build* -x *changelog* -x *.bak* -x *.git*
-push "YAKT-v3.zip"
+zip -r9 "YAKT-STAGING-${TM}.zip" . -x *build* -x *changelog* -x *.bak* -x *.git*
+push "YAKT-STAGING-${TM}.zip"

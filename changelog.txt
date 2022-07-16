@@ -1,10 +1,1 @@
-- yakt: Fixed a type and optimized schedutil tweak
-- yakt: Removed TCP Performance spikes tweak (Seems that causes slow internet connection)
-- yakt: multi-gen LRU: set min_ttl to 5000ms by default
-- yakt: Revert "Reduce nr_requests" (Let's not hurt performance for a bit of latency)
-- yakt: Update latency tweaks
-- yakt: Revert "Reduce vmstat update interval"
-- yakt: Disable Always allow sched boosting on top-app tasks (Let's be more batteru friendly)
-- yakt: Clean up and update it
-- yakt: Disable schedtune boost of foreground process
-- yakt: Enable schedtune boost of top-app process
+- staging
