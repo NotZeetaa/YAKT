@@ -32,13 +32,13 @@ echo -e "$(date "+%H:%M:%S") * Android Version: $(getprop ro.system.build.versio
 echo "$(date "+%H:%M:%S") * Applying Google's schedutil rate-limits from Pixel 3" >> $LOG
 sleep 0.5
 if [ -d $S2 ]; then
-  echo 1000 > $S2/up_rate_limit_us
+  echo 500 > $S2/up_rate_limit_us
   echo 20000 > $S2/down_rate_limit_us
   echo -e "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
 elif [ -e $SC ]; then
   for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
   do
-    echo 1000 > "${cpu}"/up_rate_limit_us
+    echo 500 > "${cpu}"/up_rate_limit_us
     echo 20000 > "${cpu}"/down_rate_limit_us
   done
   echo -e "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
