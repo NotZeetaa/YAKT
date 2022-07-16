@@ -170,10 +170,6 @@ else
   echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 fi
 
-# Enable ECN negotiation by default
-# By kdrag0n
-echo 1 > /proc/sys/net/ipv4/tcp_ecn
-
 # Watermark Boost Tweak
 echo "$(date "+%H:%M:%S") * Checking if you have watermark boost support" >> $LOG
 if [[ "$PS" == *"4.19"* ]]
