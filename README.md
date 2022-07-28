@@ -36,3 +36,6 @@ Yet Another Kernel Tweaker. A Magisk module to Tweak your Kernel parameters. Thi
 - Commit with proper name and info/docs about what you did
 - Test the change you did and check if eveything it's fine
 - Then make a pull request
+
+# Linux 
+[Installing on Linux](Linux.md)
