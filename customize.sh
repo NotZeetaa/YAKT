@@ -1,8 +1,9 @@
 SKIPUNZIP=1
 RM_RF() {
-rm -rf /sdcard/yakt.log 2>/dev/null
-rm -rf $MODPATH/LICENSE 2>/dev/null
-rm -rf $MODPATH/README.md 2>/dev/null
+rm /sdcard/Documents/yakt/yakt.log 2>/dev/null
+rm /sdcard/yakt.log 2>/dev/null
+rm $MODPATH/LICENSE 2>/dev/null
+rm $MODPATH/README.md 2>/dev/null
 }
 SET_PERMISSION() {
 ui_print "- Setting Permissions"
