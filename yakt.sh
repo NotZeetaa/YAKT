@@ -6,7 +6,17 @@ sleep 60
 
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 KP=/sys/module/kprofiles
-LOG=/sdcard/Documents/yakt.log
+if [ ! -d /sdcard/Documents ]; then
+  LOG=/sdcard/yakt.log
+else
+  if [ ! -d /sdcard/Documents/yakt ]; then
+    mkdir /sdcard/Documents/yakt
+    LOG=/sdcard/Documents/yakt/yakt.log
+  else
+    LOG=/sdcard/Documents/yakt/yakt.log
+  fi
+fi
+LOG=/sdcard/Documents/yakt/yakt.log
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
@@ -19,9 +29,6 @@ MG=/sys/kernel/mm/lru_gen
 
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
-if [ ! -d /sdcard/Documents ]; then
-  LOG=/sdcard/yakt.log 
-fi
 
 echo "# YAKT v3" > $LOG
 echo "# Build Date: 01/07/2022" >> $LOG
