@@ -199,7 +199,7 @@ then
   echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 elif [ -e $WT ]; then
   echo "$(date "+%H:%M:%S") * Found Watermark Boost support, tweaking it" >> $LOG
-  echo 1500 > $WT
+  echo 15000 > $WT
   echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 else
   echo "$(date "+%H:%M:%S") * Your kernel doesn't support watermark boost" >> $LOG
