@@ -83,7 +83,7 @@ fi
 # Credits to RedHat for dirty_ratio
 echo "$(date "+%H:%M:%S") * Applying Ram Tweaks" >> $LOG
 sleep 0.5
-echo 50 > $VM/vfs_cache_pressure
+echo 20 > $VM/vfs_cache_pressure
 echo 20 > $VM/stat_interval
 echo -e "$(date "+%H:%M:%S") * Applied Ram Tweaks\n" >> $LOG
 
