@@ -16,7 +16,6 @@ else
     LOG=/sdcard/Documents/yakt/yakt.log
   fi
 fi
-LOG=/sdcard/Documents/yakt/yakt.log
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
