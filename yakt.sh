@@ -122,9 +122,9 @@ do
 done
 echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 
-# Disable Timer migration
-echo "$(date "+%H:%M:%S") * Disabling Timer Migration" >> $LOG
-echo 0 > $KL/timer_migration
+# Enable Timer migration
+echo "$(date "+%H:%M:%S") * Enabling Timer Migration" >> $LOG
+echo 1 > $KL/timer_migration
 echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 
 # Cgroup Boost
