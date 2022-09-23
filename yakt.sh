@@ -114,6 +114,7 @@ echo "$(date "+%H:%M:%S") * Disabling some scheduler logs/stats" >> $LOG
 if [ -e $KL/sched_schedstats ]; then
   echo 0 > $KL/sched_schedstats
 fi
+echo "0	0 0 0" > $KL/printk
 echo off > $KL/printk_devkmsg
 for queue in /sys/block/*/queue
 do
