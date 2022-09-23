@@ -84,7 +84,7 @@ echo "$(date "+%H:%M:%S") * Applying Ram Tweaks" >> $LOG
 sleep 0.5
 echo 20 > $VM/vfs_cache_pressure
 echo 20 > $VM/stat_interval
-echo 100 > $VM/watermark_scale_factor
+echo 32 > $VM/watermark_scale_factor
 echo -e "$(date "+%H:%M:%S") * Applied Ram Tweaks\n" >> $LOG
 
 # Mglru
