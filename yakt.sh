@@ -54,7 +54,10 @@ elif [ -e $SC ]; then
 else
   echo -e "$(date "+%H:%M:%S") * Abort You are not using schedutil governor\n" >> $LOG
 fi
-  
+
+# Grouping tasks tweak
+echo 0 > /proc/sys/kernel/sched_autogroup_enabled
+
 # (Rewrited) Tweaks to have less Latency
 # Credits to RedHat & tytydraco
 echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency " >> $LOG
