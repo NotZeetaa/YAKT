@@ -42,7 +42,7 @@ echo "$(date "+%H:%M:%S") * Applying Google's schedutil rate-limits from Pixel 3
 sleep 0.5
 if [ -d $S2 ]; then
   echo 500 > $S2/up_rate_limit_us
-  echo 20000 > $S2/down_rate_limit_us
+  echo 15000 > $S2/down_rate_limit_us
   echo -e "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
 elif [ -e $SC ]; then
   for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
@@ -149,7 +149,7 @@ if [ -e $TP ]; then
   done
   for fd in $CP/*/foreground
   do
-      echo 50 > "$fd/uclamp.max"
+      echo 45 > "$fd/uclamp.max"
       echo 0 > "$fd/uclamp.min"
       echo 0 > "$fd/uclamp.boosted"
       echo 0 > "$fd/uclamp.latency_sensitive"
