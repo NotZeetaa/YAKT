@@ -56,7 +56,9 @@ else
 fi
 
 # Grouping tasks tweak
+echo "$(date "+%H:%M:%S") * Disabling Sched Auto Group..." >> $LOG
 echo 0 > /proc/sys/kernel/sched_autogroup_enabled
+echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 
 # (Rewrited) Tweaks to have less Latency
 # Credits to RedHat & tytydraco
@@ -103,7 +105,6 @@ else
   echo "$(date "+%H:%M:%S") * Aborting it..." >> $LOG
   echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 fi
-  
 
 # Set kernel.perf_cpu_time_max_percent to 20
 echo "$(date "+%H:%M:%S") * Applying tweak for perf_cpu_time_max_percent" >> $LOG
@@ -186,7 +187,9 @@ fi
 
 # Enable ECN negotiation by default
 # By kdrag0n
+echo "$(date "+%H:%M:%S") * Enabling ECN negotiation..." >> $LOG
 echo 1 > /proc/sys/net/ipv4/tcp_ecn
+echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
@@ -230,7 +233,9 @@ fi
 
 # Enable fast socket open for receiver and sender
 # Credits to @tytydraco
+echo "$(date "+%H:%M:%S") * Enabling Fast Socket Open..." >> $LOG
 echo 3 > /proc/sys/net/ipv4/tcp_fastopen
+echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 
 # Extfrag
 # Credits to @tytydraco
