@@ -34,6 +34,7 @@ echo "# Build Date: 05/11/2022" >> $LOG
 echo -e "# Author: @NotZeetaa (Github)\n" >> $LOG
 echo "[$(date "+%H:%M:%S")] Device: $(getprop ro.product.system.model)" >> $LOG
 echo "[$(date "+%H:%M:%S")] Kernel: $(uname -r)" >> $LOG
+echo "[$(date "+%H:%M:%S")] Rom build type: $(getprop ro.system.build.type)" >> $LOG
 echo -e "[$(date "+%H:%M:%S")] Android Version: $(getprop ro.system.build.version.release)\n" >> $LOG
 
 # Use Google's schedutil rate-limits from Pixel 3
