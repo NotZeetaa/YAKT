@@ -182,6 +182,7 @@ else
   echo 0 > $DV/top-app/schedtune.prefer_idle
   echo 1 > $DV/foreground/schedtune.boost
   echo 0 > $DV/background/schedtune.boost
+  echo 1 > $DV/background/schedtune.prefer_idle
   echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 fi
 
