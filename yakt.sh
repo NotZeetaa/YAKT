@@ -169,7 +169,7 @@ if [ -e $TP ]; then
       echo 0 > "$sb/uclamp.boosted"
       echo 0 > "$sb/uclamp.latency_sensitive"
   done
-  sysctl -w kernel.sched_util_clamp_min_rt_default=96
+  sysctl -w kernel.sched_util_clamp_min_rt_default=0
   sysctl -w kernel.sched_util_clamp_min=128
   echo -e "$(date "+%H:%M:%S") * Done,\n" >> $LOG
 else
