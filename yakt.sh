@@ -32,89 +32,89 @@ BT=$(getprop ro.boot.bootdevice)
 echo "# YAKT staging" > $LOG
 echo "# Build Date: 05/11/2022" >> $LOG
 echo -e "# Author: @NotZeetaa (Github)\n" >> $LOG
-echo "$(date "+%H:%M:%S") * Device: $(getprop ro.product.system.model)" >> $LOG
-echo "$(date "+%H:%M:%S") * Kernel: $(uname -r)" >> $LOG
-echo -e "$(date "+%H:%M:%S") * Android Version: $(getprop ro.system.build.version.release)\n" >> $LOG
+echo "[$(date "+%H:%M:%S")] Device: $(getprop ro.product.system.model)" >> $LOG
+echo "[$(date "+%H:%M:%S")] Kernel: $(uname -r)" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Android Version: $(getprop ro.system.build.version.release)\n" >> $LOG
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
-echo "$(date "+%H:%M:%S") * Applying Google's schedutil rate-limits from Pixel 3" >> $LOG
+echo "[$(date "+%H:%M:%S")] Applying Google's schedutil rate-limits from Pixel 3" >> $LOG
 sleep 0.5
 if [ -d $S2 ]; then
   echo 500 > $S2/up_rate_limit_us
   echo 20000 > $S2/down_rate_limit_us
-  echo -e "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
 elif [ -e $SC ]; then
   for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
   do
     echo 500 > "${cpu}"/up_rate_limit_us
     echo 20000 > "${cpu}"/down_rate_limit_us
   done
-  echo -e "$(date "+%H:%M:%S") * Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
 else
-  echo -e "$(date "+%H:%M:%S") * Abort You are not using schedutil governor\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Abort You are not using schedutil governor\n" >> $LOG
 fi
 
 # Grouping tasks tweak
-echo "$(date "+%H:%M:%S") * Disabling Sched Auto Group..." >> $LOG
+echo "[$(date "+%H:%M:%S")] Disabling Sched Auto Group..." >> $LOG
 echo 0 > /proc/sys/kernel/sched_autogroup_enabled
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # (Rewrited) Tweaks to have less Latency
 # Credits to RedHat & tytydraco
-echo "$(date "+%H:%M:%S") * Tweaking to Reduce Latency " >> $LOG
+echo "[$(date "+%H:%M:%S")] Tweaking to Reduce Latency " >> $LOG
 echo 15000000 > $KL/sched_wakeup_granularity_ns
 echo 10000000 > $KL/sched_min_granularity_ns
 echo 5000000 > $KL/sched_migration_cost_ns
 sleep 0.5
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Kprofiles Tweak
 # Credits to cyberknight
-echo "$(date "+%H:%M:%S") * Checking if your kernel has Kprofiles support..." >> $LOG
+echo "[$(date "+%H:%M:%S")] Checking if your kernel has Kprofiles support..." >> $LOG
 if [ -d $KP ]; then
-  echo "$(date "+%H:%M:%S") * Your Kernel Supports Kprofiles" >> $LOG
-  echo "$(date "+%H:%M:%S") * Tweaking it..." >> $LOG
+  echo "[$(date "+%H:%M:%S")] Your Kernel Supports Kprofiles" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Tweaking it..." >> $LOG
   sleep 0.5
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
   echo 2 > $KP/parameters/mode
 else
-  echo -e "$(date "+%H:%M:%S") * Your Kernel doesn't support Kprofiles\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Your Kernel doesn't support Kprofiles\n" >> $LOG
 fi
 
 # Less Ram Usage
 # The stat_interval one, reduces jitter (Credits to kdrag0n)
 # Credits to RedHat for dirty_ratio
-echo "$(date "+%H:%M:%S") * Applying Ram Tweaks" >> $LOG
+echo "[$(date "+%H:%M:%S")] Applying Ram Tweaks" >> $LOG
 sleep 0.5
 echo 20 > $VM/vfs_cache_pressure
 echo 20 > $VM/stat_interval
 echo 32 > $VM/watermark_scale_factor
-echo -e "$(date "+%H:%M:%S") * Applied Ram Tweaks\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Applied Ram Tweaks\n" >> $LOG
 
 # Mglru
 # Credits to Arter97
-echo "$(date "+%H:%M:%S") * Cheking if your kernel has mglru support..." >> $LOG
+echo "[$(date "+%H:%M:%S")] Cheking if your kernel has mglru support..." >> $LOG
 if [ -d $MG ]; then
-  echo "$(date "+%H:%M:%S") * Found it." >> $LOG
-  echo "$(date "+%H:%M:%S") * Tweaking it..." >> $LOG
+  echo "[$(date "+%H:%M:%S")] Found it." >> $LOG
+  echo "[$(date "+%H:%M:%S")] Tweaking it..." >> $LOG
   echo 5000 > $MG/min_ttl_ms
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * Your kernel doesn't support mglru :(" >> $LOG
-  echo "$(date "+%H:%M:%S") * Aborting it..." >> $LOG
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Your kernel doesn't support mglru :(" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Aborting it..." >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
 # Set kernel.perf_cpu_time_max_percent to 20
-echo "$(date "+%H:%M:%S") * Applying tweak for perf_cpu_time_max_percent" >> $LOG
+echo "[$(date "+%H:%M:%S")] Applying tweak for perf_cpu_time_max_percent" >> $LOG
 echo 20 > $KL/perf_cpu_time_max_percent
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Disable some scheduler logs/stats
 # Also iostats & reduce latency
 # Credits to tytydraco
-echo "$(date "+%H:%M:%S") * Disabling some scheduler logs/stats" >> $LOG
+echo "[$(date "+%H:%M:%S")] Disabling some scheduler logs/stats" >> $LOG
 if [ -e $KL/sched_schedstats ]; then
   echo 0 > $KL/sched_schedstats
 fi
@@ -125,21 +125,21 @@ do
     echo 0 > "$queue/iostats"
     echo 64 > "$queue/nr_requests"
 done
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Enable Timer migration
-echo "$(date "+%H:%M:%S") * Enabling Timer Migration" >> $LOG
+echo "[$(date "+%H:%M:%S")] Enabling Timer Migration" >> $LOG
 echo 1 > $KL/timer_migration
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Cgroup Boost
-echo "$(date "+%H:%M:%S") * Checking which scheduler your kernel has" >> $LOG
+echo "[$(date "+%H:%M:%S")] Checking which scheduler your kernel has" >> $LOG
 sleep 0.5
 if [ -e $TP ]; then
   # Uclamp Tweaks
   # All credits to @darkhz
-  echo "$(date "+%H:%M:%S") * You have uclamp scheduler" >> $LOG
-  echo "$(date "+%H:%M:%S") * Applying tweaks for it..." >> $LOG
+  echo "[$(date "+%H:%M:%S")] You have uclamp scheduler" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Applying tweaks for it..." >> $LOG
   sleep 0.3
   for ta in $CP/*/top-app
   do
@@ -171,10 +171,10 @@ if [ -e $TP ]; then
   done
   sysctl -w kernel.sched_util_clamp_min_rt_default=0
   sysctl -w kernel.sched_util_clamp_min=128
-  echo -e "$(date "+%H:%M:%S") * Done,\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done,\n" >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * You have normal cgroup scheduler" >> $LOG
-  echo "$(date "+%H:%M:%S") * Applying tweaks for it..." >> $LOG
+  echo "[$(date "+%H:%M:%S")] You have normal cgroup scheduler" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Applying tweaks for it..." >> $LOG
   sleep 0.3
   chmod 644 $DV/top-app/schedtune.boost
   echo 1 > $DV/top-app/schedtune.boost
@@ -183,72 +183,72 @@ else
   echo 1 > $DV/foreground/schedtune.boost
   echo 0 > $DV/background/schedtune.boost
   echo 1 > $DV/background/schedtune.prefer_idle
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
 # Enable ECN negotiation by default
 # By kdrag0n
-echo "$(date "+%H:%M:%S") * Enabling ECN negotiation..." >> $LOG
+echo "[$(date "+%H:%M:%S")] Enabling ECN negotiation..." >> $LOG
 echo 1 > /proc/sys/net/ipv4/tcp_ecn
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
-echo "$(date "+%H:%M:%S") * Always allow sched boosting on top-app tasks" >> $LOG
+echo "[$(date "+%H:%M:%S")] Always allow sched boosting on top-app tasks" >> $LOG
 echo 20 > $KL/sched_min_task_util_for_colocation
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Watermark Boost Tweak
-echo "$(date "+%H:%M:%S") * Checking if you have watermark boost support" >> $LOG
+echo "[$(date "+%H:%M:%S")] Checking if you have watermark boost support" >> $LOG
 if [[ "$PS" == *"4.19"* ]] && [ -e $WT ]; then
-  echo "$(date "+%H:%M:%S") * Found 4.19 kernel, disabling watermark boost because doesn't work..." >> $LOG
+  echo "[$(date "+%H:%M:%S")] Found 4.19 kernel, disabling watermark boost because doesn't work..." >> $LOG
   echo 0 > $VM/watermark_boost_factor
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 elif [ -e $WT ]; then
-  echo "$(date "+%H:%M:%S") * Found Watermark Boost support, tweaking it" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Found Watermark Boost support, tweaking it" >> $LOG
   echo 15000 > $WT
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 else
-  echo "$(date "+%H:%M:%S") * Your kernel doesn't support watermark boost" >> $LOG
-  echo "$(date "+%H:%M:%S") * Aborting it..." >> $LOG
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Your kernel doesn't support watermark boost" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Aborting it..." >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
-echo "$(date "+%H:%M:%S") * Tweaking read_ahead overall..." >> $LOG
+echo "[$(date "+%H:%M:%S")] Tweaking read_ahead overall..." >> $LOG
 for queue2 in /sys/block/*/queue/read_ahead_kb
 do
 echo 128 > $queue2
 done
-echo -e "$(date "+%H:%M:%S") * Tweaked read_ahead.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Tweaked read_ahead.\n" >> $LOG
 
 # UFSTW (UFS Turbo Write Tweak)
-echo "$(date "+%H:%M:%S") * Checking if your kernel has UFS Turbo Write Support" >> $LOG
+echo "[$(date "+%H:%M:%S")] Checking if your kernel has UFS Turbo Write Support" >> $LOG
 if [ -e /sys/devices/platform/soc/$BT/ufstw_lu0/tw_enable ]; then
-  echo "$(date "+%H:%M:%S") * Your kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
+  echo "[$(date "+%H:%M:%S")] Your kernel has UFS Turbo Write Support. Tweaking it..." >> $LOG
   echo 1 > /sys/devices/platform/soc/$BT/ufstw_lu0/tw_enable
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 else
-  echo -e "$(date "+%H:%M:%S") * Your kernel doesn't have UFS Turbo Write Support.\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Your kernel doesn't have UFS Turbo Write Support.\n" >> $LOG
 fi
 
 # Enable fast socket open for receiver and sender
 # Credits to @tytydraco
-echo "$(date "+%H:%M:%S") * Enabling Fast Socket Open..." >> $LOG
+echo "[$(date "+%H:%M:%S")] Enabling Fast Socket Open..." >> $LOG
 echo 3 > /proc/sys/net/ipv4/tcp_fastopen
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Extfrag
 # Credits to @tytydraco
-echo "$(date "+%H:%M:%S") * Increasing fragmentation index..." >> $LOG
+echo "[$(date "+%H:%M:%S")] Increasing fragmentation index..." >> $LOG
 echo 750 > $VM/extfrag_threshold
 sleep 0.5
-echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Disable Spi CRC
 if [ -d $MC ]; then
-  echo "$(date "+%H:%M:%S") * Disabling Spi CRC" >> $LOG
+  echo "[$(date "+%H:%M:%S")] Disabling Spi CRC" >> $LOG
   echo 0 > $MC/parameters/use_spi_crc
-  echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
+  echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
-echo "$(date "+%H:%M:%S") * The Tweak is done enjoy :)" >> $LOG
+echo "[$(date "+%H:%M:%S")] The Tweak is done enjoy :)" >> $LOG
