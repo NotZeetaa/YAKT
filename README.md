@@ -28,7 +28,7 @@
 - Check yakt.log file in documents folder
 - It should be like this (Not exactly ofc):
 
-![Screenshot_20220930-105711](https://user-images.githubusercontent.com/67799176/193245624-f9938b41-dda5-4e7b-935a-87c77603221f.png)
+![Screenshot_20221105-133527_MT_Manager](https://user-images.githubusercontent.com/67799176/200122575-dc72aedb-3618-4172-8b81-27cbdc721247.png)
 
 ## How to Contribute:
 - Fork the Repo
