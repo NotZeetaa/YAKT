@@ -199,8 +199,7 @@ echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
 
 # Watermark Boost Tweak
 echo "$(date "+%H:%M:%S") * Checking if you have watermark boost support" >> $LOG
-if [[ "$PS" == *"4.19"* ]]
-then
+if [[ "$PS" == *"4.19"* ]] && [ -e $WT ]; then
   echo "$(date "+%H:%M:%S") * Found 4.19 kernel, disabling watermark boost because doesn't work..." >> $LOG
   echo 0 > $VM/watermark_boost_factor
   echo -e "$(date "+%H:%M:%S") * Done.\n" >> $LOG
