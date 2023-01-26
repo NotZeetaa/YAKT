@@ -19,12 +19,15 @@ fi
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
+ZW=/sys/module/zswap
 MC=/sys/module/mmc_core
 WT=/proc/sys/vm/watermark_boost_factor
 KL=/proc/sys/kernel
 VM=/proc/sys/vm
 S2=/sys/devices/system/cpu/cpufreq/schedutil
 MG=/sys/kernel/mm/lru_gen
+
+RM=$(grep MemTotal /proc/meminfo | awk '{print $2}')
 
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
@@ -252,5 +255,25 @@ if [ -d $MC ]; then
   echo 0 > $MC/parameters/use_spi_crc
   echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
+
+# Zswap
+echo "[$(date "+%H:%M:%S")] zswap: Checking if your kernel supports zswap.." >> $LOG
+if [ -d $ZW ]; then
+    echo "[$(date "+%H:%M:%S")] zswap: Your kernel supports zswap, tweaking it.." >> $LOG
+    echo lz4 > $ZW/parameters/compressor
+    echo "[$(date "+%H:%M:%S")] zswap: Setted your zswap compressor to lz4 (Fastest compressor)." >> $LOG
+    if [ "$RM" -le "5741280" ]; then
+        echo zsmalloc > $ZW/parameters/zpool
+        echo -e "[$(date "+%H:%M:%S")] zswap: Setted your zpool compressor to zsmalloc\nas per your device is equal or under then 6Gb of ram." >> $LOG
+    else
+        echo z3fold > $ZW/parameters/zpool
+        echo -e "[$(date "+%H:%M:%S")] zswap: Setted your zpool compressor to z3fold\nas per your device is higher then 6Gb of ram." >> $LOG
+    fi
+    echo -e "[$(date "+%H:%M:%S")] zswap: Tweaked!\n" >> $LOG
+else
+    echo -e "[$(date "+%H:%M:%S")] zswap: Your kernel doesn't support zswap, aborting it...\n" >> $LOG
+fi
+    
+    
 
 echo "[$(date "+%H:%M:%S")] The Tweak is done enjoy :)" >> $LOG
