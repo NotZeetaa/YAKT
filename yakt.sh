@@ -33,6 +33,7 @@ RM=$(grep MemTotal /proc/meminfo | awk '{print $2}')
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
 BL=/dev/blkio
+US=/dev/sys/fs/by-name/userdata
 
 # Info
 echo "# YAKT v5" > $LOG
@@ -288,5 +289,13 @@ if [ -d $BL ]; then
     echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
+# Userdata tweak
+# Credits to xNombre
+if [ -d $US ]; then
+    echo "[$(date "+%H:%M:%S")] Tweaking userdata..." >> $LOG
+    echo 8 > $US/data_io_flag
+    echo 8 > $US/node_io_flag
+    echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
+fi
 
 echo "[$(date "+%H:%M:%S")] The Tweak is done enjoy :)" >> $LOG
