@@ -32,6 +32,7 @@ MG=/sys/kernel/mm/lru_gen
 RM=$(grep MemTotal /proc/meminfo | awk '{print $2}')
 PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
+BL=/dev/blkio
 
 # Info
 echo "# YAKT v5" > $LOG
@@ -275,5 +276,17 @@ if [ -d $ZW ]; then
 else
     echo -e "[$(date "+%H:%M:%S")] zswap: Your kernel doesn't support zswap, aborting it...\n" >> $LOG
 fi
+
+# Blkio tweak
+# Credits to xNombre
+if [ -d $BL ]; then
+    echo "[$(date "+%H:%M:%S")] Tweaking blkio..." >> $LOG
+    echo 1000 > $BL/blkio.weight
+    echo 200 > $BL/background/blkio.weight
+    echo 2000 > $BL/blkio.group_idle
+    echo 0 > $BL/background/blkio.group_idle
+    echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
+fi
+
 
 echo "[$(date "+%H:%M:%S")] The Tweak is done enjoy :)" >> $LOG
