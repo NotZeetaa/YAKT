@@ -226,7 +226,7 @@ fi
 echo "[$(date "+%H:%M:%S")] Tweaking read_ahead overall..." >> $LOG
 for queue2 in /sys/block/*/queue/read_ahead_kb
 do
-echo 128 > $queue2
+echo 128 > $queue
 done
 echo -e "[$(date "+%H:%M:%S")] Tweaked read_ahead.\n" >> $LOG
 
