@@ -1,9 +1,6 @@
-- Added more logging.
-- Improved watermark boost check (Some 4.19 kernels doesn't support watermark boost).
-- Reverted Disable schedtune boost of foreground process.
-- Enabled schedtune prefer idle for background process.
-- Set uclamp_util_min_rt_default to 0 (This fixes a problem with stuck freqs on
-little core).
-- Improved log output.
-- Added rom build type.
-- Added product brand.
+- Added zswap tweak.
+- Added blkio tweak from sunfish.
+- Added userdata tweak from oriole.
+- Reduced sched_wakeup_granularity_ns tweak (In order to reduce latency).
+- Increased nr_requests to 128.
+- Clean up & Improve.
