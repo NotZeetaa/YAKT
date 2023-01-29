@@ -204,7 +204,7 @@ echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
 echo "[$(date "+%H:%M:%S")] Always allow sched boosting on top-app tasks" >> $LOG
-echo 20 > $KL/sched_min_task_util_for_colocation
+echo 0 > $KL/sched_min_task_util_for_colocation
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Watermark Boost Tweak
