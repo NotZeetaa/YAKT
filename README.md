@@ -16,6 +16,26 @@
 - Cgroup Boost (Credits to darkhz for uclamp tweak)
 - It's Open Source!
 ```
+## Benchmark
+
+### - `Hackbench` with -pTl 4000 (lower is better)
+
+- Stock: `Time: 6.632`
+- yakt: `Time: 2.205`
+
+### - `Callbench` (lower is better)
+
+- Stock:
+`syscall: 138 ns
+libc: 43 ns
+mmap: 11220 ns
+read: 5290 ns`
+
+- yakt:
+`syscall: 138 ns
+libc: 43 ns
+mmap: 11212 ns
+read: 4598 ns`
 
 ## Notes:
 - This is not a perfomance/gaming module
