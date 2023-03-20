@@ -71,8 +71,6 @@ echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 # Tweak scheduler to have less Latency
 # Credits to RedHat & tytydraco
 echo "[$(date "+%H:%M:%S")] Tweaking to Reduce Latency " >> $LOG
-echo 12000000 > $KL/sched_wakeup_granularity_ns
-echo 10000000 > $KL/sched_min_granularity_ns
 echo 5000000 > $KL/sched_migration_cost_ns
 sleep 0.5
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
