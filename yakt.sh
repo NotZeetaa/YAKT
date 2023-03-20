@@ -18,7 +18,6 @@ fi
 
 # Variables
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
-KP=/sys/module/kprofiles
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
@@ -73,19 +72,6 @@ echo "[$(date "+%H:%M:%S")] Tweaking to Reduce Latency " >> $LOG
 echo 5000000 > $KL/sched_migration_cost_ns
 sleep 0.5
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
-
-# Kprofiles Tweak
-# Credits to cyberknight
-echo "[$(date "+%H:%M:%S")] Checking if your kernel has Kprofiles support..." >> $LOG
-if [ -d $KP ]; then
-    echo "[$(date "+%H:%M:%S")] Your Kernel Supports Kprofiles" >> $LOG
-    echo "[$(date "+%H:%M:%S")] Tweaking it..." >> $LOG
-    sleep 0.5
-    echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
-    echo 2 > $KP/parameters/mode
-else
-    echo -e "[$(date "+%H:%M:%S")] Your Kernel doesn't support Kprofiles\n" >> $LOG
-fi
 
 # Ram Tweak
 # The stat_interval one reduces jitter (Credits to kdrag0n)
