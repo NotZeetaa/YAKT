@@ -62,8 +62,8 @@ else
 fi
 
 # Grouping tasks tweak
-echo "[$(date "+%H:%M:%S")] Disabling Sched Auto Group..." >> $LOG
-echo 0 > /proc/sys/kernel/sched_autogroup_enabled
+echo "[$(date "+%H:%M:%S")] Enabling Sched Auto Group..." >> $LOG
+echo 1 > /proc/sys/kernel/sched_autogroup_enabled
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Tweak scheduler to have less Latency
