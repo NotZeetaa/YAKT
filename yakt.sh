@@ -33,8 +33,8 @@ BT=$(getprop ro.boot.bootdevice)
 BL=/dev/blkio
 
 # Info
-echo "# YAKT v6" > $LOG
-echo "# Build Date: 29/01/2023" >> $LOG
+echo "# YAKT v7" > $LOG
+echo "# Build Date: 20/03/2023" >> $LOG
 echo -e "# Author: @NotZeetaa (Github)\n" >> $LOG
 echo "[$(date "+%H:%M:%S")] Device: $(getprop ro.product.system.model)" >> $LOG
 echo "[$(date "+%H:%M:%S")] Brand: $(getprop ro.product.system.brand)" >> $LOG

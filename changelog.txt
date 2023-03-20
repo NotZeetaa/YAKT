@@ -1,6 +1,7 @@
-- Added zswap tweak.
-- Added blkio tweak from sunfish.
-- Added userdata tweak from oriole.
-- Reduced sched_wakeup_granularity_ns tweak (In order to reduce latency).
-- Increased nr_requests to 128.
-- Clean up & Improve.
+- Reverted userdata tweak from oriole (This makes storage speeds lower).
+- Removed some scheduler tweaks (This might fix callbench scores).
+- Removed normal cgroup tweaker.
+- Force zpool compressor to zsmalloc.
+- Removed kprofiles tweak (Doesn't make any sense tweaking it).
+- Enable sched auto group (In order to reduce latency).
+- Tweaked sched_latency_ns.
