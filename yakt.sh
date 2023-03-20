@@ -70,6 +70,7 @@ echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 # Credits to RedHat & tytydraco
 echo "[$(date "+%H:%M:%S")] Tweaking to Reduce Latency " >> $LOG
 echo 5000000 > $KL/sched_migration_cost_ns
+echo 6000000 > $KL/sched_latency_ns
 sleep 0.5
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
