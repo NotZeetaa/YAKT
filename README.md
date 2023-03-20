@@ -7,16 +7,15 @@
 - Reduces Jitter and Latency
 - Optimizes Ram Management
 - Uses Google's schedutil rate-limits from Pixel 3
-- Tweaks kprofiles to balanced mode
 - Disables scheduler logs/stats
+- Disabled printk logs
 - Enable ECN negotiation by default
 - Disables SPI CRC
-- Tweaks mglru a bit
+- Tweaks mglru
 - Allows sched boosting on top-app tasks (Thx to tytydraco)
-- Cgroup Boost (Credits to darkhz for uclamp tweak)
-- It's Open Source!
+- Tweaks uclamp scheduler (Credits to darkhz for uclamp tweak)
 ```
-## Benchmark
+## Benchmark - As per v6
 
 ### - `Hackbench` with -pTl 4000 (lower is better)
 
