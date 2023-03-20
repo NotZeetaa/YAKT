@@ -139,7 +139,6 @@ echo 1 > $KL/timer_migration
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Cgroup Tweak
-echo "[$(date "+%H:%M:%S")] Checking which scheduler your kernel has" >> $LOG
 sleep 0.5
 if [ -e $TP ]; then
     # Uclamp Tweak
@@ -178,18 +177,6 @@ if [ -e $TP ]; then
     sysctl -w kernel.sched_util_clamp_min_rt_default=0
     sysctl -w kernel.sched_util_clamp_min=128
     echo -e "[$(date "+%H:%M:%S")] Done,\n" >> $LOG
-else
-    echo "[$(date "+%H:%M:%S")] You have normal cgroup scheduler" >> $LOG
-    echo "[$(date "+%H:%M:%S")] Applying tweaks for it..." >> $LOG
-    sleep 0.3
-    chmod 644 $DV/top-app/schedtune.boost
-    echo 1 > $DV/top-app/schedtune.boost
-    chmod 664 $DV/top-app/schedtune.boost
-    echo 0 > $DV/top-app/schedtune.prefer_idle
-    echo 1 > $DV/foreground/schedtune.boost
-    echo 0 > $DV/background/schedtune.boost
-    echo 1 > $DV/background/schedtune.prefer_idle
-    echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
 # Enable ECN negotiation by default
