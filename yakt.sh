@@ -99,9 +99,9 @@ else
     echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
-# Set kernel.perf_cpu_time_max_percent to 20
+# Set kernel.perf_cpu_time_max_percent to 15
 echo "[$(date "+%H:%M:%S")] Applying tweak for perf_cpu_time_max_percent" >> $LOG
-echo 20 > $KL/perf_cpu_time_max_percent
+echo 15 > $KL/perf_cpu_time_max_percent
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Disable some scheduler logs/stats
