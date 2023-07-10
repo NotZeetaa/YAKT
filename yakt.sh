@@ -82,6 +82,7 @@ sleep 0.5
 echo 20 > $VM/vfs_cache_pressure
 echo 20 > $VM/stat_interval
 echo 32 > $VM/watermark_scale_factor
+echo 0 > $VM/compaction_proactiveness
 echo -e "[$(date "+%H:%M:%S")] Applied Ram Tweaks\n" >> $LOG
 
 # Mglru
