@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v6
+# Yakt v8
 # Author: @NotZeetaa (Github)
 
 sleep 60
@@ -32,8 +32,8 @@ BT=$(getprop ro.boot.bootdevice)
 BL=/dev/blkio
 
 # Info
-echo "# YAKT v7" > $LOG
-echo "# Build Date: 20/03/2023" >> $LOG
+echo "# YAKT v8" > $LOG
+echo "# Build Date: 10/07/2023" >> $LOG
 echo -e "# Author: @NotZeetaa (Github)\n" >> $LOG
 echo "[$(date "+%H:%M:%S")] Device: $(getprop ro.product.system.model)" >> $LOG
 echo "[$(date "+%H:%M:%S")] Brand: $(getprop ro.product.system.brand)" >> $LOG

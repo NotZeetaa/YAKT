@@ -1,7 +1,5 @@
-- Reverted userdata tweak from oriole (This makes storage speeds lower).
-- Removed some scheduler tweaks (This might fix callbench scores).
-- Removed normal cgroup tweaker.
-- Force zpool compressor to zsmalloc.
-- Removed kprofiles tweak (Doesn't make any sense tweaking it).
-- Enable sched auto group (In order to reduce latency).
-- Tweaked sched_latency_ns.
+- Disabled proactive compaction by default.
+- Removed fast socket open tweak.
+- Disabled timer migration (Reduces latency).
+- Set kernel.perf_cpu_time_max_percent to 15 (This might increase a bit of performance).
+- Force disable watermark boost (This just wastes memory).
