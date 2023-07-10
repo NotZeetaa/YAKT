@@ -211,12 +211,6 @@ else
     echo -e "[$(date "+%H:%M:%S")] Your kernel doesn't have UFS Turbo Write Support.\n" >> $LOG
 fi
 
-# Enable fast socket open for receiver and sender
-# Credits to @tytydraco
-echo "[$(date "+%H:%M:%S")] Enabling Fast Socket Open..." >> $LOG
-echo 3 > /proc/sys/net/ipv4/tcp_fastopen
-echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
-
 # Extfrag
 # Credits to @tytydraco
 echo "[$(date "+%H:%M:%S")] Increasing fragmentation index..." >> $LOG
