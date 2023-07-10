@@ -28,7 +28,6 @@ KL=/proc/sys/kernel
 VM=/proc/sys/vm
 S2=/sys/devices/system/cpu/cpufreq/schedutil
 MG=/sys/kernel/mm/lru_gen
-PS=$(cat /proc/version)
 BT=$(getprop ro.boot.bootdevice)
 BL=/dev/blkio
 
@@ -179,19 +178,10 @@ echo 0 > $KL/sched_min_task_util_for_colocation
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Watermark Boost Tweak
-echo "[$(date "+%H:%M:%S")] Checking if you have watermark boost support" >> $LOG
-if [[ "$PS" == *"4.19"* ]] && [ -e $WT ]; then
-    echo "[$(date "+%H:%M:%S")] Found 4.19 kernel, disabling watermark boost because doesn't work..." >> $LOG
+if [ -e $WT ]; then
+    echo "[$(date "+%H:%M:%S")] Disabling watermark boost..." >> $LOG
     echo 0 > $VM/watermark_boost_factor
     echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
-elif [ -e $WT ]; then
-    echo "[$(date "+%H:%M:%S")] Found Watermark Boost support, tweaking it" >> $LOG
-    echo 15000 > $WT
-    echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
-else
-echo "[$(date "+%H:%M:%S")] Your kernel doesn't support watermark boost" >> $LOG
-echo "[$(date "+%H:%M:%S")] Aborting it..." >> $LOG
-echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
 echo "[$(date "+%H:%M:%S")] Tweaking read_ahead overall..." >> $LOG
