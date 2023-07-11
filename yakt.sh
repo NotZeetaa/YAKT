@@ -1,20 +1,13 @@
 #!/system/bin/sh
 # Yakt v8
 # Author: @NotZeetaa (Github)
+# ×××××××××××××××××××××××××× #
 
-sleep 60
-
+sleep 30
 # Log create
-if [ ! -d /sdcard/Documents ]; then
-    LOG=/sdcard/yakt.log
-else
-    if [ ! -d /sdcard/Documents/yakt ]; then
-        mkdir /sdcard/Documents/yakt
-        LOG=/sdcard/Documents/yakt/yakt.log
-    else
-        LOG=/sdcard/Documents/yakt/yakt.log
-    fi
-fi
+rm -rf /sdcard/yakt/
+mkdir /sdcard/yakt
+LOG=/sdcard/yakt/yakt.txt
 
 # Variables
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil

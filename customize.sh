@@ -2,6 +2,7 @@ SKIPUNZIP=1
 RM_RF() {
 rm /sdcard/Documents/yakt/yakt.log 2>/dev/null
 rm /sdcard/yakt.log 2>/dev/null
+rm /sdcard/yakt/yakt.txt 2>/dev/null
 rm $MODPATH/LICENSE 2>/dev/null
 rm $MODPATH/README.md 2>/dev/null
 }
