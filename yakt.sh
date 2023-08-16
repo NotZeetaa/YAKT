@@ -9,7 +9,6 @@ mkdir /sdcard/yakt
 LOG=/sdcard/yakt/yakt.txt
 
 # Variables
-SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 TP=/dev/stune/top-app/uclamp.max
 DV=/dev/stune
 CP=/dev/cpuset
@@ -18,7 +17,6 @@ MC=/sys/module/mmc_core
 WT=/proc/sys/vm/watermark_boost_factor
 KL=/proc/sys/kernel
 VM=/proc/sys/vm
-S2=/sys/devices/system/cpu/cpufreq/schedutil
 MG=/sys/kernel/mm/lru_gen
 BT=$(getprop ro.boot.bootdevice)
 BL=/dev/blkio
@@ -32,25 +30,6 @@ echo "[$(date "+%H:%M:%S")] Brand: $(getprop ro.product.system.brand)" >> $LOG
 echo "[$(date "+%H:%M:%S")] Kernel: $(uname -r)" >> $LOG
 echo "[$(date "+%H:%M:%S")] Rom build type: $(getprop ro.system.build.type)" >> $LOG
 echo -e "[$(date "+%H:%M:%S")] Android Version: $(getprop ro.system.build.version.release)\n" >> $LOG
-
-# Use Google's schedutil rate-limits from Pixel 3
-# Credits to Kdrag0n
-echo "[$(date "+%H:%M:%S")] Applying Google's schedutil rate-limits from Pixel 3" >> $LOG
-sleep 0.5
-if [ -d $S2 ]; then
-    echo 500 > $S2/up_rate_limit_us
-    echo 20000 > $S2/down_rate_limit_us
-    echo -e "[$(date "+%H:%M:%S")] Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
-elif [ -e $SC ]; then
-    for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
-    do
-        echo 500 > "${cpu}"/up_rate_limit_us
-        echo 20000 > "${cpu}"/down_rate_limit_us
-    done
-    echo -e "[$(date "+%H:%M:%S")] Applied Google's schedutil rate-limits from Pixel 3\n" >> $LOG
-else
-    echo -e "[$(date "+%H:%M:%S")] Abort You are not using schedutil governor\n" >> $LOG
-fi
 
 # Grouping tasks tweak
 echo "[$(date "+%H:%M:%S")] Enabling Sched Auto Group..." >> $LOG
