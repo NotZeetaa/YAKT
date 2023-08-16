@@ -71,7 +71,7 @@ echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 # Credits to RedHat for dirty_ratio
 echo "[$(date "+%H:%M:%S")] Applying Ram Tweaks" >> $LOG
 sleep 0.5
-echo 20 > $VM/vfs_cache_pressure
+echo 40 > $VM/vfs_cache_pressure
 echo 20 > $VM/stat_interval
 echo 32 > $VM/watermark_scale_factor
 echo 0 > $VM/compaction_proactiveness
