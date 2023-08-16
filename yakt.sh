@@ -21,7 +21,6 @@ VM=/proc/sys/vm
 MG=/sys/kernel/mm/lru_gen
 BT=$(getprop ro.boot.bootdevice)
 BL=/dev/blkio
-NT=/proc/sys/net/core
 
 # Info
 echo "# YAKT v9" > $LOG
@@ -213,10 +212,5 @@ if [ -d $BL ]; then
     echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
-# Low latency for busy_poll & busy_read
-echo "[$(date "+%H:%M:%S")] Low latency for busy_poll & busy_read..." >> $LOG
-echo 50 > $NT/busy_read
-echo 50 > $NT/busy_poll
-echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 echo "[$(date "+%H:%M:%S")] The Tweak is done enjoy :)" >> $LOG
