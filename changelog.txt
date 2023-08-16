@@ -1,5 +1,6 @@
-- Disabled proactive compaction by default.
-- Removed fast socket open tweak.
-- Disabled timer migration (Reduces latency).
-- Set kernel.perf_cpu_time_max_percent to 15 (This might increase a bit of performance).
-- Force disable watermark boost (This just wastes memory).
+- Boot time to apply tweak 60s -> 30s
+- Increased vfs_cache_pressure to 40 (This to avoid out-of-memory conditions)
+- Nuked Google's schedutil rate-limits from Pixel 3 (This is old and doesn't make sense using ir on newer devices)
+- Disabled swap readahead completely
+- Increased kernel.perf_cpu_time_max_percent to 40 (This might increase performance)
+- Low latency for busy_poll & busy_read (This might incease power usage)
