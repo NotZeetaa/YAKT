@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v8
+# Yakt v9
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
 
@@ -24,8 +24,8 @@ BL=/dev/blkio
 NT=/proc/sys/net/core
 
 # Info
-echo "# YAKT v8" > $LOG
-echo "# Build Date: 10/07/2023" >> $LOG
+echo "# YAKT v9" > $LOG
+echo "# Build Date: 16/08/2023" >> $LOG
 echo -e "# Author: @NotZeetaa (Github)\n" >> $LOG
 echo "[$(date "+%H:%M:%S")] Device: $(getprop ro.product.system.model)" >> $LOG
 echo "[$(date "+%H:%M:%S")] Brand: $(getprop ro.product.system.brand)" >> $LOG
