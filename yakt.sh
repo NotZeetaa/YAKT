@@ -91,7 +91,7 @@ echo off > $KL/printk_devkmsg
 for queue in /sys/block/*/queue
 do
     echo 0 > "$queue/iostats"
-    echo 128 > "$queue/nr_requests"
+    echo 256 > "$queue/nr_requests"
 done
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
