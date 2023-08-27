@@ -43,6 +43,7 @@ echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 echo "[$(date "+%H:%M:%S")] Tweaking to Reduce Latency " >> $LOG
 echo 5000000 > $KL/sched_migration_cost_ns
 echo "$SCHED_PERIOD" > $KL/sched_latency_ns
+echo 16 > $KL/sched_nr_migrate
 sleep 0.5
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
