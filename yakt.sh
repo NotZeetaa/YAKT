@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v9
+# Yakt v10
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
 
@@ -24,8 +24,8 @@ BL=/dev/blkio
 SCHED_PERIOD="$((1 * 1000 * 1000))"
 
 # Info
-echo "# YAKT v9" > $LOG
-echo "# Build Date: 16/08/2023" >> $LOG
+echo "# YAKT v10" > $LOG
+echo "# Build Date: 27/08/2023" >> $LOG
 echo -e "# Author: @NotZeetaa (Github)\n" >> $LOG
 echo "[$(date "+%H:%M:%S")] Device: $(getprop ro.product.system.model)" >> $LOG
 echo "[$(date "+%H:%M:%S")] Brand: $(getprop ro.product.system.brand)" >> $LOG

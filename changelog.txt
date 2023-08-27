@@ -1,6 +1,6 @@
-- Boot time to apply tweak 60s -> 30s
-- Increased vfs_cache_pressure to 40 (This to avoid out-of-memory conditions)
-- Nuked Google's schedutil rate-limits from Pixel 3 (This is old and doesn't make sense using ir on newer devices)
-- Disabled swap readahead completely
-- Increased kernel.perf_cpu_time_max_percent to 40 (This might increase performance)
-- Low latency for busy_poll & busy_read (This might incease power usage)
+- Use a "smarter way" to tweak scheduler
+- Tweaked sched_nr_migrate (For less latency)
+- Cleaned up zswap tweak log
+- Reduced stat_interval to 15 (For a bit less latency)
+- Hardcoded swappiness to 100
+- Increased nr_requests to 256 (For a better scheduler performance)
