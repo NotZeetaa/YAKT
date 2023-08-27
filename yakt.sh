@@ -190,17 +190,17 @@ if [ -d $MC ]; then
     echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
-# Zswap
-echo "[$(date "+%H:%M:%S")] zswap: Checking if your kernel supports zswap.." >> $LOG
+# Zswap Tweak
+echo "[$(date "+%H:%M:%S")] Checking if your kernel supports zswap.." >> $LOG
 if [ -d $ZW ]; then
-    echo "[$(date "+%H:%M:%S")] zswap: Your kernel supports zswap, tweaking it.." >> $LOG
+    echo "[$(date "+%H:%M:%S")] Your kernel supports zswap, tweaking it.." >> $LOG
     echo lz4 > $ZW/parameters/compressor
-    echo "[$(date "+%H:%M:%S")] zswap: Setted your zswap compressor to lz4 (Fastest compressor)." >> $LOG
+    echo "[$(date "+%H:%M:%S")] Setted your zswap compressor to lz4 (Fastest compressor)." >> $LOG
     echo zsmalloc > $ZW/parameters/zpool
-    echo -e "[$(date "+%H:%M:%S")] zswap: Setted your zpool compressor to zsmalloc." >> $LOG
-    echo -e "[$(date "+%H:%M:%S")] zswap: Tweaked!\n" >> $LOG
+    echo -e "[$(date "+%H:%M:%S")] Setted your zpool compressor to zsmalloc." >> $LOG
+    echo -e "[$(date "+%H:%M:%S")] Tweaked!\n" >> $LOG
 else
-    echo -e "[$(date "+%H:%M:%S")] zswap: Your kernel doesn't support zswap, aborting it...\n" >> $LOG
+    echo -e "[$(date "+%H:%M:%S")] Your kernel doesn't support zswap, aborting it...\n" >> $LOG
 fi
 
 # Blkio tweak
