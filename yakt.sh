@@ -57,6 +57,7 @@ echo 15 > $VM/stat_interval
 echo 32 > $VM/watermark_scale_factor
 echo 0 > $VM/compaction_proactiveness
 echo 0 > $VM/page-cluster
+echo 100 > $VM/swappiness
 echo -e "[$(date "+%H:%M:%S")] Applied Ram Tweaks\n" >> $LOG
 
 # Mglru
