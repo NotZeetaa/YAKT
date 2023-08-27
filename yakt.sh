@@ -21,6 +21,7 @@ VM=/proc/sys/vm
 MG=/sys/kernel/mm/lru_gen
 BT=$(getprop ro.boot.bootdevice)
 BL=/dev/blkio
+SCHED_PERIOD="$((1 * 1000 * 1000))"
 
 # Info
 echo "# YAKT v9" > $LOG
@@ -38,10 +39,10 @@ echo 1 > /proc/sys/kernel/sched_autogroup_enabled
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Tweak scheduler to have less Latency
-# Credits to RedHat & tytydraco
+# Credits to RedHat & tytydraco & KTweak
 echo "[$(date "+%H:%M:%S")] Tweaking to Reduce Latency " >> $LOG
 echo 5000000 > $KL/sched_migration_cost_ns
-echo 6000000 > $KL/sched_latency_ns
+echo "$SCHED_PERIOD" > $KL/sched_latency_ns
 sleep 0.5
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
