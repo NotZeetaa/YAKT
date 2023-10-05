@@ -209,17 +209,6 @@ else
     echo -e "[$(date "+%H:%M:%S")] Your kernel doesn't support zswap, aborting it...\n" >> $LOG
 fi
 
-# Blkio tweak
-# Credits to xNombre
-if [ -d $BL ]; then
-    echo "[$(date "+%H:%M:%S")] Tweaking blkio..." >> $LOG
-    echo 1000 > $BL/blkio.weight
-    echo 200 > $BL/background/blkio.weight
-    echo 2000 > $BL/blkio.group_idle
-    echo 0 > $BL/background/blkio.group_idle
-    echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
-fi
-
 # Enable Power Efficient
 echo "[$(date "+%H:%M:%S")] Enabling Power Efficient..." >> $LOG
 echo 1 > $ML/workqueue/parameters/power_efficient
