@@ -43,7 +43,7 @@ read: 4598 ns`
 - And that's it ;)
 
 ## How to check logs:
-- Check yakt.txt file in yakt folder
+- Check yakt.txt file in Documents folder
 - It should be like this (Not exactly ofc):
 
 ![Screenshot_20221105-133527_MT_Manager](https://user-images.githubusercontent.com/67799176/200122575-dc72aedb-3618-4172-8b81-27cbdc721247.png)
