@@ -52,6 +52,11 @@ echo 16 > $KL/sched_nr_migrate
 sleep 0.5
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
+# Enable CRF by default
+echo "[$(date "+%H:%M:%S")] Enabling child_runs_first" >> $LOG
+echo 1 > $KL/sched_child_runs_first
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
+
 # Ram Tweak
 # The stat_interval one reduces jitter (Credits to kdrag0n)
 # Credits to RedHat for dirty_ratio
