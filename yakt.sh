@@ -5,9 +5,16 @@
 
 sleep 30
 # Log create
-rm -rf /sdcard/yakt/
-mkdir /sdcard/yakt
-LOG=/sdcard/yakt/yakt.txt
+if [ ! -d /sdcard/Documents ]; then
+    LOG=/sdcard/yakt.log
+else
+    if [ ! -d /sdcard/Documents/yakt ]; then
+        mkdir /sdcard/Documents/yakt
+        LOG=/sdcard/Documents/yakt/yakt.log
+    else
+        LOG=/sdcard/Documents/yakt/yakt.log
+    fi
+fi
 
 # Variables
 TP=/dev/stune/top-app/uclamp.max
