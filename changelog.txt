@@ -1,6 +1,7 @@
-- Use a "smarter way" to tweak scheduler
-- Tweaked sched_nr_migrate (For less latency)
-- Cleaned up zswap tweak log
-- Reduced stat_interval to 15 (For a bit less latency)
-- Hardcoded swappiness to 100
-- Increased nr_requests to 256 (For a better scheduler performance)
+- Fixed log path (Not being created).
+- Enabled Power Efficient by default (In order to reduce power usage).
+- Check if Android boot up is done to execute the tweak.
+- Clean up (Removed unused variables).
+- Removed Blkio tweak (Not a significant change).
+- Removed watermark_scale_factor tweak (We disable watermark_boost_factor so watermark_scale_factor is useless to tweak).
+- Enabled CRF by default (It can decrease system latency but may increase cpu usage).
