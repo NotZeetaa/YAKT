@@ -59,7 +59,6 @@ echo "[$(date "+%H:%M:%S")] Applying Ram Tweaks" >> $LOG
 sleep 0.5
 echo 40 > $VM/vfs_cache_pressure
 echo 15 > $VM/stat_interval
-echo 32 > $VM/watermark_scale_factor
 echo 0 > $VM/compaction_proactiveness
 echo 0 > $VM/page-cluster
 echo 100 > $VM/swappiness
