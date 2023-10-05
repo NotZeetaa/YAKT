@@ -18,10 +18,8 @@ fi
 
 # Variables
 TP=/dev/stune/top-app/uclamp.max
-DV=/dev/stune
 CP=/dev/cpuset
-ZW=/sys/module/zswap
-MC=/sys/module/mmc_core
+ML=/sys/module
 WT=/proc/sys/vm/watermark_boost_factor
 KL=/proc/sys/kernel
 VM=/proc/sys/vm
@@ -42,7 +40,7 @@ echo -e "[$(date "+%H:%M:%S")] Android Version: $(getprop ro.system.build.versio
 
 # Grouping tasks tweak
 echo "[$(date "+%H:%M:%S")] Enabling Sched Auto Group..." >> $LOG
-echo 1 > /proc/sys/kernel/sched_autogroup_enabled
+echo 1 > $KL/sched_autogroup_enabled
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Tweak scheduler to have less Latency
@@ -192,19 +190,19 @@ sleep 0.5
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 
 # Disable Spi CRC
-if [ -d $MC ]; then
+if [ -d $ML/mmc_core ]; then
     echo "[$(date "+%H:%M:%S")] Disabling Spi CRC" >> $LOG
-    echo 0 > $MC/parameters/use_spi_crc
+    echo 0 > $ML/mmc_core/parameters/use_spi_crc
     echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
 # Zswap Tweak
 echo "[$(date "+%H:%M:%S")] Checking if your kernel supports zswap.." >> $LOG
-if [ -d $ZW ]; then
+if [ -d $ML/zswap ]; then
     echo "[$(date "+%H:%M:%S")] Your kernel supports zswap, tweaking it.." >> $LOG
-    echo lz4 > $ZW/parameters/compressor
+    echo lz4 > $ML/zswap/parameters/compressor
     echo "[$(date "+%H:%M:%S")] Setted your zswap compressor to lz4 (Fastest compressor)." >> $LOG
-    echo zsmalloc > $ZW/parameters/zpool
+    echo zsmalloc > $ML/zswap/parameters/zpool
     echo -e "[$(date "+%H:%M:%S")] Setted your zpool compressor to zsmalloc." >> $LOG
     echo -e "[$(date "+%H:%M:%S")] Tweaked!\n" >> $LOG
 else
@@ -224,8 +222,7 @@ fi
 
 # Enable Power Efficient
 echo "[$(date "+%H:%M:%S")] Enabling Power Efficient..." >> $LOG
-echo 1 > /sys/module/workqueue/parameters/power_efficient
+echo 1 > $ML/workqueue/parameters/power_efficient
 echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
-
 
 echo "[$(date "+%H:%M:%S")] The Tweak is done enjoy :)" >> $LOG
