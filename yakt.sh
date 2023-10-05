@@ -222,5 +222,10 @@ if [ -d $BL ]; then
     echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
 fi
 
+# Enable Power Efficient
+echo "[$(date "+%H:%M:%S")] Enabling Power Efficient..." >> $LOG
+echo 1 > /sys/module/workqueue/parameters/power_efficient
+echo -e "[$(date "+%H:%M:%S")] Done.\n" >> $LOG
+
 
 echo "[$(date "+%H:%M:%S")] The Tweak is done enjoy :)" >> $LOG
