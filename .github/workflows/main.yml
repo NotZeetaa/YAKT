@@ -6,3 +6,8 @@ steps:
     java-version: '17'
     cache: 'gradle'
 - run: ./gradlew build --no-daemon
+
+- uses: actions/download-artifact@v2
+
+- name: Display structure of downloaded files
+  run: ls -R
