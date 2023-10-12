@@ -20,4 +20,22 @@ jobs:
            token: ${{ secrets.TOKEN }}
            chat_id: ${{ secrets.CHAT_ID }}
 
+           - uses: actions/download-artifact@v2
+
+- name: Display structure of downloaded files
+  run: ls -R
+
+  steps:
+- uses: actions/checkout@v2
+
+- uses: actions/download-artifact@v2
+
+- name: Display structure of downloaded files
+  run: ls -R
+
+                - name: Upload a Build Artifact
+                uses: actions/upload-artifact@v3.1.3
+            
+           
+
            
