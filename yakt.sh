@@ -134,9 +134,9 @@ else
     log-yakt ""
 fi
 
-# Set kernel.perf_cpu_time_max_percent to 40
+# Set kernel.perf_cpu_time_max_percent to 10
 log-yakt "Applying tweak for perf_cpu_time_max_percent"
-write "$KL/perf_cpu_time_max_percent" 40
+write "$KL/perf_cpu_time_max_percent" 10
 log-yakt "Done."
 log-yakt ""
 
