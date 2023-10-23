@@ -236,18 +236,6 @@ done
 log-yakt "Tweaked read_ahead."
 log-yakt ""
 
-# UFSTW (UFS Turbo Write Tweak)
-log-yakt "Checking if your kernel has UFS Turbo Write Support"
-if [ -e "/sys/devices/platform/soc/$BT/ufstw_lu0/tw_enable" ]; then
-    log-yakt "Your kernel has UFS Turbo Write Support. Tweaking it..."
-    write "/sys/devices/platform/soc/$BT/ufstw_lu0/tw_enable" 1
-    log-yakt "Done."
-    log-yakt ""
-else
-    log-yakt "Your kernel doesn't have UFS Turbo Write Support."
-    log-yakt ""
-fi
-
 # Extfrag
 # Credits to @tytydraco
 log-yakt "Increasing fragmentation index..."
