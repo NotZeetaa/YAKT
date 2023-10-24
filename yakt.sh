@@ -95,7 +95,7 @@ log-yakt ""
 log-yakt "Tweaking scheduler to reduce latency"
 write "$KL/sched_migration_cost_ns" 5000000
 write "$KL/sched_latency_ns" "$SCHED_PERIOD"
-write "$KL/sched_nr_migrate" 16
+write "$KL/sched_nr_migrate" 32
 sleep 0.5
 log-yakt "Done."
 log-yakt ""
