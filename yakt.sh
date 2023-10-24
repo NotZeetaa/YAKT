@@ -71,7 +71,7 @@ VM=/proc/sys/vm
 MG=/sys/kernel/mm/lru_gen
 BT=$(getprop ro.boot.bootdevice)
 BL=/dev/blkio
-SCHED_PERIOD="$((1 * 1000 * 1000))"
+SCHED_PERIOD="$((6 * 1000 * 1000))"
 
 # Info
 log-yakt "Starting YAKT v11"
