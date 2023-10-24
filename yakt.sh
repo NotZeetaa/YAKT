@@ -116,6 +116,7 @@ write "$VM/stat_interval" 15
 write "$VM/compaction_proactiveness" 0
 write "$VM/page-cluster" 0
 write "$VM/swappiness" 100
+write "$VM/dirty_ratio" 15
 log-yakt "Applied Ram Tweaks"
 log-yakt ""
 
