@@ -1,7 +1,7 @@
-- Fixed log path (Not being created).
-- Enabled Power Efficient by default (In order to reduce power usage).
-- Check if Android boot up is done to execute the tweak.
-- Clean up (Removed unused variables).
-- Removed Blkio tweak (Not a significant change).
-- Removed watermark_scale_factor tweak (We disable watermark_boost_factor so watermark_scale_factor is useless to tweak).
-- Enabled CRF by default (It can decrease system latency but may increase cpu usage).
+- Changed log generation script and improved it.
+- Set kernel.perf_cpu_time_max_percent to 10(In order to reduce latency).
+- Removed UFS Turbo Tweak(Wastes too much power and its not smart doing it).
+- Increased SCHED_PERIOD(To improve scheduler performance in cost of latency).
+- Increased sched_nr_migrate(To improve scheduler performance in cost of latency).
+- Tweaked dirty_ratio.
+- Increased vfs_cache_pressure(In order to reduce latency).

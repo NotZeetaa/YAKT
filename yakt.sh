@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v11
+# Yakt v12
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
 
@@ -74,8 +74,8 @@ BL=/dev/blkio
 SCHED_PERIOD="$((6 * 1000 * 1000))"
 
 # Info
-log-yakt "Starting YAKT v11"
-log-yakt "Build Date: 05/10/2023"
+log-yakt "Starting YAKT v12"
+log-yakt "Build Date: 24/10/2023"
 log-yakt "Author: @NotZeetaa (Github)"
 log-yakt "Device: $(getprop ro.product.system.model)"
 log-yakt "Brand: $(getprop ro.product.system.brand)"
