@@ -111,7 +111,7 @@ log-yakt ""
 # Credits to RedHat for dirty_ratio
 log-yakt "Applying Ram Tweaks"
 sleep 0.5
-write "$VM/vfs_cache_pressure" 80
+write "$VM/vfs_cache_pressure" 50
 write "$VM/stat_interval" 15
 write "$VM/compaction_proactiveness" 0
 write "$VM/page-cluster" 0
