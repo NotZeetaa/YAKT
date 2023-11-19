@@ -1,7 +1,5 @@
-- Changed log generation script and improved it.
-- Set kernel.perf_cpu_time_max_percent to 10(In order to reduce latency).
-- Removed UFS Turbo Tweak(Wastes too much power and its not smart doing it).
-- Increased SCHED_PERIOD(To improve scheduler performance in cost of latency).
-- Increased sched_nr_migrate(To improve scheduler performance in cost of latency).
-- Tweaked dirty_ratio.
-- Increased vfs_cache_pressure(In order to reduce latency).
+- Disabled CRF (Lets don't overhead CPU too much).
+- Reduced nr_request (Lets prioritize latency here).
+- Reduced sched_nr_migrate (Reduces the scheduler latency).
+- Increased dirty_ratio (Don't block writeback too often).
+- Changelog log path to /data/adb/modules/YAKT/yakt.log
