@@ -100,9 +100,9 @@ sleep 0.5
 log-yakt "Done."
 log-yakt ""
 
-# Enable CRF by default
+# Disable CRF by default
 log-yakt "Enabling child_runs_first"
-write "$KL/sched_child_runs_first" 1
+write "$KL/sched_child_runs_first" 0
 log-yakt "Done."
 log-yakt ""
 
