@@ -153,7 +153,7 @@ write "$KL/printk_devkmsg" "off"
 for queue in /sys/block/*/queue
 do
     write "$queue/iostats" 0
-    write "$queue/nr_requests" 256
+    write "$queue/nr_requests" 64
 done
 log-yakt "Done."
 log-yakt ""
