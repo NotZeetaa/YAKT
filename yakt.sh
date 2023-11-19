@@ -7,12 +7,13 @@ sleep 30
 # Log create
 log-yakt() {
     local message="$1"
-    echo "[$(date "+%H:%M:%S")] $message" >> /data/YAKT/yakt.log
+    echo "[$(date "+%H:%M:%S")] $message" >> /data/adb/modules/YAKT/yakt.log
+}
 
 # Function to log error messages
 log-error() {
     local message="$1"
-    echo "[$(date "+%H:%M:S")] $message" >> /data/YAKT/yakt-logging-error.log
+    echo "[$(date "+%H:%M:S")] $message" >> /data/adb/modules/YAKT/yakt-logging-error.log
 }
 
 write() {
@@ -38,8 +39,8 @@ write() {
 }
 
 # Modify the paths for logs
-LOG=/data/YAKT/yakt.log
-ERROR_LOG=/data/YAKT/yakt-logging-error.log
+LOG=/data/adb/modules/YAKT/yakt.log
+ERROR_LOG=/data/adb/modules/YAKT/yakt-logging-error.log
 
 if [ -f "$LOG" ]; then
     rm "$LOG"
