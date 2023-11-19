@@ -16,24 +16,10 @@
 ```
 ## Benchmark - As per v6
 
-### - `Hackbench` with -pTl 4000 (lower is better)
-
-- Stock: `Time: 6.632`
-- yakt: `Time: 2.205`
-
-### - `Callbench` (lower is better)
-
-- Stock:
-`syscall: 138 ns
-libc: 43 ns
-mmap: 11220 ns
-read: 5290 ns`
-
-- yakt:
-`syscall: 138 ns
-libc: 43 ns
-mmap: 11212 ns
-read: 4598 ns`
+| Benchmark | Stock | YAKT v6 |
+| --- | --- | --- |
+| Hackbench | 6.632 | 2.205 |
+| Callbench | syscall: 138 ns libc: 43 ns mmap: 11220 ns read: 5290 ns | syscall: 138 ns libc: 43 ns mmap: 11212 ns read: 4598 ns |
 
 ## Notes:
 - This is not a perfomance/gaming module
@@ -43,7 +29,7 @@ read: 4598 ns`
 - And that's it ;)
 
 ## How to check logs:
-- Check yakt.txt file in Documents folder
+- Check yakt.txt file in /data/adb/modules/YAKT/yakt.log folder
 - It should be like this (Not exactly ofc):
 
 ![Screenshot_20221105-133527_MT_Manager](https://user-images.githubusercontent.com/67799176/200122575-dc72aedb-3618-4172-8b81-27cbdc721247.png)
