@@ -7,8 +7,8 @@
 - Reduces Jitter and Latency
 - Optimizes Ram Management
 - Disables scheduler logs/stats
-- Disabled printk logs
-- Enable ECN negotiation by default
+- Disables printk logs
+- Enables ECN negotiation by default
 - Disables SPI CRC
 - Tweaks mglru
 - Allows sched boosting on top-app tasks (Thx to tytydraco)
