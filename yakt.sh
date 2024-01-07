@@ -71,6 +71,8 @@ KL=/proc/sys/kernel
 VM=/proc/sys/vm
 MG=/sys/kernel/mm/lru_gen
 BT=$(getprop ro.boot.bootdevice)
+S2=/sys/devices/system/cpu/cpufreq/schedutil
+SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 BL=/dev/blkio
 SCHED_PERIOD="$((6 * 1000 * 1000))"
 
@@ -83,6 +85,26 @@ log-yakt "Brand: $(getprop ro.product.system.brand)"
 log-yakt "Kernel: $(uname -r)"
 log-yakt "Rom build type: $(getprop ro.system.build.type)"
 log-yakt "Android Version: $(getprop ro.system.build.version.release)"
+
+# Use Google's schedutil rate-limits from Pixel 3
+# Credits to Kdrag0n
+log-yakt "Applying Google's schedutil rate-limits from Pixel 3"
+sleep 0.5
+if [ -d $S2 ]; then
+    write "$S2/up_rate_limit_us" 500
+    write "$S2/down_rate_limit_us" 20000
+    log-yakt "Applied Google's schedutil rate-limits from Pixel 3"
+elif [ -e $SC ]; then
+    for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
+    do
+        write "${cpu}/up_rate_limit_us" 500
+        write "${cpu}/down_rate_limit_us" 20000
+    done
+    log-yakt "Applied Google's schedutil rate-limits from Pixel 3"
+else
+    log-yakt "Abort You are not using schedutil governor"
+fi
+log-yakt ""
 
 # Grouping tasks tweak
 log-yakt ""
