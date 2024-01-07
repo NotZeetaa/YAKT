@@ -88,7 +88,6 @@ log-yakt "Android Version: $(getprop ro.system.build.version.release)"
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
 log-yakt "Applying Google's schedutil rate-limits from Pixel 3"
-sleep 0.5
 if [ -d $S2 ]; then
     write "$S2/up_rate_limit_us" 500
     write "$S2/down_rate_limit_us" 20000
@@ -119,7 +118,6 @@ write "$KL/sched_migration_cost_ns" 5000000
 write "$KL/sched_min_granularity_ns" 10000000
 write "$KL/sched_wakeup_granularity_ns" 12000000
 write "$KL/sched_nr_migrate" 8
-sleep 0.5
 log-yakt "Done."
 log-yakt ""
 
@@ -133,7 +131,6 @@ log-yakt ""
 # The stat_interval one reduces jitter (Credits to kdrag0n)
 # Credits to RedHat for dirty_ratio
 log-yakt "Applying Ram Tweaks"
-sleep 0.5
 write "$VM/vfs_cache_pressure" 50
 write "$VM/stat_interval" 30
 write "$VM/compaction_proactiveness" 0
@@ -188,14 +185,12 @@ log-yakt "Done."
 log-yakt ""
 
 # Cgroup Tweak
-sleep 0.5
 if [ -e "$TP" ]; then
     # Uclamp Tweak
     # All credits to @darkhz
     log-yakt ""
     log-yakt "You have uclamp scheduler"
     log-yakt "Applying tweaks for it..."
-    sleep 0.3
     for ta in "$CP"/top-app
     do
         write "$ta/uclamp.max" max
@@ -264,7 +259,6 @@ log-yakt ""
 # Credits to @tytydraco
 log-yakt "Increasing fragmentation index..."
 write "$VM/extfrag_threshold" 750
-sleep 0.5
 log-yakt "Done."
 log-yakt ""
 
