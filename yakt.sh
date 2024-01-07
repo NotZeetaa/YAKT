@@ -2,18 +2,19 @@
 # Yakt v14
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
+MODDIR=${0%/*}
 
 sleep 30
 # Log create
 log-yakt() {
     local message="$1"
-    echo "[$(date "+%H:%M:%S")] $message" >> /data/adb/modules/YAKT/yakt.log
+    echo "[$(date "+%H:%M:%S")] $message" >> "$LOG"
 }
 
 # Function to log error messages
 log-error() {
     local message="$1"
-    echo "[$(date "+%H:%M:S")] $message" >> /data/adb/modules/YAKT/yakt-logging-error.log
+    echo "[$(date "+%H:%M:S")] $message" >> "$ERROR_LOG"
 }
 
 write() {
@@ -39,8 +40,8 @@ write() {
 }
 
 # Modify the paths for logs
-LOG=/data/adb/modules/YAKT/yakt.log
-ERROR_LOG=/data/adb/modules/YAKT/yakt-logging-error.log
+LOG="${MODDIR}/yakt.log"
+ERROR_LOG="${MODDIR}/yakt-logging-error.log"
 
 if [ -f "$LOG" ]; then
     rm "$LOG"
