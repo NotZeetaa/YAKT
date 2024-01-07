@@ -116,6 +116,7 @@ log-yakt ""
 # Credits to RedHat & tytydraco & KTweak
 log-yakt "Tweaking scheduler to reduce latency"
 write "$KL/sched_migration_cost_ns" 5000000
+write "$KL/sched_min_granularity_ns" 10000000
 write "$KL/sched_nr_migrate" 8
 sleep 0.5
 log-yakt "Done."
