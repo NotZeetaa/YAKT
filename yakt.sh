@@ -74,7 +74,6 @@ BT=$(getprop ro.boot.bootdevice)
 S2=/sys/devices/system/cpu/cpufreq/schedutil
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 BL=/dev/blkio
-SCHED_PERIOD="$((6 * 1000 * 1000))"
 
 # Info
 log-yakt "Starting YAKT v13"
@@ -117,7 +116,6 @@ log-yakt ""
 # Credits to RedHat & tytydraco & KTweak
 log-yakt "Tweaking scheduler to reduce latency"
 write "$KL/sched_migration_cost_ns" 5000000
-write "$KL/sched_latency_ns" "$SCHED_PERIOD"
 write "$KL/sched_nr_migrate" 8
 sleep 0.5
 log-yakt "Done."
