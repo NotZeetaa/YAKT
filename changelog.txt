@@ -1,5 +1,9 @@
-- Disabled CRF (Lets don't overhead CPU too much).
-- Reduced nr_request (Lets prioritize latency here).
-- Reduced sched_nr_migrate (Reduces the scheduler latency).
-- Increased dirty_ratio (Don't block writeback too often).
-- Changelog log path to /data/adb/modules/YAKT/yakt.log
+- Reapplied Google's schedutil rate-limits from Pixel 3.
+- Disabled the grouping tasks tweak.
+- Adjusted sched_min_granularity_ns.
+- Removed the sched_latency_ns tweak.
+- Fine-tuned sched_wakeup_granularity_ns.
+- Increased the stat_interval tweak twofold (To mitigate system overhead).
+- Elevated the dirty_ratio tweak (Aiming to enhance performance by reducing the frequency of disk writes).
+- Removed unnecessary sleep commands as they serve no purpose.
+- Omitted the extfrag tweak (As it didn't yield noticeable improvements).

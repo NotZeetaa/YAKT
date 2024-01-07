@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v13
+# Yakt v14
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
 
@@ -76,8 +76,8 @@ SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 BL=/dev/blkio
 
 # Info
-log-yakt "Starting YAKT v13"
-log-yakt "Build Date: 19/11/2023"
+log-yakt "Starting YAKT v14"
+log-yakt "Build Date: 07/01/2024"
 log-yakt "Author: @NotZeetaa (Github)"
 log-yakt "Device: $(getprop ro.product.system.model)"
 log-yakt "Brand: $(getprop ro.product.system.brand)"
