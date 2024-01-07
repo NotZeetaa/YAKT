@@ -108,8 +108,8 @@ log-yakt ""
 
 # Grouping tasks tweak
 log-yakt ""
-log-yakt "Enabling Sched Auto Group..."
-write "$KL/sched_autogroup_enabled" 1
+log-yakt "Disabling Sched Auto Group..."
+write "$KL/sched_autogroup_enabled" 0
 log-yakt "Done."
 log-yakt ""
 
