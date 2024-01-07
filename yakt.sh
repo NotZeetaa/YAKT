@@ -255,13 +255,6 @@ done
 log-yakt "Tweaked read_ahead."
 log-yakt ""
 
-# Extfrag
-# Credits to @tytydraco
-log-yakt "Increasing fragmentation index..."
-write "$VM/extfrag_threshold" 750
-log-yakt "Done."
-log-yakt ""
-
 # Disable Spi CRC
 if [ -d "$ML/mmc_core" ]; then
     log-yakt "Disabling Spi CRC"
