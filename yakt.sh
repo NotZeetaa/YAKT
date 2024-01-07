@@ -135,7 +135,7 @@ log-yakt ""
 log-yakt "Applying Ram Tweaks"
 sleep 0.5
 write "$VM/vfs_cache_pressure" 50
-write "$VM/stat_interval" 15
+write "$VM/stat_interval" 30
 write "$VM/compaction_proactiveness" 0
 write "$VM/page-cluster" 0
 write "$VM/swappiness" 100
