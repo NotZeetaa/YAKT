@@ -21,6 +21,11 @@ log-error() {
     log-yakt "$ERROR_LOG" "$1"
 }
 
+# useful for debugging ig ¯\_(ツ)_/¯
+log-debug() {
+    log-yakt "$DEBUG_LOG" "$1"
+}
+
 write() {
     local file="$1"
     local value="$2"
@@ -48,6 +53,7 @@ MODDIR=${0%/*} # get parent directory
 # Modify the filenames for logs
 INFO_LOG="yakt.log"
 ERROR_LOG="yakt-logging-error.log"
+DEBUG_LOG="yakt-debug.log"
 
 # prepare log files
 :> "${MODDIR}/$INFO_LOG"
