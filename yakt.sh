@@ -2,19 +2,23 @@
 # Yakt v14
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
-MODDIR=${0%/*}
 
 sleep 30
-# Log create
+# Function to write to logs to the module's directory
 log-yakt() {
-    local message="$1"
-    echo "[$(date "+%H:%M:%S")] $message" >> "$LOG"
+    local log="$1"
+    local message="$2"
+    echo "[$(date "+%H:%M:%S")] $message" >> "${MODDIR}/$log"
+}
+
+# Function to log info messages
+log-info() {
+    log-yakt "$INFO_LOG" "$1"
 }
 
 # Function to log error messages
 log-error() {
-    local message="$1"
-    echo "[$(date "+%H:%M:S")] $message" >> "$ERROR_LOG"
+    log-yakt "$ERROR_LOG" "$1"
 }
 
 write() {
@@ -39,29 +43,15 @@ write() {
     fi
 }
 
-# Modify the paths for logs
-LOG="${MODDIR}/yakt.log"
-ERROR_LOG="${MODDIR}/yakt-logging-error.log"
+MODDIR=${0%/*} # get parent directory
 
-if [ -f "$LOG" ]; then
-    rm "$LOG"
-fi
+# Modify the filenames for logs
+INFO_LOG="yakt.log"
+ERROR_LOG="yakt-logging-error.log"
 
-if [ -f "$ERROR_LOG" ]; then
-    rm "$ERROR_LOG"
-fi
-
-touch "$LOG"
-if [ $? -ne 0 ]; then
-    log-error "Error: Unable to create log file $LOG"
-    exit 1
-fi
-
-touch "$ERROR_LOG"
-if [ $? -ne 0 ]; then
-    log-error "Error: Unable to create error log file $ERROR_LOG"
-    exit 1
-fi
+# prepare log files
+:> "${MODDIR}/$INFO_LOG"
+:> "${MODDIR}/$ERROR_LOG"
 
 # Variables
 TP=/dev/stune/top-app/uclamp.max
@@ -77,95 +67,95 @@ SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 BL=/dev/blkio
 
 # Info
-log-yakt "Starting YAKT v14"
-log-yakt "Build Date: 07/01/2024"
-log-yakt "Author: @NotZeetaa (Github)"
-log-yakt "Device: $(getprop ro.product.system.model)"
-log-yakt "Brand: $(getprop ro.product.system.brand)"
-log-yakt "Kernel: $(uname -r)"
-log-yakt "Rom build type: $(getprop ro.system.build.type)"
-log-yakt "Android Version: $(getprop ro.system.build.version.release)"
+log-info "Starting YAKT v14"
+log-info "Build Date: 07/01/2024"
+log-info "Author: @NotZeetaa (Github)"
+log-info "Device: $(getprop ro.product.system.model)"
+log-info "Brand: $(getprop ro.product.system.brand)"
+log-info "Kernel: $(uname -r)"
+log-info "Rom build type: $(getprop ro.system.build.type)"
+log-info "Android Version: $(getprop ro.system.build.version.release)"
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
-log-yakt "Applying Google's schedutil rate-limits from Pixel 3"
+log-info "Applying Google's schedutil rate-limits from Pixel 3"
 if [ -d $S2 ]; then
     write "$S2/up_rate_limit_us" 500
     write "$S2/down_rate_limit_us" 20000
-    log-yakt "Applied Google's schedutil rate-limits from Pixel 3"
+    log-info "Applied Google's schedutil rate-limits from Pixel 3"
 elif [ -e $SC ]; then
     for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
     do
         write "${cpu}/up_rate_limit_us" 500
         write "${cpu}/down_rate_limit_us" 20000
     done
-    log-yakt "Applied Google's schedutil rate-limits from Pixel 3"
+    log-info "Applied Google's schedutil rate-limits from Pixel 3"
 else
-    log-yakt "Abort You are not using schedutil governor"
+    log-info "Abort You are not using schedutil governor"
 fi
-log-yakt ""
+log-info ""
 
 # Grouping tasks tweak
-log-yakt ""
-log-yakt "Disabling Sched Auto Group..."
+log-info ""
+log-info "Disabling Sched Auto Group..."
 write "$KL/sched_autogroup_enabled" 0
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
 # Tweak scheduler to have less Latency
 # Credits to RedHat & tytydraco & KTweak
-log-yakt "Tweaking scheduler to reduce latency"
+log-info "Tweaking scheduler to reduce latency"
 write "$KL/sched_migration_cost_ns" 5000000
 write "$KL/sched_min_granularity_ns" 10000000
 write "$KL/sched_wakeup_granularity_ns" 12000000
 write "$KL/sched_nr_migrate" 8
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
 # Disable CRF by default
-log-yakt "Enabling child_runs_first"
+log-info "Enabling child_runs_first"
 write "$KL/sched_child_runs_first" 0
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
 # Ram Tweak
 # The stat_interval one reduces jitter (Credits to kdrag0n)
 # Credits to RedHat for dirty_ratio
-log-yakt "Applying Ram Tweaks"
+log-info "Applying Ram Tweaks"
 write "$VM/vfs_cache_pressure" 50
 write "$VM/stat_interval" 30
 write "$VM/compaction_proactiveness" 0
 write "$VM/page-cluster" 0
 write "$VM/swappiness" 100
 write "$VM/dirty_ratio" 60
-log-yakt "Applied Ram Tweaks"
-log-yakt ""
+log-info "Applied Ram Tweaks"
+log-info ""
 
 # Mglru
 # Credits to Arter97
-log-yakt "Checking if your kernel has mglru support..."
+log-info "Checking if your kernel has mglru support..."
 if [ -d "$MG" ]; then
-    log-yakt "Found it."
-    log-yakt "Tweaking it..."
+    log-info "Found it."
+    log-info "Tweaking it..."
     write "$MG/min_ttl_ms" 5000
-    log-yakt "Done."
-    log-yakt ""
+    log-info "Done."
+    log-info ""
 else
-    log-yakt "Your kernel doesn't support mglru :("
-    log-yakt "Aborting it..."
-    log-yakt ""
+    log-info "Your kernel doesn't support mglru :("
+    log-info "Aborting it..."
+    log-info ""
 fi
 
 # Set kernel.perf_cpu_time_max_percent to 10
-log-yakt "Applying tweak for perf_cpu_time_max_percent"
+log-info "Applying tweak for perf_cpu_time_max_percent"
 write "$KL/perf_cpu_time_max_percent" 10
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
 # Disable some scheduler logs/stats
 # Also iostats & reduce latency
 # Credits to tytydraco
-log-yakt "Disabling some scheduler logs/stats"
+log-info "Disabling some scheduler logs/stats"
 if [ -e "$KL/sched_schedstats" ]; then
     write "$KL/sched_schedstats" 0
 fi
@@ -176,22 +166,22 @@ do
     write "$queue/iostats" 0
     write "$queue/nr_requests" 64
 done
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
 # Disable Timer migration
-log-yakt "Disabling Timer Migration"
+log-info "Disabling Timer Migration"
 write "$KL/timer_migration" 0
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
 # Cgroup Tweak
 if [ -e "$TP" ]; then
     # Uclamp Tweak
     # All credits to @darkhz
-    log-yakt ""
-    log-yakt "You have uclamp scheduler"
-    log-yakt "Applying tweaks for it..."
+    log-info ""
+    log-info "You have uclamp scheduler"
+    log-info "Applying tweaks for it..."
     for ta in "$CP"/top-app
     do
         write "$ta/uclamp.max" max
@@ -222,67 +212,67 @@ if [ -e "$TP" ]; then
     done
     sysctl -w kernel.sched_util_clamp_min_rt_default=0
     sysctl -w kernel.sched_util_clamp_min=128
-    log-yakt "Done,"
-    log-yakt ""
+    log-info "Done,"
+    log-info ""
 fi
 
 # Enable ECN negotiation by default
 # By kdrag0n
-log-yakt "Enabling ECN negotiation..."
+log-info "Enabling ECN negotiation..."
 write "/proc/sys/net/ipv4/tcp_ecn" 1
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
-log-yakt "Always allow sched boosting on top-app tasks"
+log-info "Always allow sched boosting on top-app tasks"
 write "$KL/sched_min_task_util_for_colocation" 0
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
 # Watermark Boost Tweak
 if [ -e "$WT" ]; then
-    log-yakt "Disabling watermark boost..."
+    log-info "Disabling watermark boost..."
     write "$VM/watermark_boost_factor" 0
-    log-yakt "Done."
-    log-yakt ""
+    log-info "Done."
+    log-info ""
 fi
 
-log-yakt "Tweaking read_ahead overall..."
+log-info "Tweaking read_ahead overall..."
 for queue2 in /sys/block/*/queue/read_ahead_kb
 do
     write "$queue2" 128
 done
-log-yakt "Tweaked read_ahead."
-log-yakt ""
+log-info "Tweaked read_ahead."
+log-info ""
 
 # Disable Spi CRC
 if [ -d "$ML/mmc_core" ]; then
-    log-yakt "Disabling Spi CRC"
+    log-info "Disabling Spi CRC"
     write "$ML/mmc_core/parameters/use_spi_crc" 0
-    log-yakt "Done."
-    log-yakt ""
+    log-info "Done."
+    log-info ""
 fi
 
 # Zswap Tweak
-log-yakt "Checking if your kernel supports zswap.."
+log-info "Checking if your kernel supports zswap.."
 if [ -d "$ML/zswap" ]; then
-    log-yakt "Your kernel supports zswap, tweaking it.."
+    log-info "Your kernel supports zswap, tweaking it.."
     write "$ML/zswap/parameters/compressor" lz4
-    log-yakt "Set your zswap compressor to lz4 (Fastest compressor)."
+    log-info "Set your zswap compressor to lz4 (Fastest compressor)."
     write "$ML/zswap/parameters/zpool" zsmalloc
-    log-yakt "Set your zpool compressor to zsmalloc."
-    log-yakt "Tweaked!"
-    log-yakt ""
+    log-info "Set your zpool compressor to zsmalloc."
+    log-info "Tweaked!"
+    log-info ""
 else
-    log-yakt "Your kernel doesn't support zswap, aborting it..."
-    log-yakt ""
+    log-info "Your kernel doesn't support zswap, aborting it..."
+    log-info ""
 fi
 
 # Enable Power Efficient
-log-yakt "Enabling Power Efficient..."
+log-info "Enabling Power Efficient..."
 write "$ML/workqueue/parameters/power_efficient" 1
-log-yakt "Done."
-log-yakt ""
+log-info "Done."
+log-info ""
 
-log-yakt "The Tweak is done enjoy :)"
+log-info "The Tweak is done enjoy :)"
