@@ -61,10 +61,8 @@ WT=/proc/sys/vm/watermark_boost_factor
 KL=/proc/sys/kernel
 VM=/proc/sys/vm
 MG=/sys/kernel/mm/lru_gen
-BT=$(getprop ro.boot.bootdevice)
 S2=/sys/devices/system/cpu/cpufreq/schedutil
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
-BL=/dev/blkio
 
 # Info
 log-info "Starting YAKT v14"
