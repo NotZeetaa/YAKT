@@ -180,34 +180,26 @@ if [ -e "$TP" ]; then
     log-info ""
     log-info "You have uclamp scheduler"
     log-info "Applying tweaks for it..."
-    for ta in "$CP"/top-app
-    do
-        write "$ta/uclamp.max" max
-        write "$ta/uclamp.min" 10
-        write "$ta/uclamp.boosted" 1
-        write "$ta/uclamp.latency_sensitive" 1
-    done
-    for fd in "$CP"/foreground
-    do
-        write "$fd/uclamp.max" 50
-        write "$fd/uclamp.min" 0
-        write "$fd/uclamp.boosted" 0
-        write "$fd/uclamp.latency_sensitive" 0
-    done
-    for bd in "$CP"/background
-    do
-        write "$bd/uclamp.max" max
-        write "$bd/uclamp.min" 20
-        write "$bd/uclamp.boosted" 0
-        write "$bd/uclamp.latency_sensitive" 0
-    done
-    for sb in "$CP"/system-background
-    do
-        write "$sb/uclamp.max" 40
-        write "$sb/uclamp.min" 0
-        write "$sb/uclamp.boosted" 0
-        write "$sb/uclamp.latency_sensitive" 0
-    done
+    ta="${CP}/top-app"
+    write "$ta/uclamp.max" max
+    write "$ta/uclamp.min" 10
+    write "$ta/uclamp.boosted" 1
+    write "$ta/uclamp.latency_sensitive" 1
+    fd="${CP}/foreground"
+    write "$fd/uclamp.max" 50
+    write "$fd/uclamp.min" 0
+    write "$fd/uclamp.boosted" 0
+    write "$fd/uclamp.latency_sensitive" 0
+    bd="$CP"/background
+    write "$bd/uclamp.max" max
+    write "$bd/uclamp.min" 20
+    write "$bd/uclamp.boosted" 0
+    write "$bd/uclamp.latency_sensitive" 0
+    sb="${CP}/system-background"
+    write "$sb/uclamp.min" 0
+    write "$sb/uclamp.max" 40
+    write "$sb/uclamp.boosted" 0
+    write "$sb/uclamp.latency_sensitive" 0
     sysctl -w kernel.sched_util_clamp_min_rt_default=0
     sysctl -w kernel.sched_util_clamp_min=128
     log-info "Done,"
