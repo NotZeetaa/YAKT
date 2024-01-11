@@ -20,14 +20,14 @@ log_info() {
 
 # Function to log error messages
 log_error() {
-    log-yakt "$ERROR_LOG" "$1"
+    _log_yakt "$ERROR_LOG" "$1"
 }
 
 # useful for debugging ig ¯\_(ツ)_/¯
 # shellcheck disable=SC3033
-log-debug() {
-    _log_yakt "$DEBUG_LOG" "$1"
-}
+# log_debug() {
+#     _log_yakt "$DEBUG_LOG" "$1"
+# }
 
 write() {
     # shellcheck disable=SC3043
@@ -37,7 +37,7 @@ write() {
 
     # Check if the file exists
     if [ ! -f "$file" ]; then
-        log-error "Error: File $file does not exist."
+        log_error "Error: File $file does not exist."
         return 1
     fi
 
@@ -46,7 +46,7 @@ write() {
 
     # Write new value, bail out if it fails
     if ! echo "$value" >"$file" 2>/dev/null; then
-        log-error "Error: Failed to write to $file."
+        log_error "Error: Failed to write to $file."
         return 1
     else
         return 0
@@ -77,95 +77,95 @@ S2=/sys/devices/system/cpu/cpufreq/schedutil
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 
 # Info
-log-info "Starting YAKT v14"
-log-info "Build Date: 07/01/2024"
-log-info "Author: @NotZeetaa (Github)"
-log-info "Device: $(getprop ro.product.system.model)"
-log-info "Brand: $(getprop ro.product.system.brand)"
-log-info "Kernel: $(uname -r)"
-log-info "Rom build type: $(getprop ro.system.build.type)"
-log-info "Android Version: $(getprop ro.system.build.version.release)"
+log_info "Starting YAKT v14"
+log_info "Build Date: 07/01/2024"
+log_info "Author: @NotZeetaa (Github)"
+log_info "Device: $(getprop ro.product.system.model)"
+log_info "Brand: $(getprop ro.product.system.brand)"
+log_info "Kernel: $(uname -r)"
+log_info "Rom build type: $(getprop ro.system.build.type)"
+log_info "Android Version: $(getprop ro.system.build.version.release)"
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
-log-info "Applying Google's schedutil rate-limits from Pixel 3"
+log_info "Applying Google's schedutil rate-limits from Pixel 3"
 if [ -d $S2 ]; then
     write "$S2/up_rate_limit_us" 500
     write "$S2/down_rate_limit_us" 20000
-    log-info "Applied Google's schedutil rate-limits from Pixel 3"
+    log_info "Applied Google's schedutil rate-limits from Pixel 3"
 elif [ -e $SC ]; then
     for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
     do
         write "${cpu}/up_rate_limit_us" 500
         write "${cpu}/down_rate_limit_us" 20000
     done
-    log-info "Applied Google's schedutil rate-limits from Pixel 3"
+    log_info "Applied Google's schedutil rate-limits from Pixel 3"
 else
-    log-info "Abort You are not using schedutil governor"
+    log_info "Abort You are not using schedutil governor"
 fi
-log-info ""
+log_info ""
 
 # Grouping tasks tweak
-log-info ""
-log-info "Disabling Sched Auto Group..."
+log_info ""
+log_info "Disabling Sched Auto Group..."
 write "$KL/sched_autogroup_enabled" 0
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
 # Tweak scheduler to have less Latency
 # Credits to RedHat & tytydraco & KTweak
-log-info "Tweaking scheduler to reduce latency"
+log_info "Tweaking scheduler to reduce latency"
 write "$KL/sched_migration_cost_ns" 5000000
 write "$KL/sched_min_granularity_ns" 10000000
 write "$KL/sched_wakeup_granularity_ns" 12000000
 write "$KL/sched_nr_migrate" 8
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
 # Disable CRF by default
-log-info "Enabling child_runs_first"
+log_info "Enabling child_runs_first"
 write "$KL/sched_child_runs_first" 0
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
 # Ram Tweak
 # The stat_interval one reduces jitter (Credits to kdrag0n)
 # Credits to RedHat for dirty_ratio
-log-info "Applying Ram Tweaks"
+log_info "Applying Ram Tweaks"
 write "$VM/vfs_cache_pressure" 50
 write "$VM/stat_interval" 30
 write "$VM/compaction_proactiveness" 0
 write "$VM/page-cluster" 0
 write "$VM/swappiness" 100
 write "$VM/dirty_ratio" 60
-log-info "Applied Ram Tweaks"
-log-info ""
+log_info "Applied Ram Tweaks"
+log_info ""
 
 # Mglru
 # Credits to Arter97
-log-info "Checking if your kernel has mglru support..."
+log_info "Checking if your kernel has mglru support..."
 if [ -d "$MG" ]; then
-    log-info "Found it."
-    log-info "Tweaking it..."
+    log_info "Found it."
+    log_info "Tweaking it..."
     write "$MG/min_ttl_ms" 5000
-    log-info "Done."
-    log-info ""
+    log_info "Done."
+    log_info ""
 else
-    log-info "Your kernel doesn't support mglru :("
-    log-info "Aborting it..."
-    log-info ""
+    log_info "Your kernel doesn't support mglru :("
+    log_info "Aborting it..."
+    log_info ""
 fi
 
 # Set kernel.perf_cpu_time_max_percent to 10
-log-info "Applying tweak for perf_cpu_time_max_percent"
+log_info "Applying tweak for perf_cpu_time_max_percent"
 write "$KL/perf_cpu_time_max_percent" 10
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
 # Disable some scheduler logs/stats
 # Also iostats & reduce latency
 # Credits to tytydraco
-log-info "Disabling some scheduler logs/stats"
+log_info "Disabling some scheduler logs/stats"
 if [ -e "$KL/sched_schedstats" ]; then
     write "$KL/sched_schedstats" 0
 fi
@@ -176,22 +176,22 @@ do
     write "$queue/iostats" 0
     write "$queue/nr_requests" 64
 done
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
 # Disable Timer migration
-log-info "Disabling Timer Migration"
+log_info "Disabling Timer Migration"
 write "$KL/timer_migration" 0
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
 # Cgroup Tweak
 if [ -e "$TP" ]; then
     # Uclamp Tweak
     # All credits to @darkhz
-    log-info ""
-    log-info "You have uclamp scheduler"
-    log-info "Applying tweaks for it..."
+    log_info ""
+    log_info "You have uclamp scheduler"
+    log_info "Applying tweaks for it..."
     ta="${CP}/top-app"
     write "$ta/uclamp.max" max
     write "$ta/uclamp.min" 10
@@ -214,67 +214,67 @@ if [ -e "$TP" ]; then
     write "$sb/uclamp.latency_sensitive" 0
     sysctl -w kernel.sched_util_clamp_min_rt_default=0
     sysctl -w kernel.sched_util_clamp_min=128
-    log-info "Done,"
-    log-info ""
+    log_info "Done,"
+    log_info ""
 fi
 
 # Enable ECN negotiation by default
 # By kdrag0n
-log-info "Enabling ECN negotiation..."
+log_info "Enabling ECN negotiation..."
 write "/proc/sys/net/ipv4/tcp_ecn" 1
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
-log-info "Always allow sched boosting on top-app tasks"
+log_info "Always allow sched boosting on top-app tasks"
 write "$KL/sched_min_task_util_for_colocation" 0
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
 # Watermark Boost Tweak
 if [ -e "$WT" ]; then
-    log-info "Disabling watermark boost..."
+    log_info "Disabling watermark boost..."
     write "$VM/watermark_boost_factor" 0
-    log-info "Done."
-    log-info ""
+    log_info "Done."
+    log_info ""
 fi
 
-log-info "Tweaking read_ahead overall..."
+log_info "Tweaking read_ahead overall..."
 for queue2 in /sys/block/*/queue/read_ahead_kb
 do
     write "$queue2" 128
 done
-log-info "Tweaked read_ahead."
-log-info ""
+log_info "Tweaked read_ahead."
+log_info ""
 
 # Disable Spi CRC
 if [ -d "$ML/mmc_core" ]; then
-    log-info "Disabling Spi CRC"
+    log_info "Disabling Spi CRC"
     write "$ML/mmc_core/parameters/use_spi_crc" 0
-    log-info "Done."
-    log-info ""
+    log_info "Done."
+    log_info ""
 fi
 
 # Zswap Tweak
-log-info "Checking if your kernel supports zswap.."
+log_info "Checking if your kernel supports zswap.."
 if [ -d "$ML/zswap" ]; then
-    log-info "Your kernel supports zswap, tweaking it.."
+    log_info "Your kernel supports zswap, tweaking it.."
     write "$ML/zswap/parameters/compressor" lz4
-    log-info "Set your zswap compressor to lz4 (Fastest compressor)."
+    log_info "Set your zswap compressor to lz4 (Fastest compressor)."
     write "$ML/zswap/parameters/zpool" zsmalloc
-    log-info "Set your zpool compressor to zsmalloc."
-    log-info "Tweaked!"
-    log-info ""
+    log_info "Set your zpool compressor to zsmalloc."
+    log_info "Tweaked!"
+    log_info ""
 else
-    log-info "Your kernel doesn't support zswap, aborting it..."
-    log-info ""
+    log_info "Your kernel doesn't support zswap, aborting it..."
+    log_info ""
 fi
 
 # Enable Power Efficient
-log-info "Enabling Power Efficient..."
+log_info "Enabling Power Efficient..."
 write "$ML/workqueue/parameters/power_efficient" 1
-log-info "Done."
-log-info ""
+log_info "Done."
+log_info ""
 
-log-info "The Tweak is done enjoy :)"
+log_info "The Tweak is done enjoy :)"
