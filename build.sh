@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-clog=$(cat changelog.txt)
+clog=$(<changelog.txt)
 function push() {
 # shellcheck disable=SC2154
 curl -F document="@$1" "https://api.telegram.org/bot${token}/sendDocument" \
