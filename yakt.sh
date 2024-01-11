@@ -5,29 +5,34 @@
 
 sleep 30
 # Function to write to logs to the module's directory
-log-yakt() {
+_log_yakt() {
+    # shellcheck disable=SC3043
     local log="$1"
+    # shellcheck disable=SC3043
     local message="$2"
     echo "[$(date "+%H:%M:%S")] $message" >> "${MODDIR}/$log"
 }
 
 # Function to log info messages
-log-info() {
-    log-yakt "$INFO_LOG" "$1"
+log_info() {
+    _log_yakt "$INFO_LOG" "$1"
 }
 
 # Function to log error messages
-log-error() {
+log_error() {
     log-yakt "$ERROR_LOG" "$1"
 }
 
 # useful for debugging ig ¯\_(ツ)_/¯
+# shellcheck disable=SC3033
 log-debug() {
-    log-yakt "$DEBUG_LOG" "$1"
+    _log_yakt "$DEBUG_LOG" "$1"
 }
 
 write() {
+    # shellcheck disable=SC3043
     local file="$1"
+    # shellcheck disable=SC3043
     local value="$2"
 
     # Check if the file exists

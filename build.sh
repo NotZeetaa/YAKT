@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 clog=$(cat changelog.txt)
 function push() {
+# shellcheck disable=SC2154
 curl -F document="@$1" "https://api.telegram.org/bot${token}/sendDocument" \
      -F chat_id="${chat_id}"  \
      -F "disable_web_page_preview=true" \
