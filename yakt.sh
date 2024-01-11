@@ -4,13 +4,13 @@
 # ×××××××××××××××××××××××××× #
 
 sleep 30
-# Function to write to logs to the module's directory
+# Function to append a message to the specified log file
 _log_yakt() {
     # shellcheck disable=SC3043
     local log="$1"
     # shellcheck disable=SC3043
     local message="$2"
-    echo "[$(date "+%H:%M:%S")] $message" >> "${MODDIR}/$log"
+    echo "[$(date "+%H:%M:%S")] $message" >> "$log"
 }
 
 # Function to log info messages
@@ -56,13 +56,14 @@ write() {
 MODDIR=${0%/*} # get parent directory
 
 # Modify the filenames for logs
-INFO_LOG="yakt.log"
-ERROR_LOG="yakt-logging-error.log"
-DEBUG_LOG="yakt-debug.log"
+INFO_LOG="${MODDIR}/yakt.log"
+ERROR_LOG="${MODDIR}/yakt-logging-error.log"
+# DEBUG_LOG="${MODDIR}/yakt-debug.log"
 
 # prepare log files
-:> "${MODDIR}/$INFO_LOG"
-:> "${MODDIR}/$ERROR_LOG"
+:> "$INFO_LOG"
+:> "$ERROR_LOG"
+# :> "$DEBUG_LOG"
 
 # Variables
 TP=/dev/stune/top-app/uclamp.max
