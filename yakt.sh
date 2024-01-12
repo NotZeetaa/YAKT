@@ -56,9 +56,9 @@ write() {
 MODDIR=${0%/*} # get parent directory
 
 # Modify the filenames for logs
-INFO_LOG="${MODDIR}/yakt.log"
-ERROR_LOG="${MODDIR}/yakt-logging-error.log"
-# DEBUG_LOG="${MODDIR}/yakt-debug.log"
+INFO_LOG="${MODDIR}/info.log"
+ERROR_LOG="${MODDIR}/error.log"
+# DEBUG_LOG="${MODDIR}/debug.log"
 
 # prepare log files
 :> "$INFO_LOG"
