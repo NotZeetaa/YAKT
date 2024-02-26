@@ -278,4 +278,16 @@ write "$ML/workqueue/parameters/power_efficient" 1
 log_info "Done."
 log_info ""
 
+# Disable phantom process monitoring
+log_info "Checking if your Android version is greater than or equal to Android version 12 to disable phantom process monitoring."
+if [ "$ADV" -ge 12 ]; then
+    log_info "Android version 12 or higher detected."
+    log_info "Disabling phantom process monitoring."
+    setprop sys.fflag.override.settings_enable_monitor_phantom_procs false
+else
+    log_info "Android version 12 or higher not detected."
+    log_info "Aborting."
+fi
+log_info "Done."
+
 log_info "The Tweak is done enjoy :)"
