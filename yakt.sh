@@ -113,16 +113,6 @@ write "$KL/sched_autogroup_enabled" 0
 log_info "Done."
 log_info ""
 
-# Tweak scheduler to have less Latency
-# Credits to RedHat & tytydraco & KTweak
-log_info "Tweaking scheduler to reduce latency"
-write "$KL/sched_migration_cost_ns" 5000000
-write "$KL/sched_min_granularity_ns" 10000000
-write "$KL/sched_wakeup_granularity_ns" 12000000
-write "$KL/sched_nr_migrate" 8
-log_info "Done."
-log_info ""
-
 # Disable CRF by default
 log_info "Enabling child_runs_first"
 write "$KL/sched_child_runs_first" 0
