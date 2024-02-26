@@ -209,13 +209,6 @@ if [ -e "$TP" ]; then
     log_info ""
 fi
 
-# Enable ECN negotiation by default
-# By kdrag0n
-log_info "Enabling ECN negotiation..."
-write "/proc/sys/net/ipv4/tcp_ecn" 1
-log_info "Done."
-log_info ""
-
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
 log_info "Always allow sched boosting on top-app tasks"
