@@ -231,14 +231,6 @@ if [ -e "$WT" ]; then
     log_info ""
 fi
 
-log_info "Tweaking read_ahead overall..."
-for queue2 in /sys/block/*/queue/read_ahead_kb
-do
-    write "$queue2" 128
-done
-log_info "Tweaked read_ahead."
-log_info ""
-
 # Disable Spi CRC
 if [ -d "$ML/mmc_core" ]; then
     log_info "Disabling Spi CRC"
