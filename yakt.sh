@@ -271,5 +271,29 @@ else
     log_info "Aborting."
 fi
 log_info "Done."
+log_info ""
+
+# Set the priority for most essential processes to -20 (highest priority)
+# List of processes
+# Credits to @iamlooper (GitHub)
+log_info "Setting the priority for most essential processes to -20 (highest priority)."
+processes=(
+    "rcu_sched"
+    "writeback"
+    "system"
+    "zygote"
+    "system_server"
+    "surfaceflinger"
+    "netd"
+    "com.android.systemui"
+    "android.process.acore"
+    "$(getprop ro.home_app)"
+)
+
+for process in "${processes[@]}"; do
+    renice -n -20 -p "$(pidof "$process")"
+done
+log_info "Done."
+log_info ""
 
 log_info "The Tweak is done enjoy :)"
