@@ -75,6 +75,7 @@ VM=/proc/sys/vm
 MG=/sys/kernel/mm/lru_gen
 S2=/sys/devices/system/cpu/cpufreq/schedutil
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
+ADV=$(getprop ro.build.version.release)
 
 # Info
 log_info "Starting YAKT v14"
@@ -84,7 +85,7 @@ log_info "Device: $(getprop ro.product.system.model)"
 log_info "Brand: $(getprop ro.product.system.brand)"
 log_info "Kernel: $(uname -r)"
 log_info "Rom build type: $(getprop ro.system.build.type)"
-log_info "Android Version: $(getprop ro.system.build.version.release)"
+log_info "Android Version: $ADV"
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
