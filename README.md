@@ -8,11 +8,12 @@
 - Optimizes Ram Management
 - Disables scheduler logs/stats
 - Disables printk logs
-- Enables ECN negotiation by default
 - Disables SPI CRC
 - Tweaks mglru
 - Allows sched boosting on top-app tasks (Thx to tytydraco)
 - Tweaks uclamp scheduler (Credits to darkhz for uclamp tweak)
+- Sets -20 (highest priority) for the most essential processes
+- Uses Google's schedutil rate-limits from Pixel 3
 ```
 ## Benchmark - As per v6
 
