@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v14
+# Yakt v15
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
 
@@ -78,8 +78,8 @@ SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 ADV=$(getprop ro.build.version.release)
 
 # Info
-log_info "Starting YAKT v14"
-log_info "Build Date: 07/01/2024"
+log_info "Starting YAKT v15"
+log_info "Build Date: 26/02/2024"
 log_info "Author: @NotZeetaa (Github)"
 log_info "Device: $(getprop ro.product.system.model)"
 log_info "Brand: $(getprop ro.product.system.brand)"

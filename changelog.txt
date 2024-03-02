@@ -1,9 +1,8 @@
-- Reapplied Google's schedutil rate-limits from Pixel 3.
-- Disabled the grouping tasks tweak.
-- Adjusted sched_min_granularity_ns.
-- Removed the sched_latency_ns tweak.
-- Fine-tuned sched_wakeup_granularity_ns.
-- Increased the stat_interval tweak twofold (To mitigate system overhead).
-- Elevated the dirty_ratio tweak (Aiming to enhance performance by reducing the frequency of disk writes).
-- Removed unnecessary sleep commands as they serve no purpose.
-- Omitted the extfrag tweak (As it didn't yield noticeable improvements).
+- Improved log creation for optimization.
+- Implemented log debugging (Disabled by default).
+- Introduced a variable for Android Version output.
+- Disabled phantom processing (Applicable to Android 12 and later).
+- Temporarily removed scheduler tweaks.
+- Omitted read_head tweaks.
+- Set the priority of most critical processes to -20 (highest priority).
+- Defaulted to disabling ECN negotiation.
