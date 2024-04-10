@@ -66,17 +66,17 @@ ERROR_LOG="${MODDIR}/error.log"
 # :> "$DEBUG_LOG"
 
 # Variables
-TP=/dev/stune/top-app/uclamp.max
-CP=/dev/cpuset
-ML=/sys/module
-WT=/proc/sys/vm/watermark_boost_factor
-KL=/proc/sys/kernel
-VM=/proc/sys/vm
-MG=/sys/kernel/mm/lru_gen
-S2=/sys/devices/system/cpu/cpufreq/schedutil
-SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
-ADV=$(getprop ro.build.version.release)
-RM=$(free -m | awk '/Mem/{print $2}')
+UCLAMP=/dev/stune/top-app/uclamp.max
+CPUSET=/dev/cpuset
+MODULE=/sys/module
+WATERMARK=/proc/sys/vm/watermark_boost_factor
+KERNEL=/proc/sys/kernel
+MEMORY=/proc/sys/vm
+MGLRU=/sys/kernel/mm/lru_gen
+SCHEDUTIL2=/sys/devices/system/cpu/cpufreq/schedutil
+SCHEDUTIL=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
+ANDROID_VERSION=$(getprop ro.build.version.release)
+TOTAL_RAM=$(free -m | awk '/Mem/{print $2}')
 
 # Info
 log_info "Starting YAKT v15"
@@ -86,16 +86,16 @@ log_info "Device: $(getprop ro.product.system.model)"
 log_info "Brand: $(getprop ro.product.system.brand)"
 log_info "Kernel: $(uname -r)"
 log_info "Rom build type: $(getprop ro.system.build.type)"
-log_info "Android Version: $ADV"
+log_info "Android Version: $ANDROID_VERSION"
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
 log_info "Applying Google's schedutil rate-limits from Pixel 3"
-if [ -d $S2 ]; then
-    write "$S2/up_rate_limit_us" 500
-    write "$S2/down_rate_limit_us" 20000
+if [ -d $SCHEDUTIL2 ]; then
+    write "$SCHEDUTIL2/up_rate_limit_us" 500
+    write "$SCHEDUTIL2/down_rate_limit_us" 20000
     log_info "Applied Google's schedutil rate-limits from Pixel 3"
-elif [ -e $SC ]; then
+elif [ -e $SCHEDUTIL ]; then
     for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
     do
         write "${cpu}/up_rate_limit_us" 500
@@ -110,13 +110,13 @@ log_info ""
 # Grouping tasks tweak
 log_info ""
 log_info "Disabling Sched Auto Group..."
-write "$KL/sched_autogroup_enabled" 0
+write "$KERNEL/sched_autogroup_enabled" 0
 log_info "Done."
 log_info ""
 
 # Disable CRF by default
 log_info "Enabling child_runs_first"
-write "$KL/sched_child_runs_first" 0
+write "$KERNEL/sched_child_runs_first" 0
 log_info "Done."
 log_info ""
 
@@ -124,31 +124,31 @@ log_info ""
 # The stat_interval one reduces jitter (Credits to kdrag0n)
 # Credits to RedHat for dirty_ratio
 log_info "Applying Ram Tweaks"
-write "$VM/vfs_cache_pressure" 50
-write "$VM/stat_interval" 30
-write "$VM/compaction_proactiveness" 0
-write "$VM/page-cluster" 0
+write "$MEMORY/vfs_cache_pressure" 50
+write "$MEMORY/stat_interval" 30
+write "$MEMORY/compaction_proactiveness" 0
+write "$MEMORY/page-cluster" 0
 log_info "Detecting if your device has less/higher than 8GB of RAM"
-if [ $RM -lt 8000 ]; then
+if [ $TOTAL_RAM -lt 8000 ]; then
     log_info "Detected equal or less"
     log_info "Aplying tweaks for it..."
-    write "$VM/swappiness" 100
+    write "$MEMORY/swappiness" 100
 else
     log_info "Detected higher or equal"
     log_info "Aplying tweaks for it..."
-    write "$VM/swappiness" 0
+    write "$MEMORY/swappiness" 0
 fi
-write "$VM/dirty_ratio" 60
+write "$MEMORY/dirty_ratio" 60
 log_info "Applied Ram Tweaks"
 log_info ""
 
 # Mglru
 # Credits to Arter97
 log_info "Checking if your kernel has mglru support..."
-if [ -d "$MG" ]; then
+if [ -d "$MGLRU" ]; then
     log_info "Found it."
     log_info "Tweaking it..."
-    write "$MG/min_ttl_ms" 5000
+    write "$MGLRU/min_ttl_ms" 5000
     log_info "Done."
     log_info ""
 else
@@ -159,7 +159,7 @@ fi
 
 # Set kernel.perf_cpu_time_max_percent to 10
 log_info "Applying tweak for perf_cpu_time_max_percent"
-write "$KL/perf_cpu_time_max_percent" 10
+write "$KERNEL/perf_cpu_time_max_percent" 10
 log_info "Done."
 log_info ""
 
@@ -167,11 +167,11 @@ log_info ""
 # Also iostats & reduce latency
 # Credits to tytydraco
 log_info "Disabling some scheduler logs/stats"
-if [ -e "$KL/sched_schedstats" ]; then
-    write "$KL/sched_schedstats" 0
+if [ -e "$KERNEL/sched_schedstats" ]; then
+    write "$KERNEL/sched_schedstats" 0
 fi
-write "$KL/printk" "0        0 0 0"
-write "$KL/printk_devkmsg" "off"
+write "$KERNEL/printk" "0        0 0 0"
+write "$KERNEL/printk_devkmsg" "off"
 for queue in /sys/block/*/queue
 do
     write "$queue/iostats" 0
@@ -182,33 +182,33 @@ log_info ""
 
 # Disable Timer migration
 log_info "Disabling Timer Migration"
-write "$KL/timer_migration" 0
+write "$KERNEL/timer_migration" 0
 log_info "Done."
 log_info ""
 
 # Cgroup Tweak
-if [ -e "$TP" ]; then
+if [ -e "$UCLAMP" ]; then
     # Uclamp Tweak
     # All credits to @darkhz
     log_info ""
     log_info "You have uclamp scheduler"
     log_info "Applying tweaks for it..."
-    ta="${CP}/top-app"
+    ta="${CPUSET}/top-app"
     write "$ta/uclamp.max" max
     write "$ta/uclamp.min" 10
     write "$ta/uclamp.boosted" 1
     write "$ta/uclamp.latency_sensitive" 1
-    fd="${CP}/foreground"
+    fd="${CPUSET}/foreground"
     write "$fd/uclamp.max" 50
     write "$fd/uclamp.min" 0
     write "$fd/uclamp.boosted" 0
     write "$fd/uclamp.latency_sensitive" 0
-    bd="$CP"/background
+    bd="$CPUSET"/background
     write "$bd/uclamp.max" max
     write "$bd/uclamp.min" 20
     write "$bd/uclamp.boosted" 0
     write "$bd/uclamp.latency_sensitive" 0
-    sb="${CP}/system-background"
+    sb="${CPUSET}/system-background"
     write "$sb/uclamp.min" 0
     write "$sb/uclamp.max" 40
     write "$sb/uclamp.boosted" 0
@@ -222,33 +222,33 @@ fi
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
 log_info "Always allow sched boosting on top-app tasks"
-write "$KL/sched_min_task_util_for_colocation" 0
+write "$KERNEL/sched_min_task_util_for_colocation" 0
 log_info "Done."
 log_info ""
 
 # Watermark Boost Tweak
-if [ -e "$WT" ]; then
+if [ -e "$WATERMARK" ]; then
     log_info "Disabling watermark boost..."
-    write "$VM/watermark_boost_factor" 0
+    write "$MEMORY/watermark_boost_factor" 0
     log_info "Done."
     log_info ""
 fi
 
 # Disable Spi CRC
-if [ -d "$ML/mmc_core" ]; then
+if [ -d "$MODULE/mmc_core" ]; then
     log_info "Disabling Spi CRC"
-    write "$ML/mmc_core/parameters/use_spi_crc" 0
+    write "$MODULE/mmc_core/parameters/use_spi_crc" 0
     log_info "Done."
     log_info ""
 fi
 
 # Zswap Tweak
 log_info "Checking if your kernel supports zswap.."
-if [ -d "$ML/zswap" ]; then
+if [ -d "$MODULE/zswap" ]; then
     log_info "Your kernel supports zswap, tweaking it.."
-    write "$ML/zswap/parameters/compressor" lz4
+    write "$MODULE/zswap/parameters/compressor" lz4
     log_info "Set your zswap compressor to lz4 (Fastest compressor)."
-    write "$ML/zswap/parameters/zpool" zsmalloc
+    write "$MODULE/zswap/parameters/zpool" zsmalloc
     log_info "Set your zpool compressor to zsmalloc."
     log_info "Tweaked!"
     log_info ""
@@ -259,13 +259,13 @@ fi
 
 # Enable Power Efficient
 log_info "Enabling Power Efficient..."
-write "$ML/workqueue/parameters/power_efficient" 1
+write "$MODULE/workqueue/parameters/power_efficient" 1
 log_info "Done."
 log_info ""
 
 # Disable phantom process monitoring
 log_info "Checking if your Android version is greater than or equal to Android version 12 to disable phantom process monitoring."
-if [ "$ADV" -ge 12 ]; then
+if [ "$ANDROID_VERSION" -ge 12 ]; then
     log_info "Android version 12 or higher detected."
     log_info "Disabling phantom process monitoring."
     setprop sys.fflag.override.settings_enable_monitor_phantom_procs false
