@@ -156,9 +156,9 @@ else
     log_info ""
 fi
 
-# Set kernel.perf_cpu_time_max_percent to 10
+# Set kernel.perf_cpu_time_max_percent to 20
 log_info "Applying tweak for perf_cpu_time_max_percent"
-write "$KERNEL/perf_cpu_time_max_percent" 10
+write "$KERNEL/perf_cpu_time_max_percent" 20
 log_info "Done."
 log_info ""
 
