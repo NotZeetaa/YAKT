@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Yakt v15
+# Yakt v16
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
 
@@ -78,8 +78,8 @@ ANDROID_VERSION=$(getprop ro.build.version.release)
 TOTAL_RAM=$(free -m | awk '/Mem/{print $2}')
 
 # Info
-log_info "Starting YAKT v15"
-log_info "Build Date: 26/02/2024"
+log_info "Starting YAKT v16"
+log_info "Build Date: 10/04/2024"
 log_info "Author: @NotZeetaa (Github)"
 log_info "Device: $(getprop ro.product.system.model)"
 log_info "Brand: $(getprop ro.product.system.brand)"
