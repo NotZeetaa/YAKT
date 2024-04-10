@@ -89,15 +89,15 @@ log_info "Android Version: $ANDROID_VERSION"
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
-log_info "Applying Google's schedutil rate-limits from Pixel 3"
+log_info "Applying Google's schedutil rate-limits from Pixel 3 (MODDED)"
 if [ -d $SCHEDUTIL2 ]; then
-    write "$SCHEDUTIL2/up_rate_limit_us" 500
+    write "$SCHEDUTIL2/up_rate_limit_us" 10000
     write "$SCHEDUTIL2/down_rate_limit_us" 20000
-    log_info "Applied Google's schedutil rate-limits from Pixel 3"
+    log_info "Applied Google's schedutil rate-limits from Pixel 3 (MODDED)"
 elif [ -e $SCHEDUTIL ]; then
     for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
     do
-        write "${cpu}/up_rate_limit_us" 500
+        write "${cpu}/up_rate_limit_us" 10000
         write "${cpu}/down_rate_limit_us" 20000
     done
     log_info "Applied Google's schedutil rate-limits from Pixel 3"
