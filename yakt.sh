@@ -76,6 +76,7 @@ MG=/sys/kernel/mm/lru_gen
 S2=/sys/devices/system/cpu/cpufreq/schedutil
 SC=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
 ADV=$(getprop ro.build.version.release)
+RM=$(free -m | awk '/Mem/{print $2}')
 
 # Info
 log_info "Starting YAKT v15"
@@ -127,7 +128,16 @@ write "$VM/vfs_cache_pressure" 50
 write "$VM/stat_interval" 30
 write "$VM/compaction_proactiveness" 0
 write "$VM/page-cluster" 0
-write "$VM/swappiness" 100
+log_info "Detecting if your device has less/higher than 8GB of RAM"
+if [ $RM -lt 8000 ]; then
+    log_info "Detected equal or less"
+    log_info "Aplying tweaks for it..."
+    write "$VM/swappiness" 100
+else
+    log_info "Detected higher or equal"
+    log_info "Aplying tweaks for it..."
+    write "$VM/swappiness" 0
+fi
 write "$VM/dirty_ratio" 60
 log_info "Applied Ram Tweaks"
 log_info ""
