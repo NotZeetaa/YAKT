@@ -69,7 +69,6 @@ ERROR_LOG="${MODDIR}/error.log"
 UCLAMP=/dev/stune/top-app/uclamp.max
 CPUSET=/dev/cpuset
 MODULE=/sys/module
-WATERMARK=/proc/sys/vm/watermark_boost_factor
 KERNEL=/proc/sys/kernel
 MEMORY=/proc/sys/vm
 MGLRU=/sys/kernel/mm/lru_gen
@@ -225,14 +224,6 @@ log_info "Always allow sched boosting on top-app tasks"
 write "$KERNEL/sched_min_task_util_for_colocation" 0
 log_info "Done."
 log_info ""
-
-# Watermark Boost Tweak
-if [ -e "$WATERMARK" ]; then
-    log_info "Disabling watermark boost..."
-    write "$MEMORY/watermark_boost_factor" 0
-    log_info "Done."
-    log_info ""
-fi
 
 # Disable Spi CRC
 if [ -d "$MODULE/mmc_core" ]; then
