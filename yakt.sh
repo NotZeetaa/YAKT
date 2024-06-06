@@ -85,19 +85,18 @@ log_info "Kernel: $(uname -r)"
 log_info "ROM Build Type: $(getprop ro.system.build.type)"
 log_info "Android Version: $ANDROID_VERSION"
 
-# Use Google's schedutil rate-limits from Pixel 3
-# Credits to Kdrag0n
-log_info "Applying Google's schedutil rate-limits from Pixel 3 (MODDED)"
+# Schedutil rate-limits tweak
+log_info "Applying schedutil rate-limits tweak"
 if [ -d "$SCHEDUTIL2_PATH" ]; then
     write_value "$SCHEDUTIL2_PATH/up_rate_limit_us" 10000
     write_value "$SCHEDUTIL2_PATH/down_rate_limit_us" 20000
-    log_info "Applied Google's schedutil rate-limits from Pixel 3 (MODDED)"
+    log_info "Applied schedutil rate-limits tweak"
 elif [ -e "$SCHEDUTIL_PATH" ]; then
     for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil; do
         write_value "${cpu}/up_rate_limit_us" 10000
         write_value "${cpu}/down_rate_limit_us" 20000
     done
-    log_info "Applied Google's schedutil rate-limits from Pixel 3"
+    log_info "Applied schedutil rate-limits tweak"
 else
     log_info "Abort: Not using schedutil governor"
 fi
