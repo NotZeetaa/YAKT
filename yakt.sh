@@ -68,6 +68,7 @@ UCLAMP_PATH="/dev/stune/top-app/uclamp.max"
 CPUSET_PATH="/dev/cpuset"
 MODULE_PATH="/sys/module"
 KERNEL_PATH="/proc/sys/kernel"
+IPV4_PATH="/proc/sys/net/ipv4"
 MEMORY_PATH="/proc/sys/vm"
 MGLRU_PATH="/sys/kernel/mm/lru_gen"
 SCHEDUTIL2_PATH="/sys/devices/system/cpu/cpufreq/schedutil"
@@ -237,6 +238,11 @@ fi
 # Enable power efficiency
 log_info "Enabling power efficiency..."
 write_value "$MODULE_PATH/workqueue/parameters/power_efficient" 1
+log_info "Done."
+
+# Disable TCP timestamps for reduced overhead
+log_info "Disabling TCP timestamps..."
+write_value "$IPV4_PATH/tcp_timestamps" 0
 log_info "Done."
 
 log_info "Tweaks applied successfully. Enjoy :)"
