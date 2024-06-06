@@ -123,7 +123,7 @@ log_info "Detecting if your device has less or more than 8GB of RAM"
 if [ $TOTAL_RAM -lt 8000 ]; then
     log_info "Detected 8GB or less"
     log_info "Applying appropriate tweaks..."
-    write_value "$MEMORY_PATH/swappiness" 100
+    write_value "$MEMORY_PATH/swappiness" 60
 else
     log_info "Detected more than 8GB"
     log_info "Applying appropriate tweaks..."
