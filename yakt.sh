@@ -165,6 +165,14 @@ for queue in /sys/block/*/queue; do
 done
 log_info "Done."
 
+# Tweak scheduler to have less Latency
+# Credits to RedHat & tytydraco & KTweak
+log_info "Tweaking scheduler to reduce latency"
+write_value "$KERNEL_PATH/sched_migration_cost_ns" 50000
+write_value "$KERNEL_PATH/sched_min_granularity_ns" 1000000
+write_value "$KERNEL_PATH/sched_wakeup_granularity_ns" 1500000
+log_info "Done."
+
 # Disable Timer migration
 log_info "Disabling Timer Migration"
 write_value "$KERNEL_PATH/timer_migration" 0
