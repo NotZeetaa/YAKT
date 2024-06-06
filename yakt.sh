@@ -107,9 +107,9 @@ log_info "Disabling Sched Auto Group..."
 write_value "$KERNEL_PATH/sched_autogroup_enabled" 0
 log_info "Done."
 
-# Disable CRF by default
+# Enable CRF by default
 log_info "Enabling child_runs_first"
-write_value "$KERNEL_PATH/sched_child_runs_first" 0
+write_value "$KERNEL_PATH/sched_child_runs_first" 1
 log_info "Done."
 
 # Apply RAM tweaks
