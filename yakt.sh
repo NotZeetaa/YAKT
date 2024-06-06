@@ -1,257 +1,235 @@
 #!/system/bin/sh
-# Yakt v16
+# YAKT v16
 # Author: @NotZeetaa (Github)
 # ×××××××××××××××××××××××××× #
 
 sleep 30
+
 # Function to append a message to the specified log file
-_log_yakt() {
-    # shellcheck disable=SC3043
-    local log="$1"
-    # shellcheck disable=SC3043
+log_message() {
+    local log_file="$1"
     local message="$2"
-    echo "[$(date "+%H:%M:%S")] $message" >> "$log"
+    echo "[$(date "+%H:%M:%S")] $message" >> "$log_file"
 }
 
 # Function to log info messages
 log_info() {
-    _log_yakt "$INFO_LOG" "$1"
+    log_message "$INFO_LOG" "$1"
 }
 
 # Function to log error messages
 log_error() {
-    _log_yakt "$ERROR_LOG" "$1"
+    log_message "$ERROR_LOG" "$1"
 }
 
-# useful for debugging ig ¯\_(ツ)_/¯
+# Useful for debugging ig ¯\_(ツ)_/¯
 # shellcheck disable=SC3033
 # log_debug() {
-#     _log_yakt "$DEBUG_LOG" "$1"
+#     log_message "$DEBUG_LOG" "$1"
 # }
 
-write() {
-    # shellcheck disable=SC3043
-    local file="$1"
-    # shellcheck disable=SC3043
+# Function to write a value to a specified file
+write_value() {
+    local file_path="$1"
     local value="$2"
 
     # Check if the file exists
-    if [ ! -f "$file" ]; then
-        log_error "Error: File $file does not exist."
+    if [ ! -f "$file_path" ]; then
+        log_error "Error: File $file_path does not exist."
         return 1
     fi
 
-    # Make file writable
-    chmod +w "$file" 2>/dev/null
+    # Make the file writable
+    chmod +w "$file_path" 2>/dev/null
 
-    # Write new value, bail out if it fails
-    if ! echo "$value" >"$file" 2>/dev/null; then
-        log_error "Error: Failed to write to $file."
+    # Write new value, log error if it fails
+    if ! echo "$value" >"$file_path" 2>/dev/null; then
+        log_error "Error: Failed to write to $file_path."
         return 1
     else
         return 0
     fi
 }
 
-MODDIR=${0%/*} # get parent directory
+MODDIR=${0%/*} # Get parent directory
 
 # Modify the filenames for logs
 INFO_LOG="${MODDIR}/info.log"
 ERROR_LOG="${MODDIR}/error.log"
 # DEBUG_LOG="${MODDIR}/debug.log"
 
-# prepare log files
+# Prepare log files
 :> "$INFO_LOG"
 :> "$ERROR_LOG"
 # :> "$DEBUG_LOG"
 
 # Variables
-UCLAMP=/dev/stune/top-app/uclamp.max
-CPUSET=/dev/cpuset
-MODULE=/sys/module
-KERNEL=/proc/sys/kernel
-MEMORY=/proc/sys/vm
-MGLRU=/sys/kernel/mm/lru_gen
-SCHEDUTIL2=/sys/devices/system/cpu/cpufreq/schedutil
-SCHEDUTIL=/sys/devices/system/cpu/cpu0/cpufreq/schedutil
+UCLAMP_PATH="/dev/stune/top-app/uclamp.max"
+CPUSET_PATH="/dev/cpuset"
+MODULE_PATH="/sys/module"
+KERNEL_PATH="/proc/sys/kernel"
+MEMORY_PATH="/proc/sys/vm"
+MGLRU_PATH="/sys/kernel/mm/lru_gen"
+SCHEDUTIL2_PATH="/sys/devices/system/cpu/cpufreq/schedutil"
+SCHEDUTIL_PATH="/sys/devices/system/cpu/cpu0/cpufreq/schedutil"
 ANDROID_VERSION=$(getprop ro.build.version.release)
 TOTAL_RAM=$(free -m | awk '/Mem/{print $2}')
 
-# Info
+# Log starting information
 log_info "Starting YAKT v16"
 log_info "Build Date: 10/04/2024"
 log_info "Author: @NotZeetaa (Github)"
 log_info "Device: $(getprop ro.product.system.model)"
 log_info "Brand: $(getprop ro.product.system.brand)"
 log_info "Kernel: $(uname -r)"
-log_info "Rom build type: $(getprop ro.system.build.type)"
+log_info "ROM Build Type: $(getprop ro.system.build.type)"
 log_info "Android Version: $ANDROID_VERSION"
 
 # Use Google's schedutil rate-limits from Pixel 3
 # Credits to Kdrag0n
 log_info "Applying Google's schedutil rate-limits from Pixel 3 (MODDED)"
-if [ -d $SCHEDUTIL2 ]; then
-    write "$SCHEDUTIL2/up_rate_limit_us" 10000
-    write "$SCHEDUTIL2/down_rate_limit_us" 20000
+if [ -d "$SCHEDUTIL2_PATH" ]; then
+    write_value "$SCHEDUTIL2_PATH/up_rate_limit_us" 10000
+    write_value "$SCHEDUTIL2_PATH/down_rate_limit_us" 20000
     log_info "Applied Google's schedutil rate-limits from Pixel 3 (MODDED)"
-elif [ -e $SCHEDUTIL ]; then
-    for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil
-    do
-        write "${cpu}/up_rate_limit_us" 10000
-        write "${cpu}/down_rate_limit_us" 20000
+elif [ -e "$SCHEDUTIL_PATH" ]; then
+    for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil; do
+        write_value "${cpu}/up_rate_limit_us" 10000
+        write_value "${cpu}/down_rate_limit_us" 20000
     done
     log_info "Applied Google's schedutil rate-limits from Pixel 3"
 else
-    log_info "Abort You are not using schedutil governor"
+    log_info "Abort: Not using schedutil governor"
 fi
-log_info ""
 
 # Grouping tasks tweak
-log_info ""
 log_info "Disabling Sched Auto Group..."
-write "$KERNEL/sched_autogroup_enabled" 0
+write_value "$KERNEL_PATH/sched_autogroup_enabled" 0
 log_info "Done."
-log_info ""
 
 # Disable CRF by default
 log_info "Enabling child_runs_first"
-write "$KERNEL/sched_child_runs_first" 0
+write_value "$KERNEL_PATH/sched_child_runs_first" 0
 log_info "Done."
-log_info ""
 
-# Ram Tweak
-# The stat_interval one reduces jitter (Credits to kdrag0n)
+# Apply RAM tweaks
+# The stat_interval reduces jitter (Credits to kdrag0n)
 # Credits to RedHat for dirty_ratio
-log_info "Applying Ram Tweaks"
-write "$MEMORY/vfs_cache_pressure" 50
-write "$MEMORY/stat_interval" 30
-write "$MEMORY/compaction_proactiveness" 0
-write "$MEMORY/page-cluster" 0
-log_info "Detecting if your device has less/higher than 8GB of RAM"
+log_info "Applying RAM Tweaks"
+write_value "$MEMORY_PATH/vfs_cache_pressure" 50
+write_value "$MEMORY_PATH/stat_interval" 30
+write_value "$MEMORY_PATH/compaction_proactiveness" 0
+write_value "$MEMORY_PATH/page-cluster" 0
+log_info "Detecting if your device has less or more than 8GB of RAM"
 if [ $TOTAL_RAM -lt 8000 ]; then
-    log_info "Detected equal or less"
-    log_info "Aplying tweaks for it..."
-    write "$MEMORY/swappiness" 100
+    log_info "Detected 8GB or less"
+    log_info "Applying appropriate tweaks..."
+    write_value "$MEMORY_PATH/swappiness" 100
 else
-    log_info "Detected higher or equal"
-    log_info "Aplying tweaks for it..."
-    write "$MEMORY/swappiness" 0
+    log_info "Detected more than 8GB"
+    log_info "Applying appropriate tweaks..."
+    write_value "$MEMORY_PATH/swappiness" 0
 fi
-write "$MEMORY/dirty_ratio" 60
-log_info "Applied Ram Tweaks"
-log_info ""
+write_value "$MEMORY_PATH/dirty_ratio" 60
+log_info "Applied RAM Tweaks"
 
-# Mglru
+# Mglru tweaks
 # Credits to Arter97
-log_info "Checking if your kernel has mglru support..."
-if [ -d "$MGLRU" ]; then
-    log_info "Found it."
-    log_info "Tweaking it..."
-    write "$MGLRU/min_ttl_ms" 5000
+log_info "Checking if your kernel has MGLRU support..."
+if [ -d "$MGLRU_PATH" ]; then
+    log_info "MGLRU support found."
+    log_info "Tweaking MGLRU settings..."
+    write_value "$MGLRU_PATH/min_ttl_ms" 5000
     log_info "Done."
-    log_info ""
 else
-    log_info "Your kernel doesn't support mglru :("
-    log_info "Aborting it..."
-    log_info ""
+    log_info "MGLRU support not found."
+    log_info "Aborting MGLRU tweaks..."
 fi
 
 # Set kernel.perf_cpu_time_max_percent to 20
-log_info "Applying tweak for perf_cpu_time_max_percent"
-write "$KERNEL/perf_cpu_time_max_percent" 20
+log_info "Setting perf_cpu_time_max_percent to 20"
+write_value "$KERNEL_PATH/perf_cpu_time_max_percent" 20
 log_info "Done."
-log_info ""
 
-# Disable some scheduler logs/stats
+# Disable certain scheduler logs/stats
 # Also iostats & reduce latency
 # Credits to tytydraco
 log_info "Disabling some scheduler logs/stats"
-if [ -e "$KERNEL/sched_schedstats" ]; then
-    write "$KERNEL/sched_schedstats" 0
+if [ -e "$KERNEL_PATH/sched_schedstats" ]; then
+    write_value "$KERNEL_PATH/sched_schedstats" 0
 fi
-write "$KERNEL/printk" "0        0 0 0"
-write "$KERNEL/printk_devkmsg" "off"
-for queue in /sys/block/*/queue
-do
-    write "$queue/iostats" 0
-    write "$queue/nr_requests" 64
+write_value "$KERNEL_PATH/printk" "0        0 0 0"
+write_value "$KERNEL_PATH/printk_devkmsg" "off"
+for queue in /sys/block/*/queue; do
+    write_value "$queue/iostats" 0
+    write_value "$queue/nr_requests" 64
 done
 log_info "Done."
-log_info ""
 
 # Disable Timer migration
 log_info "Disabling Timer Migration"
-write "$KERNEL/timer_migration" 0
+write_value "$KERNEL_PATH/timer_migration" 0
 log_info "Done."
-log_info ""
 
-# Cgroup Tweak
-if [ -e "$UCLAMP" ]; then
-    # Uclamp Tweak
-    # All credits to @darkhz
-    log_info ""
-    log_info "You have uclamp scheduler"
-    log_info "Applying tweaks for it..."
-    ta="${CPUSET}/top-app"
-    write "$ta/uclamp.max" max
-    write "$ta/uclamp.min" 10
-    write "$ta/uclamp.boosted" 1
-    write "$ta/uclamp.latency_sensitive" 1
-    fd="${CPUSET}/foreground"
-    write "$fd/uclamp.max" 50
-    write "$fd/uclamp.min" 0
-    write "$fd/uclamp.boosted" 0
-    write "$fd/uclamp.latency_sensitive" 0
-    bd="$CPUSET"/background
-    write "$bd/uclamp.max" max
-    write "$bd/uclamp.min" 20
-    write "$bd/uclamp.boosted" 0
-    write "$bd/uclamp.latency_sensitive" 0
-    sb="${CPUSET}/system-background"
-    write "$sb/uclamp.min" 0
-    write "$sb/uclamp.max" 40
-    write "$sb/uclamp.boosted" 0
-    write "$sb/uclamp.latency_sensitive" 0
+# Cgroup tweak for UCLAMP scheduler
+if [ -e "$UCLAMP_PATH" ]; then
+    # Uclamp tweaks
+    # Credits to @darkhz
+    log_info "UCLAMP scheduler detected, applying tweaks..."
+    top_app="${CPUSET_PATH}/top-app"
+    write_value "$top_app/uclamp.max" max
+    write_value "$top_app/uclamp.min" 10
+    write_value "$top_app/uclamp.boosted" 1
+    write_value "$top_app/uclamp.latency_sensitive" 1
+    foreground="${CPUSET_PATH}/foreground"
+    write_value "$foreground/uclamp.max" 50
+    write_value "$foreground/uclamp.min" 0
+    write_value "$foreground/uclamp.boosted" 0
+    write_value "$foreground/uclamp.latency_sensitive" 0
+    background="${CPUSET_PATH}/background"
+    write_value "$background/uclamp.max" max
+    write_value "$background/uclamp.min" 20
+    write_value "$background/uclamp.boosted" 0
+    write_value "$background/uclamp.latency_sensitive" 0
+    sys_bg="${CPUSET_PATH}/system-background"
+    write_value "$sys_bg/uclamp.min" 0
+    write_value "$sys_bg/uclamp.max" 40
+    write_value "$sys_bg/uclamp.boosted" 0
+    write_value "$sys_bg/uclamp.latency_sensitive" 0
     sysctl -w kernel.sched_util_clamp_min_rt_default=0
     sysctl -w kernel.sched_util_clamp_min=128
-    log_info "Done,"
-    log_info ""
+    log_info "Done."
 fi
 
 # Always allow sched boosting on top-app tasks
 # Credits to tytydraco
 log_info "Always allow sched boosting on top-app tasks"
-write "$KERNEL/sched_min_task_util_for_colocation" 0
+write_value "$KERNEL_PATH/sched_min_task_util_for_colocation" 0
 log_info "Done."
-log_info ""
 
-# Disable Spi CRC
-if [ -d "$MODULE/mmc_core" ]; then
-    log_info "Disabling Spi CRC"
-    write "$MODULE/mmc_core/parameters/use_spi_crc" 0
+# Disable SPI CRC if supported
+if [ -d "$MODULE_PATH/mmc_core" ]; then
+    log_info "Disabling SPI CRC"
+    write_value "$MODULE_PATH/mmc_core/parameters/use_spi_crc" 0
     log_info "Done."
-    log_info ""
 fi
 
-# Zswap Tweak
-log_info "Checking if your kernel supports zswap.."
-if [ -d "$MODULE/zswap" ]; then
-    log_info "Your kernel supports zswap, tweaking it.."
-    write "$MODULE/zswap/parameters/compressor" lz4
-    log_info "Set your zswap compressor to lz4 (Fastest compressor)."
-    write "$MODULE/zswap/parameters/zpool" zsmalloc
-    log_info "Set your zpool compressor to zsmalloc."
-    log_info "Tweaked!"
-    log_info ""
+# Zswap tweaks
+log_info "Checking if your kernel supports zswap..."
+if [ -d "$MODULE_PATH/zswap" ]; then
+    log_info "zswap supported, applying tweaks..."
+    write_value "$MODULE_PATH/zswap/parameters/compressor" lz4
+    log_info "Set zswap compressor to lz4 (fastest compressor)."
+    write_value "$MODULE_PATH/zswap/parameters/zpool" zsmalloc
+    log_info "Set zpool to zsmalloc."
+    log_info "Tweaks applied."
 else
     log_info "Your kernel doesn't support zswap, aborting it..."
-    log_info ""
 fi
 
-# Enable Power Efficient
-log_info "Enabling Power Efficient..."
-write "$MODULE/workqueue/parameters/power_efficient" 1
+# Enable power efficiency
+log_info "Enabling power efficiency..."
+write_value "$MODULE_PATH/workqueue/parameters/power_efficient" 1
 log_info "Done."
-log_info ""
 
-log_info "The Tweak is done enjoy :)"
+log_info "Tweaks applied successfully. Enjoy :)"
