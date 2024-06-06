@@ -1,7 +1,7 @@
-- Reverted "Set the priority for most essential processes to -20 (highest priority)" (Not recommended).
-- Tweaked swappiness for higher/less or equal 8GB of RAM devices (To avoid cpu overhead).
-- Updated variable names (Better code reading).
-- Nuked watermark tweak (Useless and might cause some issues on newer kernel versions).
-- Nuked phantom processing tweak (This is only recommended when slmk is present).
-- Increased perf_cpu_time_max_percent to 20 (In order to save power).
-- Increased up_rate_limit_us (In order to save power).
+- Improved code readability
+- Set swappiness to 60% to reduce cpu overhead
+- Added scheduler tweaks back
+- Disabled TCP timestamps to reduce overhead
+- Enabled TCP low latency mode
+- Set kernel.perf_cpu_time_max_percent to 10 to reduce cpu overhead
+- Enabled CRF by default
