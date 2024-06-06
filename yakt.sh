@@ -245,4 +245,9 @@ log_info "Disabling TCP timestamps..."
 write_value "$IPV4_PATH/tcp_timestamps" 0
 log_info "Done."
 
+# Enable TCP low latency mode
+log_info "Enabling TCP low latency mode..."
+write_value "$IPV4_PATH/tcp_low_latency" 1
+log_info "Done."
+
 log_info "Tweaks applied successfully. Enjoy :)"
