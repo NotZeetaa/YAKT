@@ -1,7 +1,6 @@
 #!/system/bin/sh
 # YAKT v17
 # Author: @NotZeetaa (Github)
-# Build Date: 06/06/2024
 # This script applies various performance and battery optimizations to Android devices.
 
 # Wait for the system to stabilize before applying tweaks
