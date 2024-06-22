@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# YAKT v17
+# YAKT v18
 # Author: @NotZeetaa (Github)
 # This script applies various performance and battery optimizations to Android devices.
 
@@ -28,22 +28,12 @@ write_value() {
     local file_path="$1"
     local value="$2"
 
-    # Check if the file exists
-    if [ ! -f "$file_path" ]; then
-        log_error "Error: File $file_path does not exist."
-        return 1
-    fi
-
-    # Make the file writable
-    chmod +w "$file_path" 2>/dev/null
-
-    # Write the new value, log error if it fails
-    if ! echo "$value" > "$file_path" 2>/dev/null; then
-        log_error "Error: Failed to write to $file_path."
-        return 1
-    else
+    # Check if the file exists and is writable
+    if [ -w "$file_path" ]; then
+        echo "$value" > "$file_path" 2>/dev/null
         log_info "Successfully wrote $value to $file_path"
-        return 0
+    else
+        log_error "Error: Cannot write to $file_path."
     fi
 }
 
@@ -65,14 +55,13 @@ MODULE_PATH="/sys/module"
 KERNEL_PATH="/proc/sys/kernel"
 MEMORY_PATH="/proc/sys/vm"
 MGLRU_PATH="/sys/kernel/mm/lru_gen"
-SCHEDUTIL2_PATH="/sys/devices/system/cpu/cpufreq/schedutil"
-SCHEDUTIL_PATH="/sys/devices/system/cpu/cpu0/cpufreq/schedutil"
+SCHEDUTIL_PATH="/sys/devices/system/cpu/cpu*/cpufreq/schedutil"
 ANDROID_VERSION=$(getprop ro.build.version.release)
 TOTAL_RAM=$(free -m | awk '/Mem/{print $2}')
 
 # Log starting information
-log_info "Starting YAKT v17"
-log_info "Build Date: 06/06/2024"
+log_info "Starting YAKT v18"
+log_info "Build Date: $(date "+%d/%m/%Y")"
 log_info "Author: @NotZeetaa (Github)"
 log_info "Device: $(getprop ro.product.system.model)"
 log_info "Brand: $(getprop ro.product.system.brand)"
@@ -83,16 +72,12 @@ log_info "Total RAM: ${TOTAL_RAM}MB"
 
 # Apply schedutil rate-limits tweak
 log_info "Applying schedutil rate-limits tweak"
-if [ -d "$SCHEDUTIL2_PATH" ]; then
-    write_value "$SCHEDUTIL2_PATH/up_rate_limit_us" 10000
-    write_value "$SCHEDUTIL2_PATH/down_rate_limit_us" 20000
-    log_info "Applied schedutil rate-limits tweak for devices using /sys/devices/system/cpu/cpufreq/schedutil"
-elif [ -e "$SCHEDUTIL_PATH" ]; then
-    for cpu in /sys/devices/system/cpu/*/cpufreq/schedutil; do
+if [ -d "$SCHEDUTIL_PATH" ]; then
+    for cpu in $SCHEDUTIL_PATH; do
         write_value "${cpu}/up_rate_limit_us" 10000
         write_value "${cpu}/down_rate_limit_us" 20000
     done
-    log_info "Applied schedutil rate-limits tweak for devices using /sys/devices/system/cpu/cpu0/cpufreq/schedutil"
+    log_info "Applied schedutil rate-limits tweak to all CPUs"
 else
     log_info "Abort: Not using schedutil governor"
 fi
@@ -113,6 +98,7 @@ write_value "$MEMORY_PATH/vfs_cache_pressure" 50
 write_value "$MEMORY_PATH/stat_interval" 30
 write_value "$MEMORY_PATH/compaction_proactiveness" 0
 write_value "$MEMORY_PATH/page-cluster" 0
+log_info "Applied RAM tweaks"
 
 # Adjust swappiness based on total RAM
 log_info "Detecting if your device has less or more than 8GB of RAM"
@@ -124,7 +110,6 @@ else
     write_value "$MEMORY_PATH/swappiness" 0
 fi
 write_value "$MEMORY_PATH/dirty_ratio" 60
-log_info "Applied RAM tweaks"
 
 # MGLRU tweaks
 log_info "Checking if your kernel has MGLRU support"
@@ -139,13 +124,11 @@ fi
 # Set kernel.perf_cpu_time_max_percent to 10
 log_info "Setting perf_cpu_time_max_percent to 10"
 write_value "$KERNEL_PATH/perf_cpu_time_max_percent" 10
-log_info "perf_cpu_time_max_percent set to 10"
+log_info "Applied kernel.perf_cpu_time_max_percent value"
 
 # Disable certain scheduler logs/stats
 log_info "Disabling some scheduler logs/stats"
-if [ -e "$KERNEL_PATH/sched_schedstats" ]; then
-    write_value "$KERNEL_PATH/sched_schedstats" 0
-fi
+write_value "$KERNEL_PATH/sched_schedstats" 0
 write_value "$KERNEL_PATH/printk" "0 0 0 0"
 write_value "$KERNEL_PATH/printk_devkmsg" "off"
 for queue in /sys/block/*/queue; do
@@ -169,46 +152,42 @@ log_info "Timer Migration disabled"
 # Cgroup tweak for UCLAMP scheduler
 if [ -e "$UCLAMP_PATH" ]; then
     log_info "UCLAMP scheduler detected, applying tweaks"
-    top_app="${CPUSET_PATH}/top-app"
-    write_value "$top_app/uclamp.max" max
-    write_value "$top_app/uclamp.min" 10
-    write_value "$top_app/uclamp.boosted" 1
-    write_value "$top_app/uclamp.latency_sensitive" 1
+    write_value "${CPUSET_PATH}/top-app/uclamp.max" max
+    write_value "${CPUSET_PATH}/top-app/uclamp.min" 10
+    write_value "${CPUSET_PATH}/top-app/uclamp.boosted" 1
+    write_value "${CPUSET_PATH}/top-app/uclamp.latency_sensitive" 1
 
-    foreground="${CPUSET_PATH}/foreground"
-    write_value "$foreground/uclamp.max" 50
-    write_value "$foreground/uclamp.min" 0
-    write_value "$foreground/uclamp.boosted" 0
-    write_value "$foreground/uclamp.latency_sensitive" 0
+    write_value "${CPUSET_PATH}/foreground/uclamp.max" 50
+    write_value "${CPUSET_PATH}/foreground/uclamp.min" 0
+    write_value "${CPUSET_PATH}/foreground/uclamp.boosted" 0
+    write_value "${CPUSET_PATH}/foreground/uclamp.latency_sensitive" 0
 
-    background="${CPUSET_PATH}/background"
-    write_value "$background/uclamp.max" max
-    write_value "$background/uclamp.min" 20
-    write_value "$background/uclamp.boosted" 0
-    write_value "$background/uclamp.latency_sensitive" 0
+    write_value "${CPUSET_PATH}/background/uclamp.max" max
+    write_value "${CPUSET_PATH}/background/uclamp.min" 20
+    write_value "${CPUSET_PATH}/background/uclamp.boosted" 0
+    write_value "${CPUSET_PATH}/background/uclamp.latency_sensitive" 0
 
-    sys_bg="${CPUSET_PATH}/system-background"
-    write_value "$sys_bg/uclamp.min" 0
-    write_value "$sys_bg/uclamp.max" 40
-    write_value "$sys_bg/uclamp.boosted" 0
-    write_value "$sys_bg/uclamp.latency_sensitive" 0
+    write_value "${CPUSET_PATH}/system-background/uclamp.max" 40
+    write_value "${CPUSET_PATH}/system-background/uclamp.min" 0
+    write_value "${CPUSET_PATH}/system-background/uclamp.boosted" 0
+    write_value "${CPUSET_PATH}/system-background/uclamp.latency_sensitive" 0
 
     sysctl -w kernel.sched_util_clamp_min_rt_default=0
     sysctl -w kernel.sched_util_clamp_min=128
-    log_info "UCLAMP scheduler tweaks applied"
+    log_info "Applied UCLAMP scheduler tweaks"
+else
+    log_info "UCLAMP scheduler not detected, skipping tweaks"
 fi
 
 # Always allow sched boosting on top-app tasks
 log_info "Always allow sched boosting on top-app tasks"
 write_value "$KERNEL_PATH/sched_min_task_util_for_colocation" 0
-log_info "Sched boosting for top-app tasks enabled"
 
 # Disable SPI CRC if supported
 log_info "Checking for SPI CRC support"
 if [ -d "$MODULE_PATH/mmc_core" ]; then
     log_info "SPI CRC supported, disabling it"
     write_value "$MODULE_PATH/mmc_core/parameters/use_spi_crc" 0
-    log_info "SPI CRC disabled"
 else
     log_info "SPI CRC not supported, skipping"
 fi
@@ -219,7 +198,7 @@ for zram_dir in /sys/block/zram*; do
     write_value "$zram_dir/comp_algorithm" lz4
     write_value "$zram_dir/max_comp_streams" 4
 done
-log_info "LZ4 for zRAM enabled"
+log_info "Applied LZ4 compression to zRAM"
 
 # Disable kernel panic for hung_task
 log_info "Disabling kernel panic for hung_task"
@@ -233,10 +212,8 @@ log_info "Checking for zswap support"
 if [ -d "$MODULE_PATH/zswap" ]; then
     log_info "zswap supported, applying tweaks"
     write_value "$MODULE_PATH/zswap/parameters/compressor" lz4
-    log_info "Set zswap compressor to lz4 (fastest compressor)"
     write_value "$MODULE_PATH/zswap/parameters/zpool" zsmalloc
-    log_info "Set zpool to zsmalloc"
-    log_info "ZSwap tweaks applied"
+    log_info "Applied zswap tweaks"
 else
     log_info "Your kernel doesn't support zswap, aborting"
 fi
@@ -248,7 +225,14 @@ log_info "Power efficiency enabled"
 
 # Network Tweaks
 log_info "Applying network tweaks"
-write_value "/proc/sys/net/ipv4/tcp_ecn" 0
+write_value "/proc/sys/net/ipv4/tcp_fastopen" 3
+write_value "/proc/sys/net/ipv4/tcp_slow_start_after_idle" 0
+write_value "/proc/sys/net/ipv4/tcp_mtu_probing" 1
+write_value "/proc/sys/net/ipv4/tcp_ecn" 1
+write_value "/proc/sys/net/ipv4/tcp_window_scaling" 1
+write_value "/proc/sys/net/ipv4/tcp_keepalive_time" 1200
+write_value "/proc/sys/net/ipv4/tcp_keepalive_intvl" 30
+write_value "/proc/sys/net/ipv4/tcp_keepalive_probes" 5
 write_value "/proc/sys/net/ipv4/tcp_sack" 1
 write_value "/proc/sys/net/core/wmem_max" 8388608
 write_value "/proc/sys/net/core/rmem_max" 8388608
@@ -266,7 +250,7 @@ if [ -d "$GPU_PATH" ]; then
     write_value "$GPU_PATH/force_clk_on" 1
     write_value "$GPU_PATH/max_pwrlevel" 6
     write_value "$GPU_PATH/min_pwrlevel" 6
-    log_info "GPU tweaks applied"
+    log_info "Applied GPU tweaks"
 else
     log_info "GPU path not found, skipping GPU tweaks"
 fi
@@ -280,7 +264,7 @@ for queue in /sys/block/*/queue; do
     write_value "$queue/rotational" 0
     write_value "$queue/rq_affinity" 2
 done
-log_info "I/O scheduler tweaks applied"
+log_info "Applied I/O scheduler tweaks"
 
 # CPU Idle and Frequency Tweaks
 log_info "Applying CPU idle and frequency tweaks"
@@ -293,7 +277,7 @@ if [ -d "$CPUFREQ_PATH" ]; then
         write_value "${cpu}/scaling_min_freq" "$(cat ${cpu}/cpuinfo_min_freq)"
         write_value "${cpu}/scaling_max_freq" "$(cat ${cpu}/cpuinfo_max_freq)"
     done
-    log_info "CPU frequency tweaks applied"
+    log_info "Applied CPU frequency tweaks"
 else
     log_info "CPU frequency path not found, skipping CPU frequency tweaks"
 fi
@@ -302,21 +286,20 @@ fi
 log_info "Applying filesystem tweaks"
 write_value "/proc/sys/fs/lease-break-time" 10
 write_value "/proc/sys/fs/file-max" 2097152
-log_info "Filesystem tweaks applied"
+log_info "Applied filesystem tweaks"
 
 # Miscellaneous Tweaks
 log_info "Applying miscellaneous tweaks"
 write_value "/proc/sys/kernel/random/read_wakeup_threshold" 256
 write_value "/proc/sys/kernel/random/write_wakeup_threshold" 256
-log_info "Miscellaneous tweaks applied"
+log_info "Applied miscellaneous tweaks"
 
 # Disable Debugging for Power Saving
 log_info "Disabling various debug features for power saving"
 write_value "/sys/module/kernel/parameters/initcall_debug" 0
 write_value "/sys/module/printk/parameters/time" 0
 write_value "/sys/module/printk/parameters/debug" 0
-log_info "Debug features disabled"
+log_info "Disabled various debug features"
 
 # Finished applying all tweaks
 log_info "YAKT tweaks applied successfully"
-
