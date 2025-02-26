@@ -112,27 +112,6 @@ log_info "Enabling child_runs_first"
 write_value "$KERNEL_PATH/sched_child_runs_first" 1
 log_info "Done."
 
-# Apply RAM tweaks
-# The stat_interval reduces jitter (Credits to kdrag0n)
-# Credits to RedHat for dirty_ratio
-log_info "Applying RAM Tweaks"
-write_value "$MEMORY_PATH/vfs_cache_pressure" 50
-write_value "$MEMORY_PATH/stat_interval" 30
-write_value "$MEMORY_PATH/compaction_proactiveness" 0
-write_value "$MEMORY_PATH/page-cluster" 0
-log_info "Detecting if your device has less or more than 8GB of RAM"
-if [ $TOTAL_RAM -lt 8000 ]; then
-    log_info "Detected 8GB or less"
-    log_info "Applying appropriate tweaks..."
-    write_value "$MEMORY_PATH/swappiness" 60
-else
-    log_info "Detected more than 8GB"
-    log_info "Applying appropriate tweaks..."
-    write_value "$MEMORY_PATH/swappiness" 0
-fi
-write_value "$MEMORY_PATH/dirty_ratio" 60
-log_info "Applied RAM Tweaks"
-
 # Mglru tweaks
 # Credits to Arter97
 log_info "Checking if your kernel has MGLRU support..."
@@ -220,19 +199,6 @@ if [ -d "$MODULE_PATH/mmc_core" ]; then
     log_info "Disabling SPI CRC"
     write_value "$MODULE_PATH/mmc_core/parameters/use_spi_crc" 0
     log_info "Done."
-fi
-
-# Zswap tweaks
-log_info "Checking if your kernel supports zswap..."
-if [ -d "$MODULE_PATH/zswap" ]; then
-    log_info "zswap supported, applying tweaks..."
-    write_value "$MODULE_PATH/zswap/parameters/compressor" lz4
-    log_info "Set zswap compressor to lz4 (fastest compressor)."
-    write_value "$MODULE_PATH/zswap/parameters/zpool" zsmalloc
-    log_info "Set zpool to zsmalloc."
-    log_info "Tweaks applied."
-else
-    log_info "Your kernel doesn't support zswap, aborting it..."
 fi
 
 # Enable power efficiency
