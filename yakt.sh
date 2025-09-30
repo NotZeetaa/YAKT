@@ -146,9 +146,9 @@ else
     log_info "Aborting MGLRU tweaks..."
 fi
 
-# Set kernel.perf_cpu_time_max_percent to 10
-log_info "Setting perf_cpu_time_max_percent to 10"
-write_value "$KERNEL_PATH/perf_cpu_time_max_percent" 10
+# Set kernel.perf_cpu_time_max_percent to 20
+log_info "Setting perf_cpu_time_max_percent to " 70
+write_value "$KERNEL_PATH/perf_cpu_time_max_percent" 70
 log_info "Done."
 
 # Disable certain scheduler logs/stats

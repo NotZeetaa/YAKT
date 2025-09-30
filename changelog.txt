@@ -3,5 +3,6 @@
 - Added scheduler tweaks back
 - Disabled TCP timestamps to reduce overhead
 - Enabled TCP low latency mode
-- Set kernel.perf_cpu_time_max_percent to 10 to reduce cpu overhead
+- Set kernel.perf_cpu_time_max_percent to 70
 - Enabled CRF by default
+- use at your owen risk
